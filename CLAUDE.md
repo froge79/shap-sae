@@ -289,7 +289,7 @@ Added after the `run2` analysis to shore up the three weakest claims: the global
 faithfulness null rests on one k=20/seed=0 draw, the local-vs-global result was
 reported as "mean ± std" with no test, and the sign-inversion anomaly had never
 been tested directly. Full rationale and statistics are in
-`MANUSCRIPT_METHODOLOGY.md` §14-§18.
+the methodology notes (not included in this repo).
 
 **Run steps 21-23 first — they are free.** No GPU, no new forward passes; they
 only reanalyse artifacts steps 1-20 already wrote. Do them before spending any

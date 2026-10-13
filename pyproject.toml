@@ -1,7 +1,7 @@
 [project]
 name = "shap-sae"
 version = "0.1.0"
-description = "Add your description here"
+description = "Do SHAP attributions on SAE features predict what happens when you intervene on them? Tested on GPT-2 Small sentiment."
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
