@@ -41,6 +41,10 @@ def load_saes():
     return saes
 
 
+def sae_cache_key(layer: int) -> str:
+    return f"blocks.{layer}.hook_resid_post.hook_sae_acts_post"
+
+
 def extract_split_activations(model, saes, sentences, labels, batch_size=32):
     layers = sorted(saes.keys())
     per_layer_acts = {layer: [] for layer in layers}

@@ -1,0 +1,53 @@
+# step 25_tuning_logitdiff  2026-10-25T11:12:37+00:00
+# SHAP_SAE_OUTPUTS=run3/outputs SHAP_SAE_CHECKPOINTS=run3/checkpoints
+# cmd: uv run python src/global_linear/9.5_tuning.py --readout logitdiff
+Candidate pool + α report → run3/outputs/9.5_tuning/  (readout=logitdiff)
+Candidates (union top-20): 30
+Pilot features (top-|SHAP|): [30907, 19167, 25515]
+Activation scales:   0%|          | 0/114 [00:00<?, ?it/s]Activation scales:  71%|███████   | 81/114 [00:00<00:00, 809.51it/s]Activation scales: 100%|██████████| 114/114 [00:00<00:00, 979.73it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+Median positive-activation scale = 0.9871
+α grid (× (0.5, 1.0, 2.0, 4.0)) = [0.4936, 0.9871, 1.9743, 3.9485]
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|██████████| 148/148 [00:00<00:00, 5426.15it/s]
+Loaded pretrained model gpt2 into HookedTransformer
+
+Activation-scale report (candidates):
+  n=30  median_scale=0.9871  mean_scale=1.5350  median_||W_dec||=0.9997
+  Top-5 by positive-activation mean:
+    feat 30907:  scale=5.3699  |Φ|=0.09873  ||W_dec||=1.0000
+    feat  6319:  scale=4.7057  |Φ|=0.04601  ||W_dec||=0.9994
+    feat 19167:  scale=4.5350  |Φ|=0.08621  ||W_dec||=0.9994
+    feat 16048:  scale=3.3672  |Φ|=0.05229  ||W_dec||=0.9996
+    feat 29964:  scale=2.0903  |Φ|=0.03039  ||W_dec||=0.9994
+
+For decoder-normalized steering, equivalent residual L2 nudge ≈ α × 0.9997
+
+Pilot subset: 200 train examples × 3 features
+Pilot baseline:   0%|          | 0/200 [00:00<?, ?it/s]Pilot baseline:   0%|          | 1/200 [00:00<01:25,  2.34it/s]Pilot baseline:   3%|▎         | 6/200 [00:00<00:13, 14.20it/s]Pilot baseline:   6%|▌         | 11/200 [00:00<00:08, 23.53it/s]Pilot baseline:   8%|▊         | 16/200 [00:00<00:06, 30.63it/s]Pilot baseline:  10%|█         | 21/200 [00:00<00:04, 35.93it/s]Pilot baseline:  13%|█▎        | 26/200 [00:00<00:04, 39.80it/s]Pilot baseline:  16%|█▌        | 31/200 [00:01<00:03, 42.59it/s]Pilot baseline:  18%|█▊        | 36/200 [00:01<00:03, 44.60it/s]Pilot baseline:  20%|██        | 41/200 [00:01<00:03, 46.05it/s]Pilot baseline:  23%|██▎       | 46/200 [00:01<00:03, 46.69it/s]Pilot baseline:  26%|██▌       | 51/200 [00:01<00:03, 47.41it/s]Pilot baseline:  28%|██▊       | 56/200 [00:01<00:03, 47.94it/s]Pilot baseline:  30%|███       | 61/200 [00:01<00:02, 48.28it/s]Pilot baseline:  33%|███▎      | 66/200 [00:01<00:02, 48.52it/s]Pilot baseline:  36%|███▌      | 71/200 [00:01<00:02, 48.70it/s]Pilot baseline:  38%|███▊      | 76/200 [00:01<00:02, 48.85it/s]Pilot baseline:  40%|████      | 81/200 [00:02<00:02, 48.83it/s]Pilot baseline:  43%|████▎     | 86/200 [00:02<00:02, 48.93it/s]Pilot baseline:  46%|████▌     | 91/200 [00:02<00:02, 49.06it/s]Pilot baseline:  48%|████▊     | 96/200 [00:02<00:02, 49.17it/s]Pilot baseline:  50%|█████     | 101/200 [00:02<00:02, 49.26it/s]Pilot baseline:  53%|█████▎    | 106/200 [00:02<00:01, 49.33it/s]Pilot baseline:  56%|█████▌    | 111/200 [00:02<00:01, 49.35it/s]Pilot baseline:  58%|█████▊    | 116/200 [00:02<00:01, 49.37it/s]Pilot baseline:  60%|██████    | 121/200 [00:02<00:01, 49.34it/s]Pilot baseline:  63%|██████▎   | 126/200 [00:02<00:01, 49.28it/s]Pilot baseline:  66%|██████▌   | 131/200 [00:03<00:01, 49.29it/s]Pilot baseline:  68%|██████▊   | 136/200 [00:03<00:01, 49.26it/s]Pilot baseline:  70%|███████   | 141/200 [00:03<00:01, 49.21it/s]Pilot baseline:  73%|███████▎  | 146/200 [00:03<00:01, 49.21it/s]Pilot baseline:  76%|███████▌  | 151/200 [00:03<00:00, 49.19it/s]Pilot baseline:  78%|███████▊  | 156/200 [00:03<00:00, 49.20it/s]Pilot baseline:  80%|████████  | 161/200 [00:03<00:00, 49.22it/s]Pilot baseline:  83%|████████▎ | 166/200 [00:03<00:00, 49.15it/s]Pilot baseline:  86%|████████▌ | 172/200 [00:03<00:00, 49.46it/s]Pilot baseline:  89%|████████▉ | 178/200 [00:04<00:00, 49.68it/s]Pilot baseline:  92%|█████████▏| 184/200 [00:04<00:00, 49.81it/s]Pilot baseline:  94%|█████████▍| 189/200 [00:04<00:00, 49.83it/s]Pilot baseline:  98%|█████████▊| 195/200 [00:04<00:00, 49.90it/s]Pilot baseline: 100%|██████████| 200/200 [00:04<00:00, 44.85it/s]
+
+=== pilot α = 0.4936 ===
+  mean|ΔP|=0.0452  meanΔP=+0.0424  sat=0.000
+
+=== pilot α = 0.9871 ===
+  mean|ΔP|=0.0918  meanΔP=+0.0864  sat=0.000
+
+=== pilot α = 1.9743 ===
+  mean|ΔP|=0.1878  meanΔP=+0.1778  sat=0.000
+
+=== pilot α = 3.9485 ===
+  mean|ΔP|=0.3836  meanΔP=+0.3659  sat=0.000
+
+Pilot sweep (pilot features × train subset):
+       α    mean|ΔP|      meanΔP  sat_frac   ok?
+------------------------------------------------
+  0.4936      0.0452     +0.0424     0.000   yes
+  0.9871      0.0918     +0.0864     0.000   yes
+  1.9743      0.1878     +0.1778     0.000   yes
+  3.9485      0.3836     +0.3659     0.000   yes
+
+Logit-diff pilot complete. Compare mean_signed_dp against the probe-readout run:
+if both are negative, the inversion is not a readout artifact.
+
+Wrote run3/outputs/9.5_tuning/alpha_calibration_logitdiff.txt
+# exit=0  elapsed=67s  2026-10-25T11:13:44+00:00

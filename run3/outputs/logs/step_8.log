@@ -1,0 +1,16 @@
+# step 8  2026-10-25T10:24:25+00:00
+# SHAP_SAE_OUTPUTS=run3/outputs SHAP_SAE_CHECKPOINTS=run3/checkpoints
+# cmd: uv run python src/global_mlp/13_mlp_ranking.py
+IG/GA over 1000 held-out rows x 114 features, baseline = mean of 100 train background rows
+Calculating IG:   0%|          | 0/1000 [00:00<?, ?it/s]Calculating IG: 100%|██████████| 1000/1000 [00:00<00:00, 13941.61it/s]
+Calculating gradients:   0%|          | 0/1000 [00:00<?, ?it/s]Calculating gradients: 100%|██████████| 1000/1000 [00:00<00:00, 100512.93it/s]
+n_features=114  (Spearman on |score|)
+Probe vs IG:   ρ=0.287,   p=0.0020
+Probe vs SHAP: ρ=0.250, p=0.0072
+IG vs SHAP:    ρ=0.866,    p=0.0000
+Probe vs GA:   ρ=0.242,   p=0.0095
+IG vs GA:      ρ=0.862,      p=0.0000
+SHAP vs GA:    ρ=0.693,    p=0.0000
+
+Wrote outputs → run3/outputs/13_mlp_ranking/
+# exit=0  elapsed=7s  2026-10-25T10:24:32+00:00

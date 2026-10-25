@@ -1,0 +1,13 @@
+# step 27_diag  2026-10-25T11:24:10+00:00
+# SHAP_SAE_OUTPUTS=run3/outputs SHAP_SAE_CHECKPOINTS=run3/checkpoints
+# cmd: uv run python /tmp/claude-1000/-home-ubuntu-shap-sae/4573324a-4dca-49d5-83dd-19280d8835e1/scratchpad/minimal_pairs_whitespace_diag.py
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|██████████| 148/148 [00:00<00:00, 5389.64it/s]
+Loaded pretrained model gpt2 into HookedTransformer
+  remove  as_built (orig no space, edited + space)   sign_acc = 0.400
+  remove  both stripped                              sign_acc = 0.760
+  remove  both + trailing space                      sign_acc = 0.720
+  insert  as_built (orig no space, edited + space)   sign_acc = 0.520
+  insert  both stripped                              sign_acc = 0.910
+  insert  both + trailing space                      sign_acc = 0.760
+# exit=0  elapsed=39s  2026-10-25T11:24:49+00:00

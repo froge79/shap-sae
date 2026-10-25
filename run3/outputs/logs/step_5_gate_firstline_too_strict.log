@@ -1,0 +1,5 @@
+# step 5_gate  2026-10-25T10:23:51+00:00
+# SHAP_SAE_OUTPUTS=run3/outputs SHAP_SAE_CHECKPOINTS=run3/checkpoints
+# cmd: bash -c head -1 run3/outputs/8_rankings_recompute/correlation.txt; head -1 run3/outputs/8_rankings_recompute/correlation.txt | grep -q "^PASS"
+Closed-form identity check (linear probe, margin target):
+# exit=1  elapsed=0s  2026-10-25T10:23:51+00:00

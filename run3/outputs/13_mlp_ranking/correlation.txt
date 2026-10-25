@@ -1,0 +1,7 @@
+n_features=114  (Spearman on |score|)
+Probe vs IG:   ρ=0.287,   p=0.0020
+Probe vs SHAP: ρ=0.250, p=0.0072
+IG vs SHAP:    ρ=0.866,    p=0.0000
+Probe vs GA:   ρ=0.242,   p=0.0095
+IG vs GA:      ρ=0.862,      p=0.0000
+SHAP vs GA:    ρ=0.693,    p=0.0000

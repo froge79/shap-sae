@@ -1,0 +1,11 @@
+Local vs global faithfulness - formal tests
+==============================================================
+source: run3/outputs/local_shap_faithfulness
+
+Paired Wilcoxon signed-rank on per-example (rho_local - rho_global).
+Positive gap = local SHAP ranks that example's effects better.
+
+block:kind               local  global     gap            95% CI  wilcoxon p  win frac
+----------------------------------------------------------------------------------------
+A:importance            +0.246  -0.150  +0.396   [+0.362,+0.431]    4.27e-18     0.980
+B:importance            -0.155  +0.155  -0.310   [-0.380,-0.241]    4.23e-12     0.137

@@ -1,0 +1,8 @@
+{
+  "remove | as_built (orig no space, edited + space)": 0.4,
+  "remove | both stripped": 0.76,
+  "remove | both + trailing space": 0.72,
+  "insert | as_built (orig no space, edited + space)": 0.52,
+  "insert | both stripped": 0.91,
+  "insert | both + trailing space": 0.76
+}

@@ -1,0 +1,32 @@
+# step 9_diag  2026-10-25T10:39:01+00:00
+# SHAP_SAE_OUTPUTS=run3/outputs SHAP_SAE_CHECKPOINTS=run3/checkpoints
+# cmd: uv run python /tmp/claude-1000/-home-ubuntu-shap-sae/4573324a-4dca-49d5-83dd-19280d8835e1/scratchpad/alpha_saturation_diag.py
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|██████████| 148/148 [00:00<00:00, 5533.53it/s]
+Loaded pretrained model gpt2 into HookedTransformer
+Pilot baseline:   0%|          | 0/200 [00:00<?, ?it/s]Pilot baseline:   0%|          | 1/200 [00:00<01:25,  2.33it/s]Pilot baseline:   3%|▎         | 6/200 [00:00<00:13, 14.16it/s]Pilot baseline:   6%|▌         | 11/200 [00:00<00:08, 23.41it/s]Pilot baseline:   8%|▊         | 16/200 [00:00<00:06, 30.48it/s]Pilot baseline:  10%|█         | 21/200 [00:00<00:05, 35.76it/s]Pilot baseline:  13%|█▎        | 26/200 [00:00<00:04, 39.63it/s]Pilot baseline:  16%|█▌        | 31/200 [00:01<00:03, 42.41it/s]Pilot baseline:  18%|█▊        | 36/200 [00:01<00:03, 44.38it/s]Pilot baseline:  20%|██        | 41/200 [00:01<00:03, 45.77it/s]Pilot baseline:  23%|██▎       | 46/200 [00:01<00:03, 46.78it/s]Pilot baseline:  26%|██▌       | 51/200 [00:01<00:03, 47.49it/s]Pilot baseline:  28%|██▊       | 56/200 [00:01<00:03, 47.99it/s]Pilot baseline:  30%|███       | 61/200 [00:01<00:02, 48.36it/s]Pilot baseline:  33%|███▎      | 66/200 [00:01<00:02, 48.64it/s]Pilot baseline:  36%|███▌      | 71/200 [00:01<00:02, 48.82it/s]Pilot baseline:  38%|███▊      | 76/200 [00:01<00:02, 48.97it/s]Pilot baseline:  40%|████      | 81/200 [00:02<00:02, 49.11it/s]Pilot baseline:  43%|████▎     | 86/200 [00:02<00:02, 49.18it/s]Pilot baseline:  46%|████▌     | 91/200 [00:02<00:02, 48.99it/s]Pilot baseline:  48%|████▊     | 96/200 [00:02<00:02, 49.06it/s]Pilot baseline:  50%|█████     | 101/200 [00:02<00:02, 49.09it/s]Pilot baseline:  53%|█████▎    | 106/200 [00:02<00:01, 49.13it/s]Pilot baseline:  56%|█████▌    | 111/200 [00:02<00:01, 49.16it/s]Pilot baseline:  58%|█████▊    | 116/200 [00:02<00:01, 49.19it/s]Pilot baseline:  60%|██████    | 121/200 [00:02<00:01, 49.20it/s]Pilot baseline:  63%|██████▎   | 126/200 [00:02<00:01, 49.23it/s]Pilot baseline:  66%|██████▌   | 131/200 [00:03<00:01, 49.25it/s]Pilot baseline:  68%|██████▊   | 136/200 [00:03<00:01, 49.27it/s]Pilot baseline:  70%|███████   | 141/200 [00:03<00:01, 49.29it/s]Pilot baseline:  73%|███████▎  | 146/200 [00:03<00:01, 49.29it/s]Pilot baseline:  76%|███████▌  | 151/200 [00:03<00:00, 49.28it/s]Pilot baseline:  78%|███████▊  | 156/200 [00:03<00:00, 49.31it/s]Pilot baseline:  80%|████████  | 161/200 [00:03<00:00, 49.33it/s]Pilot baseline:  83%|████████▎ | 166/200 [00:03<00:00, 49.33it/s]Pilot baseline:  86%|████████▌ | 171/200 [00:03<00:00, 49.33it/s]Pilot baseline:  88%|████████▊ | 176/200 [00:03<00:00, 49.33it/s]Pilot baseline:  90%|█████████ | 181/200 [00:04<00:00, 49.37it/s]Pilot baseline:  93%|█████████▎| 186/200 [00:04<00:00, 49.47it/s]Pilot baseline:  96%|█████████▌| 191/200 [00:04<00:00, 49.59it/s]Pilot baseline:  98%|█████████▊| 196/200 [00:04<00:00, 49.67it/s]Pilot baseline: 100%|██████████| 200/200 [00:04<00:00, 44.77it/s]
+{'multiplier': 0.03125, 'alpha': 0.03084787604691637, 'mean_abs_dp': 0.003080656314174078, 'mean_signed_dp': -0.001930095341618728, 'sat_frac_total': 0.33, 'sat_frac_new': 0.005}
+{'multiplier': 0.0625, 'alpha': 0.06169575209383274, 'mean_abs_dp': 0.0061619818121702655, 'mean_signed_dp': -0.0038560578200078723, 'sat_frac_total': 0.33166666666666667, 'sat_frac_new': 0.006666666666666667}
+{'multiplier': 0.125, 'alpha': 0.12339150418766548, 'mean_abs_dp': 0.012324431344653436, 'mean_signed_dp': -0.007693379110678889, 'sat_frac_total': 0.3333333333333333, 'sat_frac_new': 0.008333333333333333}
+{'multiplier': 0.25, 'alpha': 0.24678300837533096, 'mean_abs_dp': 0.024632082072560815, 'mean_signed_dp': -0.015294075933826768, 'sat_frac_total': 0.34, 'sat_frac_new': 0.016666666666666666}
+{'multiplier': 0.5, 'alpha': 0.4935660167506619, 'mean_abs_dp': 0.04904487157027604, 'mean_signed_dp': -0.03007094325305255, 'sat_frac_total': 0.34, 'sat_frac_new': 0.028333333333333332}
+{'multiplier': 1.0, 'alpha': 0.9871320335013238, 'mean_abs_dp': 0.09614456802580967, 'mean_signed_dp': -0.05705199179355047, 'sat_frac_total': 0.38333333333333336, 'sat_frac_new': 0.085}
+{'multiplier': 2.0, 'alpha': 1.9742640670026477, 'mean_abs_dp': 0.17910315036182492, 'mean_signed_dp': -0.09810101951005856, 'sat_frac_total': 0.43166666666666664, 'sat_frac_new': 0.18166666666666667}
+{'multiplier': 4.0, 'alpha': 3.9485281340052953, 'mean_abs_dp': 0.2969294804502192, 'mean_signed_dp': -0.1422115102065752, 'sat_frac_total': 0.565, 'sat_frac_new': 0.36833333333333335}
+9.5_tuning saturation diagnostic (probe readout, same pilot rows/features)
+n_pilot=200  pilot_features=[30907, 19167, 25515]  median_scale=0.9871
+
+baseline (SAE recon) sat_frac = 0.325  (P<0.02: 0.175, P>0.98: 0.150)
+baseline (clean)     sat_frac = 0.475
+probe acc on pilot rows: recon 0.815, clean 0.945
+
+   mult     alpha  mean|dP|   mean dP  sat_tot  sat_new
+ 0.0312    0.0308    0.0031   -0.0019    0.330    0.005
+ 0.0625    0.0617    0.0062   -0.0039    0.332    0.007
+ 0.1250    0.1234    0.0123   -0.0077    0.333    0.008
+ 0.2500    0.2468    0.0246   -0.0153    0.340    0.017
+ 0.5000    0.4936    0.0490   -0.0301    0.340    0.028
+ 1.0000    0.9871    0.0961   -0.0571    0.383    0.085
+ 2.0000    1.9743    0.1791   -0.0981    0.432    0.182
+ 4.0000    3.9485    0.2969   -0.1422    0.565    0.368
+# exit=0  elapsed=217s  2026-10-25T10:42:38+00:00

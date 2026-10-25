@@ -1,0 +1,25 @@
+Steering alpha used for run3 steps 10-27:  A = 0.493566
+
+Source of truth for the pilot numbers: saturation_diag.txt (this dir), produced by
+alpha_saturation_diag.py (this dir) on 9.5_tuning's own pilot rows / features.
+
+Why not 9.5_tuning's recommended_alpha (3.948528, run3/outputs/9.5_tuning/alpha_calibration.txt):
+  - recommend_alpha() requires sat_frac <= 0.25, where sat_frac counts ALL steered
+    outputs with P<0.02 or P>0.98, including ones already saturated at baseline.
+  - Measured SAE-recon baseline saturation on the pilot rows is 0.325 (> 0.25), so
+    no alpha can pass; the function fell to its last-resort branch (max mean|dP|
+    over all rows), which selects the largest, most saturated alpha (sat 0.565).
+  - Extending the grid downward cannot help: sat_tot >= 0.330 at every alpha tested,
+    down to 1/32 x median scale.
+  - Contributing cause (not fixed): the layer-11 residual probe is fit on train and
+    the pilot rows are train rows (clean-forward accuracy on them 0.945, sat 0.475).
+
+Decision (approved by user: "relax the cap or expand the grid, your call"):
+  - Relax the saturation criterion to NEWLY saturated (saturated after steering but
+    not at baseline) <= 0.25; keep 9.5_tuning's original grid {0.5,1,2,4} x median
+    scale and its mean|dP| >= 0.02 criterion.
+  - Smallest eligible alpha: 0.493566 (x0.5): mean|dP|=0.0490, sat_new=0.028.
+  - Not chosen: extended-grid 0.2468 (x0.25) also passes, but mean|dP|=0.0246 is
+    marginal against 0.02 and the steer scripts use a different (logit-diff) readout.
+  - Same CLAUDE.md caveat applies: alpha is a rough "measurable but unsaturated"
+    magnitude calibrated on a layer-11 probe, not a tuned hyperparameter.

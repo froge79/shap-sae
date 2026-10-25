@@ -133,7 +133,10 @@ def build_remove_pairs(
         pool.append(
             {
                 "original": s,
-                "edited": " ".join(edited_parts) + " ",
+                # Keep the original's trailing whitespace exactly: a stray trailing
+                # space changes the last token, which alone shifts the logit diff
+                # (~+0.7) and swamps the edit.
+                "edited": " ".join(edited_parts) + s[len(s.rstrip()) :],
                 "word": word,
                 "polarity": polarity,
                 # Removing a positive word should LOWER the logit diff.
@@ -166,7 +169,8 @@ def build_insert_pairs(
         pairs.append(
             {
                 "original": s,
-                "edited": s.rstrip() + f" it was {word} . ",
+                # Same trailing whitespace as the original (see build_remove_pairs).
+                "edited": s.rstrip() + f" it was {word} ." + s[len(s.rstrip()) :],
                 "word": word,
                 "polarity": polarity,
                 # Adding a positive word should RAISE the logit diff.

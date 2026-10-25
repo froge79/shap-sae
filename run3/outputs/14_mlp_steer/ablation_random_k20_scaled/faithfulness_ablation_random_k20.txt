@@ -1,0 +1,15 @@
+MLP arm - faithfulness
+mode=ablation  selection=random  k=20  seed=0  n_eval=1000  intervene_scope=all
+alpha: n/a (ablation zeroes the feature)
+NOTE: rho over n=20 features x 4 methods x 2 correlation types, no multiple-comparison control - p-values are descriptive.
+
+Importance faithfulness  (Spearman rho of |attribution| vs |delta|):
+  SHAP            rho=+0.568  p=0.0089
+  Probe saliency  rho=+0.281  p=0.2297
+  IG              rho=+0.573  p=0.0083
+  GA              rho=+0.600  p=0.0052
+Directional faithfulness (Spearman rho of attribution vs -delta; positive = faithful under mode=ablation):
+  SHAP            rho=-0.408  p=0.0745
+  Probe saliency  n/a (magnitude-only score, no direction)
+  IG              rho=-0.421  p=0.0645
+  GA              rho=-0.453  p=0.0451

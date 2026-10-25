@@ -1,0 +1,20 @@
+# step 7  2026-10-25T10:24:14+00:00
+# SHAP_SAE_OUTPUTS=run3/outputs SHAP_SAE_CHECKPOINTS=run3/checkpoints
+# cmd: uv run python src/global_mlp/12_mlp_shap.py
+Loaded MLP probe from run3/checkpoints/mlp_probe_layer_7.joblib  (n_filtered=114, hidden=32)
+DeepSHAP on 1000 eval / 100 background examples × 114 features
+shap_values shape: (1000, 114)
+Top features by |mean signed DeepSHAP|:
+  feature  4890:  Φ=+0.065247  sign_consistency=0.777
+  feature 10003:  Φ=-0.055603  sign_consistency=0.751
+  feature 21459:  Φ=-0.047246  sign_consistency=0.539
+  feature 24877:  Φ=+0.046632  sign_consistency=0.925
+  feature 25515:  Φ=+0.046184  sign_consistency=0.585
+  feature 11525:  Φ=+0.044616  sign_consistency=0.815
+  feature 30907:  Φ=+0.043748  sign_consistency=0.511
+  feature 18357:  Φ=-0.040604  sign_consistency=0.833
+  feature 16048:  Φ=+0.040401  sign_consistency=0.524
+  feature 19167:  Φ=-0.039511  sign_consistency=0.617
+
+Wrote outputs → run3/outputs/12_mlp_shap/
+# exit=0  elapsed=11s  2026-10-25T10:24:25+00:00

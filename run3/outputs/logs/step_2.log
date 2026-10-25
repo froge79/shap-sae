@@ -1,0 +1,29 @@
+# step 2  2026-10-25T10:22:43+00:00
+# SHAP_SAE_OUTPUTS=run3/outputs SHAP_SAE_CHECKPOINTS=run3/checkpoints
+# cmd: uv run python src/core/2_probes.py
+Layer 7 probe results
+  Val accuracy:        0.8153
+  Val AUROC:           0.8984
+  Non-zero weights:    615 / 32768
+  Top 20 features by |weight|:
+     1. feature 12004  weight +3.271830
+     2. feature  1951  weight +2.864903
+     3. feature 28177  weight -2.352233
+     4. feature 18357  weight -2.279432
+     5. feature 20415  weight +2.271298
+     6. feature 27412  weight +2.200701
+     7. feature 31699  weight -1.760951
+     8. feature 26648  weight +1.745249
+     9. feature 13758  weight -1.692798
+    10. feature 16318  weight +1.688313
+    11. feature 13508  weight -1.499566
+    12. feature  1628  weight +1.493339
+    13. feature 25681  weight +1.475466
+    14. feature 10860  weight +1.438744
+    15. feature 20417  weight -1.398491
+    16. feature 11349  weight +1.382078
+    17. feature 26353  weight -1.381543
+    18. feature 13611  weight +1.362402
+    19. feature  4224  weight -1.362113
+    20. feature 16768  weight -1.357947
+# exit=0  elapsed=10s  2026-10-25T10:22:53+00:00

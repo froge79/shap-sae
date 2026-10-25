@@ -1,0 +1,156 @@
+# step 19  2026-10-25T10:52:48+00:00
+# SHAP_SAE_OUTPUTS=run3/outputs SHAP_SAE_CHECKPOINTS=run3/checkpoints
+# cmd: uv run python src/global_group/group_steering.py
+Loading attribution scores…
+Computing activation differences (pos − neg)…
+Activation differences:   0%|          | 0/4 [00:00<?, ?it/s]Activation differences:  50%|█████     | 2/4 [00:00<00:00, 11.62it/s]Activation differences: 100%|██████████| 4/4 [00:00<00:00, 14.89it/s]Activation differences: 100%|██████████| 4/4 [00:00<00:00, 14.27it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading model + SAE…
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|██████████| 148/148 [00:00<00:00, 5412.24it/s]
+Loaded pretrained model gpt2 into HookedTransformer
+Readout: ' wonderful'(7932) − ' awful'(12659); n_eval=1000 held-out rows, layer=7; batch_size=32, condition_batch_size=8
+Building steering vectors over a shared pool of 114 features (every method and both arms rank the same candidates)…
+  logistic shap       k= 5  ||v||=1.0000
+  logistic shap       k=10  ||v||=1.0000
+  logistic shap       k=20  ||v||=1.0000
+  logistic shap       k=30  ||v||=1.0000
+  logistic shap       k=50  ||v||=1.0000
+  logistic shap       k=65  ||v||=1.0000
+  logistic probe      k= 5  ||v||=1.0000
+  logistic probe      k=10  ||v||=1.0000
+  logistic probe      k=20  ||v||=1.0000
+  logistic probe      k=30  ||v||=1.0000
+  logistic probe      k=50  ||v||=1.0000
+  logistic probe      k=65  ||v||=1.0000
+  logistic ig         k= 5  ||v||=1.0000
+  logistic ig         k=10  ||v||=1.0000
+  logistic ig         k=20  ||v||=1.0000
+  logistic ig         k=30  ||v||=1.0000
+  logistic ig         k=50  ||v||=1.0000
+  logistic ig         k=65  ||v||=1.0000
+  logistic ga         k= 5  ||v||=1.0000
+  logistic ga         k=10  ||v||=1.0000
+  logistic ga         k=20  ||v||=1.0000
+  logistic ga         k=30  ||v||=1.0000
+  logistic ga         k=50  ||v||=1.0000
+  logistic ga         k=65  ||v||=1.0000
+  mlp      shap       k= 5  ||v||=1.0000
+  mlp      shap       k=10  ||v||=1.0000
+  mlp      shap       k=20  ||v||=1.0000
+  mlp      shap       k=30  ||v||=1.0000
+  mlp      shap       k=50  ||v||=1.0000
+  mlp      shap       k=65  ||v||=1.0000
+  mlp      ig         k= 5  ||v||=1.0000
+  mlp      ig         k=10  ||v||=1.0000
+  mlp      ig         k=20  ||v||=1.0000
+  mlp      ig         k=30  ||v||=1.0000
+  mlp      ig         k=50  ||v||=1.0000
+  mlp      ig         k=65  ||v||=1.0000
+  mlp      ga         k= 5  ||v||=1.0000
+  mlp      ga         k=10  ||v||=1.0000
+  mlp      ga         k=20  ||v||=1.0000
+  mlp      ga         k=30  ||v||=1.0000
+  mlp      ga         k=50  ||v||=1.0000
+  mlp      ga         k=65  ||v||=1.0000
+  (mlp/probe omitted: ||W1||_2 is unsigned, see module docstring)
+  shared   actdiff    k= 5  ||v||=1.0000
+  shared   actdiff    k=10  ||v||=1.0000
+  shared   actdiff    k=20  ||v||=1.0000
+  shared   actdiff    k=30  ||v||=1.0000
+  shared   actdiff    k=50  ||v||=1.0000
+  shared   actdiff    k=65  ||v||=1.0000
+Computing clean baseline…
+Baseline:   0%|          | 0/32 [00:00<?, ?it/s]Baseline:   3%|▎         | 1/32 [00:00<00:13,  2.23it/s]Baseline:   9%|▉         | 3/32 [00:00<00:04,  6.30it/s]Baseline:  16%|█▌        | 5/32 [00:00<00:02,  9.39it/s]Baseline:  25%|██▌       | 8/32 [00:00<00:01, 13.28it/s]Baseline:  34%|███▍      | 11/32 [00:00<00:01, 15.94it/s]Baseline:  44%|████▍     | 14/32 [00:01<00:01, 17.74it/s]Baseline:  53%|█████▎    | 17/32 [00:01<00:00, 18.97it/s]Baseline:  62%|██████▎   | 20/32 [00:01<00:00, 19.82it/s]Baseline:  72%|███████▏  | 23/32 [00:01<00:00, 20.40it/s]Baseline:  81%|████████▏ | 26/32 [00:01<00:00, 20.81it/s]Baseline:  91%|█████████ | 29/32 [00:01<00:00, 21.09it/s]Baseline: 100%|██████████| 32/32 [00:01<00:00, 22.44it/s]                                                           mean logit-diff=+0.2778  mean PPL=369.49
+Scoring 336 conditions (48 vectors × 7 alphas)…
+Condition batches:   0%|          | 0/42 [00:00<?, ?it/s]Condition batches:   2%|▏         | 1/42 [00:10<07:10, 10.50s/it]Condition batches:   5%|▍         | 2/42 [00:21<07:00, 10.50s/it]Condition batches:   7%|▋         | 3/42 [00:31<06:49, 10.50s/it]Condition batches:  10%|▉         | 4/42 [00:42<06:39, 10.50s/it]Condition batches:  12%|█▏        | 5/42 [00:52<06:28, 10.50s/it]Condition batches:  14%|█▍        | 6/42 [01:03<06:18, 10.50s/it]Condition batches:  17%|█▋        | 7/42 [01:13<06:07, 10.50s/it]Condition batches:  19%|█▉        | 8/42 [01:24<05:57, 10.50s/it]Condition batches:  21%|██▏       | 9/42 [01:34<05:46, 10.50s/it]Condition batches:  24%|██▍       | 10/42 [01:45<05:36, 10.50s/it]Condition batches:  26%|██▌       | 11/42 [01:55<05:25, 10.50s/it]Condition batches:  29%|██▊       | 12/42 [02:06<05:15, 10.50s/it]Condition batches:  31%|███       | 13/42 [02:16<05:04, 10.50s/it]Condition batches:  33%|███▎      | 14/42 [02:27<04:54, 10.50s/it]Condition batches:  36%|███▌      | 15/42 [02:37<04:43, 10.50s/it]Condition batches:  38%|███▊      | 16/42 [02:48<04:33, 10.50s/it]Condition batches:  40%|████      | 17/42 [02:58<04:22, 10.50s/it]Condition batches:  43%|████▎     | 18/42 [03:09<04:12, 10.50s/it]Condition batches:  45%|████▌     | 19/42 [03:19<04:01, 10.50s/it]Condition batches:  48%|████▊     | 20/42 [03:30<03:51, 10.50s/it]Condition batches:  50%|█████     | 21/42 [03:40<03:40, 10.50s/it]Condition batches:  52%|█████▏    | 22/42 [03:51<03:30, 10.50s/it]Condition batches:  55%|█████▍    | 23/42 [04:01<03:19, 10.50s/it]Condition batches:  57%|█████▋    | 24/42 [04:12<03:09, 10.50s/it]Condition batches:  60%|█████▉    | 25/42 [04:22<02:58, 10.50s/it]Condition batches:  62%|██████▏   | 26/42 [04:33<02:48, 10.50s/it]Condition batches:  64%|██████▍   | 27/42 [04:43<02:37, 10.50s/it]Condition batches:  67%|██████▋   | 28/42 [04:54<02:27, 10.50s/it]Condition batches:  69%|██████▉   | 29/42 [05:04<02:16, 10.50s/it]Condition batches:  71%|███████▏  | 30/42 [05:15<02:06, 10.50s/it]Condition batches:  74%|███████▍  | 31/42 [05:25<01:55, 10.50s/it]Condition batches:  76%|███████▌  | 32/42 [05:36<01:45, 10.50s/it]Condition batches:  79%|███████▊  | 33/42 [05:46<01:34, 10.50s/it]Condition batches:  81%|████████  | 34/42 [05:57<01:24, 10.50s/it]Condition batches:  83%|████████▎ | 35/42 [06:07<01:13, 10.50s/it]Condition batches:  86%|████████▌ | 36/42 [06:18<01:03, 10.50s/it]Condition batches:  88%|████████▊ | 37/42 [06:28<00:52, 10.50s/it]Condition batches:  90%|█████████ | 38/42 [06:39<00:42, 10.50s/it]Condition batches:  93%|█████████▎| 39/42 [06:49<00:31, 10.50s/it]Condition batches:  95%|█████████▌| 40/42 [07:00<00:21, 10.50s/it]Condition batches:  98%|█████████▊| 41/42 [07:10<00:10, 10.50s/it]Condition batches: 100%|██████████| 42/42 [07:21<00:00, 10.50s/it]Condition batches: 100%|██████████| 42/42 [07:21<00:00, 10.50s/it]
+Scored 42 arm-independent conditions once and emitted them under each of ('logistic', 'mlp')
+
+Wrote 378 entries → run3/outputs/group_steering/group_steering_results.json
+
+=== Effect-vs-cost summary (k=20) ===
+
+[logistic]
+  method=shap
+       alpha      effect        cost
+         0.5      0.0102      0.3269
+           1      0.0201      0.6913
+           2      0.0392      1.5175
+           5      0.0909      4.7954
+          10      0.1615     12.9047
+          20      0.2642     38.9531
+          50      0.5085    217.7344
+  method=probe
+       alpha      effect        cost
+         0.5      0.0542      0.0569
+           1      0.1078      0.1790
+           2      0.2130      0.5966
+           5      0.5069      3.1252
+          10      0.9140     10.9325
+          20      1.4952     37.2906
+          50      2.7141    244.0453
+  method=ig
+       alpha      effect        cost
+         0.5      0.0102      0.3270
+           1      0.0201      0.6914
+           2      0.0392      1.5170
+           5      0.0909      4.7950
+          10      0.1615     12.9046
+          20      0.2642     38.9539
+          50      0.5085    217.7355
+  method=ga
+       alpha      effect        cost
+         0.5      0.0102      0.3270
+           1      0.0201      0.6914
+           2      0.0392      1.5170
+           5      0.0909      4.7950
+          10      0.1615     12.9046
+          20      0.2642     38.9539
+          50      0.5085    217.7355
+  method=actdiff
+       alpha      effect        cost
+         0.5      0.0558     -0.1432
+           1      0.1119     -0.2245
+           2      0.2243     -0.2004
+           5      0.5628      1.3314
+          10      1.1191      8.9750
+          20      2.1472     45.1830
+          50      4.5095    359.4375
+
+[mlp]
+  method=shap
+       alpha      effect        cost
+         0.5     -0.0040     -0.2948
+           1     -0.0083     -0.5496
+           2     -0.0174     -0.9661
+           5     -0.0489     -1.4109
+          10     -0.1106      0.5220
+          20     -0.2390     14.6562
+          50     -0.4002    161.5580
+  method=ig
+       alpha      effect        cost
+         0.5     -0.0219     -1.0470
+           1     -0.0438     -2.0593
+           2     -0.0871     -3.9765
+           5     -0.2134     -8.9204
+          10     -0.4092    -14.4613
+          20     -0.7227    -15.1511
+          50     -1.0091     93.0952
+  method=ga
+       alpha      effect        cost
+         0.5     -0.0205     -1.1862
+           1     -0.0408     -2.3413
+           2     -0.0813     -4.5463
+           5     -0.2001    -10.3633
+          10     -0.3854    -17.4167
+          20     -0.6792    -21.1715
+          50     -0.8768     78.0518
+  method=actdiff
+       alpha      effect        cost
+         0.5      0.0558     -0.1432
+           1      0.1119     -0.2245
+           2      0.2243     -0.2004
+           5      0.5628      1.3314
+          10      1.1191      8.9750
+          20      2.1472     45.1830
+          50      4.5095    359.4375
+# exit=0  elapsed=456s  2026-10-25T11:00:24+00:00

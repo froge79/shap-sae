@@ -1,0 +1,33 @@
+{
+  "dir": "run3/outputs/local_shap_faithfulness",
+  "blocks": {
+    "A:importance": {
+      "n": 100,
+      "mean_local": 0.24582190345932364,
+      "mean_global": -0.15031354200640415,
+      "mean_gap": 0.39613544546572776,
+      "median_gap": 0.3762711537367397,
+      "frac_local_wins": 0.98,
+      "wilcoxon_stat": 3.0,
+      "wilcoxon_p": 4.2663227307182344e-18,
+      "gap_ci95": [
+        0.3615327635633624,
+        0.4310993190209047
+      ]
+    },
+    "B:importance": {
+      "n": 95,
+      "mean_local": -0.15540652608373612,
+      "mean_global": 0.1549205389997038,
+      "mean_gap": -0.3103270650834399,
+      "median_gap": -0.26373626373626374,
+      "frac_local_wins": 0.1368421052631579,
+      "wilcoxon_stat": 395.0,
+      "wilcoxon_p": 4.234945498253214e-12,
+      "gap_ci95": [
+        -0.3798430480257784,
+        -0.24053632586198875
+      ]
+    }
+  }
+}

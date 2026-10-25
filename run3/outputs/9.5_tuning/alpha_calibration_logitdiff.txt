@@ -1,0 +1,20 @@
+Steering α calibration
+readout = logitdiff
+NOTE: logit-difference readout (GPT-2 ' wonderful' - ' awful'), the same one
+the steer scripts evaluate with. Everything else matches the probe pilot, so
+comparing mean_signed_dp between the two files isolates the readout. No alpha
+is recommended here: the mean|dP| >= 0.02 criterion is on a probability scale.
+median_positive_activation_scale = 0.987132
+median_decoder_norm = 0.999684
+pilot_features = [30907, 19167, 25515]
+n_pilot_examples = 200 (train split, seeded draw, seed=42)
+criteria: mean|ΔP| >= 0.02, sat_frac <= 0.25
+
+     alpha  mean_abs_dp mean_signed_dp   sat_frac
+  0.493566     0.045210      +0.042383   0.000000
+  0.987132     0.091750      +0.086367   0.000000
+  1.974264     0.187751      +0.177779   0.000000
+  3.948528     0.383616      +0.365933   0.000000
+
+recommended_alpha = N/A (logitdiff readout: sign check only)
+mean_signed_dp sign across the grid: all positive
