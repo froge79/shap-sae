@@ -54,7 +54,7 @@ def integrated_gradients(
     `∫₀¹ ∇f(baseline + α(x − baseline)) dα` collapses to `coef_` exactly and IG
     reduces to `(x − baseline) · w`. Computing it in closed form rather than
     running an n_steps Riemann sum of a constant is the same number without the
-    2000 × 50 × 32768 of arithmetic — `n_steps` is kept in the signature only so
+    1000 × 50 × 32768 of arithmetic — `n_steps` is kept in the signature only so
     the call sites stay uniform with the MLP arm, where the path integral is real.
 
     Do NOT reintroduce a `σ(1−σ)` factor here: that attributes `σ(margin)`, which

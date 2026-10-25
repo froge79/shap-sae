@@ -13,7 +13,7 @@ from transformer_lens import utils as tl_utils
 # measures causal effects draws its rows from `sample_eval_rows` with these
 # defaults so that SHAP / IG / GA / steering are all scored on the same data.
 CANONICAL_SEED = 42
-DEFAULT_N_EVAL = 2000
+DEFAULT_N_EVAL = 1000
 DEFAULT_N_BACKGROUND = 100
 
 SPLIT_DIRS = {
@@ -280,14 +280,18 @@ def last_real_token_index(model, tokens: torch.Tensor) -> torch.Tensor:
 
 def load_splits():
     """
-    The fixed three-way split, read from local disk.
+    The fixed three-way sentence-level split, read from local disk.
+
+    Built by `src/core/0_build_split.py` (full SST-2 sentences, pooled, deduped,
+    70/15/15). Phrase-level SST-2 is NOT used: a row split of it leaks sub-phrases
+    of one review across splits.
 
     Must stay on `load_from_disk` rather than the Hub: activations were
     extracted in this row order, and scripts pair `shap_ds[i]["sentence"]`
     with `activations/shap/...[i]`. A Hub revision that reorders SST-2 would
     silently decouple the two.
     """
-    ds = load_from_disk("data/sst2_train")
+    ds = load_from_disk("data/sst2_sentences")
     with open("data/three_way_split_indices.json") as f:
         indices = json.load(f)
 
@@ -350,7 +354,7 @@ def sample_eval_rows(
     buys two properties the pipeline depends on:
 
       - Nesting: for a fixed seed, `sample_eval_rows(n_eval=100)[0]` is exactly
-        `sample_eval_rows(n_eval=2000)[0][:100]`, elementwise. So the 100 rows
+        `sample_eval_rows(n_eval=1000)[0][:100]`, elementwise. So the 100 rows
         the local scripts explain are an ordered prefix of the rows the global
         scripts explain, and results join by position.
       - Independence: `bg_idx` does not shift when `n_eval` changes, and vice

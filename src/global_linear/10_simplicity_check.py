@@ -293,7 +293,7 @@ def write_summary(
     lines.append("=" * 60)
     lines.append(
         "POPULATION: every number below is over the FULL held-out split "
-        f"({active['n_examples']} rows), not the 2000-row canonical eval sample "
+        f"({active['n_examples']} rows), not the 1000-row canonical eval sample "
         "the attribution and steering scripts use. Correct for this question, but "
         "do not quote these alongside those as if they described the same rows."
     )

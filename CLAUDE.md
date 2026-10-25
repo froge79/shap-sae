@@ -6,22 +6,21 @@ to update when a convention changes. This file is the *how to run it*.
 
 ---
 
-## Current state (2026-08-15)
+## Current state (2026-10-25)
 
-- **The audit fixes are applied** across 16 files (target mismatch, seeded probe
-  fits, per-feature α, config-tagged outputs, index guards, matched CLIs). They
-  are committed to the working tree but **not yet committed to git** unless a
-  later session did so — check `git status` before assuming.
-- **`run1/` is stale.** It predates both the current scripts and the fixes: no
-  directory has `eval_indices*.npy`, `12_mlp_shap/shap_values_raw.npy` is 500 rows
-  where the arrays beside it are 2000, and its IG/GA were computed against the old
-  σ(logit) target. **Do not quote any number from `run1/`.** It is kept only for
-  before/after comparison.
-- **The clean re-run has not been done.** `activations/` does not exist. Nothing
-  in `run2/` exists yet. Every number in the repo is currently un-quotable.
-
-So: the pipeline below has been fixed and statically verified, but never executed
-in full. Expect to be the first to run it.
+- **The split was changed.** The old split was a random row split of the
+  phrase-level SST-2 train set (67,349 rows), which leaked sub-phrases across
+  splits (83.8% of held-out phrases were contained in a train phrase). The data is
+  now **sentence-level** (`data/sst2_sentences`, 6,696 / 1,435 / 1,436), built by
+  `src/core/0_build_split.py` with a leakage gate. See `AGENTS.md` → Splits.
+- **`run1/` and `run2/` are both stale.** Both were produced on the leaky
+  phrase-level split. **Do not quote any number from either.** They are kept only
+  for before/after comparison.
+- **The clean re-run (`run3/`) has not been done.** `activations/` does not exist
+  and `run3/` is empty. Every number in the repo is un-quotable until it is.
+- Numbers below that depended on the old data are marked *(old split)*. In
+  particular the mask size `75`, the filtered pool `116` and `ks` max `65` must be
+  **re-read from the new run**, not assumed.
 
 ---
 
@@ -39,8 +38,8 @@ uv sync
 ### Artifact roots — set these in every shell
 
 ```bash
-export SHAP_SAE_OUTPUTS=run2/outputs
-export SHAP_SAE_CHECKPOINTS=run2/checkpoints
+export SHAP_SAE_OUTPUTS=run3/outputs
+export SHAP_SAE_CHECKPOINTS=run3/checkpoints
 ```
 
 Every script resolves artifacts through `utils.output_path()` /
@@ -58,9 +57,9 @@ committed splits, so one `activations/` tree is shared across runs.
 | | |
 |---|---|
 | GPU | needed for step 1 and steps 9-20 (anything that loads GPT-2 + the SAE); an A10 (23 GB) is enough. Steps 2-8 are CPU-only sklearn/numpy/shap |
-| RAM | **~18 GB peak at step 2** — the L1 fit is on a dense 47144 × 32768 matrix (5.8 GiB float32) and liblinear makes a float64 copy (11.5 GiB). Steps 1 and 18 also hold multi-GB arrays |
-| Disk | ~8.8 GB for `activations/`, ~600 MB for `run2/outputs` (mostly `7_shap_recompute/shap_values_raw.npy` at 524 MB) |
-| Wall clock | ~7 h serial for the full chain, dominated by steps 9-17 |
+| RAM | **~3 GB peak at step 2** — the L1 fit is on a dense 6696 × 32768 matrix (0.8 GiB float32) and liblinear makes a float64 copy (1.6 GiB). *(the old split needed ~18 GB)* |
+| Disk | ~1.3 GB for `activations/`, ~300 MB for `run3/outputs` (mostly `7_shap_recompute/shap_values_raw.npy` at ~262 MB) |
+| Wall clock | *(old split: ~7 h)* — expect noticeably less for steps 1-9, but steps 10-17 are bounded by `--n-eval` forward passes and will not shrink much. Time step 1 first and extrapolate |
 | Network | first run pulls GPT-2 and the SAE from HuggingFace; no revisions are pinned |
 
 Steps are serial — each depends on the previous. Do not try to parallelise across
@@ -68,10 +67,10 @@ GPUs without re-checking the dependency graph below.
 
 ### Never run these
 
-- **`1_extract.create_splits()`** — guarded behind `force=True`. It would
-  overwrite `data/three_way_split_indices.json` and `data/sst2_train`,
-  invalidating every extracted activation. The split is committed; step 0 is
-  "already done".
+- **`src/core/0_build_split.py --force`** — only for step 0 of a new lineage. After
+  step 1 it would overwrite `data/three_way_split_indices.json` and decouple every
+  extracted activation from its sentence (it refuses if `activations/` exists).
+  Without `--force` it refuses if a split exists.
 - **`src/global_linear/6_shap_stability.py`** — deprecated, raises on entry. It
   measured KernelSHAP's seed variance; KernelSHAP is no longer in the pipeline.
 
@@ -129,17 +128,28 @@ run any time after step 4.
 CLI default is `0.6723`, which is what `run1` recommended, but the fixes changed
 the probe fit, so do not assume it carries over. Substitute the real value.
 
+### Step 0 — build the split (CPU, seconds, once per lineage)
+
+```bash
+uv run python src/core/0_build_split.py --force
+```
+
+Writes `data/sst2_sentences/` and `data/three_way_split_indices.json`. **Must print
+`PASS. train=6696 val=1435 shap=1436`** and show 0 duplicates / 0 contained texts
+for val and held-out. Already run in the working tree (commit its outputs); skip unless the files
+are missing. Re-running requires `--force` and no `activations/`.
+
 ### Steps 1-9 — probes and attributions
 
 | # | Command | Produces | Check | ~time |
 |---|---|---|---|---|
-| 1 | `uv run python src/core/1_extract.py` | `activations/{probe_train,probe_val,shap}/layer_7/{activations,labels}.npy` | shapes `(47144, 32768)`, `(10102, 32768)`, `(10103, 32768)`, all **float32**, ~8.8 GB | 20–40 m |
+| 1 | `uv run python src/core/1_extract.py` | `activations/{probe_train,probe_val,shap}/layer_7/{activations,labels}.npy` | shapes `(6696, 32768)`, `(1435, 32768)`, `(1436, 32768)`, all **float32**, ~1.3 GB | *(old: 20–40 m)* |
 | 2 | `uv run python src/core/2_probes.py` | `$CKPT/probe_layer_7.joblib` | prints val accuracy + non-zero weights (~1.4k of 32768) | 10–30 m |
-| 3 | `uv run python src/core/3_shap_comp.py` | `3_shap/shap_feature_indices.npy` | **must be `(75,)`.** A different size means the mask moved — re-sanity-check every downstream `k`, and note `ks` in `steering_config.json` tops out at 65 | <1 m |
-| 4 | `uv run python src/global_linear/7_shap_recompute.py` | `7_shap_recompute/`: `phi_sentiment_layer7_signed.npy` `(32768,)`, `sign_consistency_layer7.npy`, `top_k_{idx,Phi}_layer7.npy` `(50,)`, `explained_feature_indices.npy` `(32768,)`, `shap_values_raw.npy` `(2000, 32768)` **524 MB**, `eval_indices_layer7.npy` `(2000,)`, `background_indices_layer7.npy` `(100,)` | `explained_feature_indices.npy` is `arange(32768)`, **not** a mask | 5–10 m |
+| 3 | `uv run python src/core/3_shap_comp.py` | `3_shap/shap_feature_indices.npy` | **`(75,)` on the old split; on this one write the actual size N down.** Every `(75,)` below means `(N,)`. Re-sanity-check downstream `k`: `ks` in `steering_config.json` tops out at 65, and if N is below 20 `--k 20` breaks | <1 m |
+| 4 | `uv run python src/global_linear/7_shap_recompute.py` | `7_shap_recompute/`: `phi_sentiment_layer7_signed.npy` `(32768,)`, `sign_consistency_layer7.npy`, `top_k_{idx,Phi}_layer7.npy` `(50,)`, `explained_feature_indices.npy` `(32768,)`, `shap_values_raw.npy` `(1000, 32768)` **~262 MB**, `eval_indices_layer7.npy` `(1000,)`, `background_indices_layer7.npy` `(100,)` | `explained_feature_indices.npy` is `arange(32768)`, **not** a mask | 5–10 m |
 | 5 | `uv run python src/global_linear/8_feature_ranking.py` | `8_rankings_recompute/`: `ig_scores.npy` + `ga_scores.npy` `(32768,)`, `support.npy`, `eval_indices.npy`, `background_indices.npy`, `correlation.txt` | **`correlation.txt` must open with `PASS`** from the identity check, and IG/GA/SHAP pairs must be ρ = 1.000. That is correct, not a bug — see below. Raises if step 4's rows disagree | ~2 m |
 | 6 | `uv run python src/global_mlp/11_mlp_probe.py` | `$CKPT/mlp_probe_layer_7.joblib`; `11_mlp_probe/{feature_indices_layer_7.npy, results_layer_7.json, top_features_layer_7.json}` | `n_features` = 75; val accuracy is mildly optimistic (its inputs were selected using a val-derived frequency filter — label-free, so small) | 5–15 m |
-| 7 | `uv run python src/global_mlp/12_mlp_shap.py` | `12_mlp_shap/`: `phi_sentiment_layer7_signed.npy` `(32768,)`, `shap_feature_indices.npy` `(75,)`, `shap_values_raw.npy` `(2000, 75)`, `sign_consistency_layer7.npy`, `top_k_*`, `eval_indices_layer7.npy`, `background_indices_layer7.npy` | DeepSHAP runs with `check_additivity=True`; a failure there is real. Cost is 2000 eval × 100 background passes, so this is slower than its tiny probe suggests | 5–20 m |
+| 7 | `uv run python src/global_mlp/12_mlp_shap.py` | `12_mlp_shap/`: `phi_sentiment_layer7_signed.npy` `(32768,)`, `shap_feature_indices.npy` `(75,)`, `shap_values_raw.npy` `(1000, 75)`, `sign_consistency_layer7.npy`, `top_k_*`, `eval_indices_layer7.npy`, `background_indices_layer7.npy` | DeepSHAP runs with `check_additivity=True`; a failure there is real. Cost is 1000 eval × 100 background passes, so this is slower than its tiny probe suggests | 5–20 m |
 | 8 | `uv run python src/global_mlp/13_mlp_ranking.py` | `13_mlp_ranking/`: `{ig,ga,probe,shap}_scores.npy` `(75,)`, `feature_indices.npy`, `eval_indices.npy`, `background_indices.npy`, `correlation.txt` | raises if step 7's eval rows disagree. **This is where the real IG-vs-SHAP comparison lives** | 5–10 m |
 | 9 | `uv run python src/global_linear/9.5_tuning.py` | `$CKPT/residual_probe_layer_11.joblib`; `9.5_tuning/{alpha_calibration.txt, alpha_grid.npy, alpha_pilot_mean_abs_dp.npy, candidate_scales.npy, candidate_indices.npy, pilot_row_indices.npy, pool_scales.npy (75,), pool_indices.npy (75,)}` | **grab `recommended_alpha` → `<A>`.** `pool_*` are what `--alpha-mode scaled` consumes; without them steps 10+ fail loudly rather than silently | 30–60 m |
 
@@ -256,9 +266,9 @@ uv run python src/global_group/group_steering.py
 uv run python src/global_group/plot_group_steering.py --all --k 20
 ```
 
-- **18** → `10_simplicity_check/{simplicity_summary.txt, active_counts.npy (10103,),
+- **18** → `10_simplicity_check/{simplicity_summary.txt, active_counts.npy (1436,),
   top_features.npy (20,), lexical_tracking.npy (20, 8)}`. ~10–20 m. Runs on the
-  **full 10,103-row held-out split**, not the 2000-row canonical sample — the
+  **full 1,436-row held-out split**, not the 1000-row canonical sample — the
   summary says so in its header. Do not quote its numbers alongside the
   attribution results as if they described the same rows.
 - **19** → `group_steering/group_steering_results.json`. ~50–100 m. Expect
@@ -285,7 +295,7 @@ reconstruction. Compare curve *shapes* across the two families, never magnitudes
 
 ## Steps 21-27 — follow-up experiments
 
-Added after the `run2` analysis to shore up the three weakest claims: the global
+Added after the `run2` analysis (old split) to shore up the three weakest claims: the global
 faithfulness null rests on one k=20/seed=0 draw, the local-vs-global result was
 reported as "mean ± std" with no test, and the sign-inversion anomaly had never
 been tested directly. Full rationale and statistics are in
@@ -441,7 +451,7 @@ remain available but are secondary and must be labelled.
 
 ```
 1. Split discipline  — every eval_indices*.npy under $SHAP_SAE_OUTPUTS is a prefix of
-                       utils.sample_eval_rows(n_eval=2000)[0]; every background_indices*.npy
+                       utils.sample_eval_rows(n_eval=1000)[0]; every background_indices*.npy
                        equals its bg_idx.
 2. Rows agree        — 7_shap_recompute/eval_indices_layer7.npy == 8_rankings_recompute/eval_indices.npy
                        12_mlp_shap/eval_indices_layer7.npy    == 13_mlp_ranking/eval_indices.npy
@@ -473,7 +483,7 @@ remain available but are secondary and must be labelled.
 
 ## Reporting results
 
-- Re-derive everything from `run2/`. Nothing from `run1/` is quotable.
+- Re-derive everything from `run3/`. Nothing from `run1/` or `run2/` is quotable (both are on the leaky phrase-level split).
 - The faithfulness ρ are **small-n**: k=20 features × 4 methods × 2 correlation
   types with no multiple-comparison control. p-values are descriptive.
 - α is calibrated against a **layer-11 residual probe's P(positive)** but used

@@ -1,10 +1,8 @@
-import json
 import sys
 from pathlib import Path
 
 import numpy as np
 import torch
-from datasets import load_from_disk
 from sae_lens import SAE
 from tqdm import tqdm
 
@@ -41,66 +39,6 @@ def load_saes():
         sae.to(device)
         saes[layer] = sae
     return saes
-
-
-def create_splits(force: bool = False):
-    """
-    Re-derive the three-way split. **Not part of any pipeline run.**
-
-    `data/three_way_split_indices.json` is committed and every activation tensor
-    was extracted in the row order it defines, so regenerating it decouples every
-    saved activation from its sentence. Two further hazards, both real:
-      - `save_to_disk` below writes to the same directory `load_from_disk` read
-        from, which `datasets` refuses (or corrupts) rather than doing in place.
-      - A different `datasets` version can shuffle `train_test_split` differently
-        for the same seed, so "seed=42" does not by itself pin the split.
-
-    Guarded behind `force=True` so it cannot be reached by running this module.
-    """
-    if not force:
-        raise RuntimeError(
-            "create_splits() would overwrite data/three_way_split_indices.json and "
-            "data/sst2_train, invalidating every extracted activation. The split is "
-            "committed and must not be regenerated. Pass force=True only if you "
-            "intend to start a new dataset lineage from scratch."
-        )
-    ds = load_from_disk("data/sst2_train")
-    ds_with_id = ds.add_column("original_index", range(len(ds)))
-    first_split = ds_with_id.train_test_split(test_size=0.30, seed=42)
-
-    train_ds = first_split["train"]
-    temp_ds = first_split["test"]
-
-    second_split = temp_ds.train_test_split(test_size=0.5, seed=42)
-
-    val_ds = second_split["train"]
-    shap_ds = second_split["test"]
-
-    train_indices = list(train_ds["original_index"])
-    val_indices = list(val_ds["original_index"])
-    shap_indices = list(shap_ds["original_index"])
-
-    indices_dict = {
-        "train_indices": train_indices,
-        "val_indices": val_indices,
-        "shap_indices": shap_indices,
-    }
-
-    Path("data").mkdir(parents=True, exist_ok=True)
-    with open("data/three_way_split_indices.json", "w") as f:
-        json.dump(indices_dict, f, indent=4)
-
-    ds.save_to_disk("data/sst2_train")
-
-    print("Dataset three-way split complete!")
-    print(f"Train samples (70%): {len(train_indices)}")
-    print(f"Val samples   (15%): {len(val_indices)}")
-    print(f"Test samples  (15%): {len(shap_indices)}")
-    print("Indices saved successfully to 'data/three_way_split_indices.json'")
-
-
-def sae_cache_key(layer: int) -> str:
-    return f"blocks.{layer}.hook_resid_post.hook_sae_acts_post"
 
 
 def extract_split_activations(model, saes, sentences, labels, batch_size=32):

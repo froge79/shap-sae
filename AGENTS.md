@@ -8,7 +8,7 @@ This project uses SHAP to interpret Sparse Autoencoder (SAE) features in GPT-2 S
 
 ```
 shap-sae/
-├── data/                   # SST-2 dataset + three_way_split_indices.json
+├── data/                   # sst2_sentences/ (sentence-level) + three_way_split_indices.json
 ├── activations/            # saved SAE activation tensors (not in git)
 ├── checkpoints/            # probe weights
 ├── outputs/                # SHAP matrices, results, figures
@@ -58,7 +58,7 @@ constants pick it up.
 
 - **Model:** GPT-2 Small via `transformer_lens`
 - **SAE:** `gpt2-small-resid-post-v5-32k` from `sae_lens`, `resid_post` hook points, 32k features
-- **Dataset:** SST-2 binary sentiment (HuggingFace `stanfordnlp/sst2`)
+- **Dataset:** SST-2 binary sentiment, **sentence-level** (HuggingFace `SetFit/sst2`: 6920/872/1821 full sentences, pooled and re-split by `src/core/0_build_split.py`). Not the phrase-level `stanfordnlp/sst2` train set — see Splits
 - **Probing:** scikit-learn `LogisticRegression`, L1 penalty, `saga` solver
 - **SHAP:** `shap` library, KernelSHAP primary, DeepSHAP for validation
 
@@ -109,10 +109,18 @@ the one helper or they will disagree about which token they describe.
 pipeline currently runs on **layer 7** only — `TARGET_LAYERS` in `1_extract.py`
 and `LAYERS` in the probe scripts.
 
-**Splits:** SST-2 is divided into three fixed splits with a set random seed:
-- Probe train (70%, 47,144)
-- Probe val (15%, 10,102)
-- Held-out (15%, 10,103)
+**Splits:** SST-2 *sentences* are pooled, exact-duplicate and contained-fragment
+texts dropped (9613 → 9567), and divided into three fixed splits with seed 42:
+- Probe train (70%, 6,696)
+- Probe val (15%, 1,435)
+- Held-out (15%, 1,436)
+
+**Why sentences, not phrases (do not revert):** the earlier split was a random row
+split of the 67,349-row *phrase-level* SST-2 train set. Sub-phrases of one review
+landed in different splits: 83.8% of held-out phrases were contiguous sub-phrases
+of a train phrase (97.5% for 1-3 words), so held-out was not held out, and the
+last-token readout and minimal pairs were run on fragments. `0_build_split.py`
+fails if any held-out/val text is a duplicate or sub-text of a train text.
 
 Each split has exactly one job. Keep to this — mixing them silently confounds
 every attribution comparison in the repo:
@@ -130,7 +138,7 @@ would for example i" is only meaningful on the same examples.
 **Row sampling:** never draw eval or background rows ad hoc. Call
 `utils.sample_eval_rows` / `utils.load_eval_and_background`, which are the single
 definition of which rows get explained and steered. They return permutation
-prefixes, so a 100-row local sample is an ordered prefix of the 2000-row global
+prefixes, so a 100-row local sample is an ordered prefix of the 1000-row global
 sample and results join by position. Pair sentences to activation rows with
 `utils.eval_sentences`, never by indexing a split dataset directly.
 
@@ -231,9 +239,11 @@ against signed IG/GA/SHAP, compares a magnitude with a direction.
 
 ## What Not to Do
 
-- Do not modify `data/sst2_train` or `data/three_way_split_indices.json`, and do not
-  re-download the dataset with a different seed. `1_extract.create_splits()` would
-  do exactly that; it is guarded behind `force=True` and is not part of any run
+- Do not modify `data/sst2_sentences` or `data/three_way_split_indices.json` after
+  step 1, and do not re-download the dataset with a different seed.
+  `src/core/0_build_split.py` refuses without `--force`, and also refuses if
+  `activations/` exists, because a new split decouples every saved activation.
+  `data/sst2_train` is the old phrase-level data, kept only for the old lineage
 - Do not run SHAP on the probe val split — only on the held-out split
 - Do not fit, tune, or select anything on the held-out split (steering α included)
 - Do not load splits from the Hub — use `utils.load_splits`, which reads from disk;
