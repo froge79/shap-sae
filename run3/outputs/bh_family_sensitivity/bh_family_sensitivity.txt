@@ -1,0 +1,58 @@
+
+GLOBAL, raw (SHAP/IG/GA counted separately in linear arm)
+family definition                                   BH        BY
+PRIMARY: per run                                 16/30     15/30
+pooled over arms, per scope                      16/30     15/30
+pooled over scopes, per arm                      16/30     15/30
+pooled over all global runs                      16/30     15/30
+
+GLOBAL, deduplicated (identical (rho, p) counted once)
+family definition                                   BH        BY
+PRIMARY: per run                                 12/22     11/22
+pooled over arms, per scope                      12/22     11/22
+pooled over scopes, per arm                      12/22     11/22
+pooled over all global runs                      12/22     11/22
+
+PAPER-WIDE (deduplicated global + local crossed tests)
+family definition                                   BH        BY
+per run / per local source (primary)             13/32     11/32
+global pooled; local pooled                      12/32     11/32
+one family: every inferential test               12/32     11/32
+
+PER TEST (q under primary family vs one paper-wide family)
+test                                                   p  q_narrow q_wide_BH q_wide_BY  flag
+global|linear|all-token|SHAP:importance          3.6e-05  7.12e-05  0.000285   0.00116  
+global|linear|all-token|SHAP:directional             0.3     0.303     0.441         1  
+global|linear|all-token|Probe weights:importance    0.0018   0.00244   0.00586    0.0238  
+global|linear|all-token|Probe weights:directional   1.1e-05  4.29e-05  0.000114  0.000465  
+global|linear|last-token|SHAP:importance           0.001   0.00208    0.0037     0.015  
+global|linear|last-token|SHAP:directional           0.25     0.254     0.404         1  
+global|linear|last-token|Probe weights:importance    0.0037   0.00496    0.0108     0.044  
+global|linear|last-token|Probe weights:directional   0.00097   0.00208    0.0037     0.015  
+global|mlp|all-token|SHAP:importance             0.00016  0.000367   0.00101   0.00409  
+global|mlp|all-token|SHAP:directional               0.34     0.473      0.47         1  
+global|mlp|all-token|Probe saliency:importance       0.2     0.343     0.364         1  
+global|mlp|all-token|IG:importance               1.1e-06  7.99e-06  3.65e-05  0.000148  
+global|mlp|all-token|IG:directional                 0.54      0.63     0.691         1  
+global|mlp|all-token|GA:importance               8.6e-06  2.99e-05  0.000114  0.000465  
+global|mlp|all-token|GA:directional                 0.87     0.875     0.925         1  
+global|mlp|last-token|SHAP:importance              0.013    0.0295    0.0337     0.137  BY-fails
+global|mlp|last-token|SHAP:directional              0.26     0.463     0.404         1  
+global|mlp|last-token|Probe saliency:importance      0.74     0.859     0.873         1  
+global|mlp|last-token|IG:importance              0.00048    0.0017   0.00222   0.00899  
+global|mlp|last-token|IG:directional                0.57     0.804     0.707         1  
+global|mlp|last-token|GA:importance              0.00035    0.0017   0.00184   0.00748  
+global|mlp|last-token|GA:directional                0.88     0.884     0.925         1  
+local|linear|A:importance                          0.064     0.208     0.137     0.554  
+local|linear|A:directional                          0.95     0.952     0.952         1  
+local|linear|B:importance                            0.1     0.208     0.208     0.844  
+local|linear|B:directional                           0.9     0.952     0.925         1  
+local|mlp|A:importance                             0.024     0.096    0.0549     0.223  
+local|mlp|A:directional                             0.54      0.72     0.691         1  
+local|mlp|B:importance                              0.22     0.432     0.364         1  
+local|mlp|B:directional                             0.83     0.834     0.925         1  
+local|lm-diag|A:importance                         0.024     0.048    0.0549     0.223  narrow-only
+local|lm-diag|B:importance                          0.22     0.216     0.364         1  
+
+Tests whose verdict depends on the family: 2 (global|mlp|last-token|SHAP:importance, local|lm-diag|A:importance)
+Local p-values are crossed-bootstrap (B=1000, resolution 0.001); sign tests and minimal-pair summaries carry no inferential claim in the paper and are excluded.

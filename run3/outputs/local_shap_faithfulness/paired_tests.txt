@@ -4,8 +4,21 @@ source: run3/outputs/local_shap_faithfulness
 
 Paired Wilcoxon signed-rank on per-example (rho_local - rho_global).
 Positive gap = local SHAP ranks that example's effects better.
+Wilcoxon and the 95% CI here resample EXAMPLES ONLY and treat them as
+independent. They are not (shared features) - quote the crossed table below.
 
 block:kind               local  global     gap            95% CI  wilcoxon p  win frac
 ----------------------------------------------------------------------------------------
 A:importance            +0.246  -0.150  +0.396   [+0.362,+0.431]    4.27e-18     0.980
 B:importance            -0.155  +0.155  -0.310   [-0.380,-0.241]    4.23e-12     0.137
+
+Crossed (pigeonhole) bootstrap over examples x features, B=1000:
+  100 examples share 97 distinct features (mean 29.8 candidates/example, mean pairwise Jaccard 0.67), so the
+  per-example gaps are correlated through the features. This resamples both.
+
+block:kind                 gap    crossed 95% CI  crossed p  SE inflation
+------------------------------------------------------------------------
+A:importance            +0.396   [+0.055,+0.688]      0.024         9.38x
+B:importance            -0.310   [-0.716,+0.175]      0.216         6.35x
+  Mildly conservative: it double-counts interaction variance, and a resampled
+  duplicate feature introduces rank ties.

@@ -67,3 +67,16 @@ verification rc=0 elapsed=22s
 fig_mlp_ranking_agreement rc=0 elapsed=8s
 fig_local_vs_global rc=0 elapsed=8s
 CHAIN DONE c_extras.txt
+15 rc=0 elapsed=31s
+16 rc=0 elapsed=32s
+17 rc=0 elapsed=76s
+21 rc=0 elapsed=641s
+CHAIN DONE c_crossed.txt
+21 rc=0 elapsed=642s
+26_linear rc=0 elapsed=196s
+26_mlp rc=0 elapsed=196s
+CHAIN DONE c_w2.txt
+21 rc=0 elapsed=646s
+fig_local_vs_global rc=0 elapsed=8s
+CHAIN DONE c_w1.txt
+fig_local_vs_global rc=0 elapsed=8s

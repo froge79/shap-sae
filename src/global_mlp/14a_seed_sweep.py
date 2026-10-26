@@ -6,8 +6,7 @@ statistics, same CLI — but scores the MLP arm's filtered attributions. See tha
 module's docstring for why a single k=20 seed draw is not enough to support a
 null claim.
 
-The distributional statistics (`parse_seeds`, `bootstrap_ci`, `aggregate`,
-`render`) are imported from the linear arm's copy rather than duplicated: they
+The descriptive statistics (`parse_seeds`, `aggregate`, `render`) are imported from the linear arm's copy rather than duplicated: they
 are arm-independent, and the two arms must summarise their sweeps identically or
 the comparison between them is not like-for-like.
 """
@@ -151,8 +150,9 @@ def main() -> None:
         f"alpha: {alpha_desc}\n"
         f"union features intervened on: {len(union_global)}\n"
         f"Probe saliency is magnitude-only: importance test only, no directional row.\n"
-        f"Pooled Benjamini-Hochberg over all {len(pooled_bh)} tests: "
-        f"{n_rej} survive at FDR 0.05."
+        f"Pooled Benjamini-Hochberg over all {len(pooled_bh)} per-seed tests: "
+        f"{n_rej} survive at FDR 0.05 (the tests overlap - shared features - so "
+        f"this count is descriptive)."
     )
     text = _sweep9a.render(agg, per_seed, seeds, header)
     print(text)

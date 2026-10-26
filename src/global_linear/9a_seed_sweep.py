@@ -23,6 +23,17 @@ already use.
 Per-seed faithfulness is then computed by slicing the shared delta dicts, so each
 seed's numbers are identical to what a standalone `9_steer.py --seed s` would have
 produced (same rows, same alphas, same baseline).
+
+Descriptive only
+----------------
+The seeds are overlapping subsamples of one fixed feature pool: two k=20 draws
+share features, and a shared feature contributes the identical Δ to every seed
+that drew it (one intervention over the union). The per-seed rho are therefore
+not independent replicates, and a test across seeds (Wilcoxon, a seed-level
+bootstrap CI) would treat correlated subsample estimates as independent
+experiments. This script reports the spread of rho a k=20 draw can produce and
+how typical the reference seed was — nothing more. For inference on the pool,
+use `9_steer.py --selection all` (one Spearman over every pool feature).
 """
 
 from __future__ import annotations
@@ -35,7 +46,6 @@ from pathlib import Path
 
 import joblib
 import numpy as np
-from scipy.stats import wilcoxon
 from sae_lens import SAE
 
 _SRC = Path(__file__).resolve().parents[1]
@@ -65,7 +75,6 @@ def _load(name: str, path: Path):
 _steer9 = _load("steer9", _SRC / "global_linear" / "9_steer.py")
 
 LAYER = 7
-N_BOOTSTRAP = 5000
 
 
 def parse_seeds(spec: str) -> list[int]:
@@ -85,37 +94,14 @@ def parse_seeds(spec: str) -> list[int]:
     return seeds
 
 
-def bootstrap_ci(
-    values: np.ndarray, n_boot: int = N_BOOTSTRAP, seed: int = CANONICAL_SEED
-) -> tuple[float, float]:
-    """
-    Percentile bootstrap CI for the mean, resampling over *seeds*.
-
-    The resampling unit is the seed, not the example: the question is "across
-    arbitrary candidate draws of this size, where does rho sit", so each seed's
-    rho is one observation.
-    """
-    vals = np.asarray(values, dtype=np.float64)
-    vals = vals[np.isfinite(vals)]
-    if len(vals) < 2:
-        return float("nan"), float("nan")
-    rng = np.random.default_rng(seed)
-    means = rng.choice(vals, size=(n_boot, len(vals)), replace=True).mean(axis=1)
-    return float(np.percentile(means, 2.5)), float(np.percentile(means, 97.5))
-
-
 def aggregate(per_seed: dict[str, dict], seeds: list[int], ref_seed: int) -> dict:
     """
-    Collapse per-seed rho into a distributional summary per (method, kind).
+    Collapse per-seed rho into a descriptive summary per (method, kind).
 
-    Three numbers per series:
-      - wilcoxon: is the typical rho across draws different from 0? (signed-rank,
-        not a t-test: n is ~10 and Spearman rho is bounded, so normality is not
-        a safe assumption)
-      - bootstrap CI on the mean rho
-      - seed0_outlier_p: how extreme the reference seed's |rho| is within this
-        set of draws. An exchangeability p-value, so it says "the headline draw
-        was/was not typical", not "the effect is significant".
+    Spread (mean, std, min, max, fraction of draws with rho > 0) plus
+    ref_seed_outlier_p: the fraction of draws with |rho| at least the reference
+    seed's — "the headline draw was/was not typical", not "the effect is
+    significant". No test across seeds: see the module docstring.
     """
     keys = list(next(iter(per_seed.values())).keys())
     out: dict[str, dict] = {}
@@ -130,16 +116,8 @@ def aggregate(per_seed: dict[str, dict], seeds: list[int], ref_seed: int) -> dic
             "std": float(np.std(finite)) if len(finite) else float("nan"),
             "min": float(np.min(finite)) if len(finite) else float("nan"),
             "max": float(np.max(finite)) if len(finite) else float("nan"),
+            "frac_positive": float(np.mean(finite > 0)) if len(finite) else float("nan"),
         }
-        if len(finite) >= 2 and np.any(finite != 0):
-            stat, pval = wilcoxon(finite)
-            row["wilcoxon_stat"] = float(stat)
-            row["wilcoxon_p"] = float(pval)
-        else:
-            row["wilcoxon_stat"] = float("nan")
-            row["wilcoxon_p"] = float("nan")
-        lo, hi = bootstrap_ci(finite)
-        row["bootstrap_ci95"] = [lo, hi]
         ref = per_seed[str(ref_seed)][key]["rho"] if str(ref_seed) in per_seed else np.nan
         row["ref_seed"] = int(ref_seed)
         row["ref_seed_rho"] = float(ref)
@@ -155,23 +133,23 @@ def aggregate(per_seed: dict[str, dict], seeds: list[int], ref_seed: int) -> dic
 def render(agg: dict, per_seed: dict, seeds: list[int], header: str) -> str:
     lines = [header, ""]
     lines.append(
-        f"{'test':28s} {'mean rho':>9s} {'std':>7s} {'95% CI':>18s} "
-        f"{'wilcoxon p':>11s} {'ref rho':>8s} {'ref p':>7s}"
+        f"{'test':28s} {'mean rho':>9s} {'std':>7s} {'min':>7s} {'max':>7s} "
+        f"{'frac>0':>7s} {'ref rho':>8s} {'ref p':>7s}"
     )
-    lines.append("-" * 95)
+    lines.append("-" * 88)
     for key, row in agg.items():
-        ci = f"[{row['bootstrap_ci95'][0]:+.3f},{row['bootstrap_ci95'][1]:+.3f}]"
         lines.append(
-            f"{key:28s} {row['mean']:+9.3f} {row['std']:7.3f} {ci:>18s} "
-            f"{row['wilcoxon_p']:11.4f} {row['ref_seed_rho']:+8.3f} "
+            f"{key:28s} {row['mean']:+9.3f} {row['std']:7.3f} {row['min']:+7.3f} "
+            f"{row['max']:+7.3f} {row['frac_positive']:7.2f} {row['ref_seed_rho']:+8.3f} "
             f"{row['ref_seed_outlier_p']:7.3f}"
         )
     lines.append("")
     lines.append(
-        "Reading: 'wilcoxon p' tests whether the typical rho across draws differs "
-        "from 0.\n'ref p' is the fraction of draws with |rho| at least as large as "
-        "the reference\nseed's - a small value means the headline run was an "
-        "unusually extreme draw."
+        "DESCRIPTIVE ONLY. Seeds are overlapping draws from one feature pool and share\n"
+        "per-feature deltas, so they are not independent replicates and no test across\n"
+        "seeds is reported. For inference use the --selection all run (n = pool size).\n"
+        "'ref p' is the fraction of draws with |rho| at least as large as the reference\n"
+        "seed's - a small value means the headline run was an unusually extreme draw."
     )
     lines.append("")
     lines.append("Per-seed rho:")
@@ -304,9 +282,10 @@ def main() -> None:
         f"n_eval={len(steer_eval_idx)}\n"
         f"alpha: {alpha_desc}\n"
         f"union features intervened on: {len(union_global)}\n"
-        f"Pooled Benjamini-Hochberg over all {len(pooled_bh)} tests "
+        f"Pooled Benjamini-Hochberg over all {len(pooled_bh)} per-seed tests "
         f"({len(seeds)} seeds x {len(per_seed[str(seeds[0])])} tests): "
-        f"{n_rej} survive at FDR 0.05."
+        f"{n_rej} survive at FDR 0.05 (the tests overlap - shared features - so "
+        f"this count is descriptive)."
     )
     text = render(agg, per_seed, seeds, header)
     print(text)

@@ -4,6 +4,8 @@ source: run3/outputs/9_local_steer
 
 Paired Wilcoxon signed-rank on per-example (rho_local - rho_global).
 Positive gap = local SHAP ranks that example's effects better.
+Wilcoxon and the 95% CI here resample EXAMPLES ONLY and treat them as
+independent. They are not (shared features) - quote the crossed table below.
 
 block:kind               local  global     gap            95% CI  wilcoxon p  win frac
 ----------------------------------------------------------------------------------------
@@ -12,6 +14,19 @@ A:directional           +0.140  +0.132  +0.008   [-0.035,+0.054]    8.10e-01    
 B:importance            +0.015  +0.320  -0.305   [-0.371,-0.241]    3.15e-12     0.168
 B:directional           +0.187  +0.213  -0.026   [-0.093,+0.040]    5.71e-01     0.484
 
+Crossed (pigeonhole) bootstrap over examples x features, B=1000:
+  100 examples share 89 distinct features (mean 29.7 candidates/example, mean pairwise Jaccard 0.70), so the
+  per-example gaps are correlated through the features. This resamples both.
+
+block:kind                 gap    crossed 95% CI  crossed p  SE inflation
+------------------------------------------------------------------------
+A:importance            +0.294   [-0.020,+0.605]      0.064         9.47x
+A:directional           +0.008   [-0.343,+0.365]      0.952         8.39x
+B:importance            -0.305   [-0.589,+0.059]      0.104         5.02x
+B:directional           -0.026   [-0.523,+0.544]      0.896         8.36x
+  Mildly conservative: it double-counts interaction variance, and a resampled
+  duplicate feature introduces rank ties.
+
 Decomposition of the block [A] importance gap:
   mean active fraction of candidates = 0.498
   gap ~ frac_active            slope=-0.026  R2=0.000  p=8.35e-01
@@ -19,3 +34,10 @@ Decomposition of the block [A] importance gap:
   gap ~ frac_active + n_cands  coefs=[-0.047, 0.006]  R2=0.002
   A high R2 here means the local-vs-global margin is largely an activity effect,
   not a ranking-quality effect.
+
+Continuous control (partial Spearman | activation magnitude):
+  mean partial rho local  = +0.038 (n=100)
+  mean partial rho global = -0.168 (n=100)
+  paired gap = +0.206  wilcoxon p=6.31e-11
+  (examples-only Wilcoxon - same shared-feature dependence as above, so this p
+  understates the uncertainty; descriptive only)

@@ -448,6 +448,7 @@ def main(
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     np.save(out_dir / "example_indices.npy", pick)
+    np.save(out_dir / "feature_indices.npy", feature_indices)
     np.save(out_dir / "local_shap_values.npy", local_shap)
     np.save(out_dir / "global_phi_filtered.npy", global_phi_filt)
     np.save(out_dir / "rho_local.npy", rho_local_arr)

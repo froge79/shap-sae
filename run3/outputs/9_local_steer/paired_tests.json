@@ -13,7 +13,30 @@
       "gap_ci95": [
         0.26173410200678776,
         0.32616844765389297
-      ]
+      ],
+      "crossed": {
+        "n_boot": 1000,
+        "n_features_resampled": 89,
+        "point_local": 0.3509003919546807,
+        "point_global": 0.056962076539169126,
+        "local_ci95": [
+          0.11286158400024596,
+          0.512178773995315
+        ],
+        "global_ci95": [
+          -0.21072521387565932,
+          0.2967631140907294
+        ],
+        "point_gap": 0.2939383154155115,
+        "ci95": [
+          -0.019670278395470583,
+          0.604932436168171
+        ],
+        "p_two_sided": 0.064,
+        "se_crossed": 0.16067776471397438,
+        "se_examples_only": 0.01696549003734579,
+        "se_inflation": 9.470859041517674
+      }
     },
     "A:directional": {
       "n": 100,
@@ -27,7 +50,30 @@
       "gap_ci95": [
         -0.03533026663269766,
         0.053591427478038044
-      ]
+      ],
+      "crossed": {
+        "n_boot": 1000,
+        "n_features_resampled": 89,
+        "point_local": 0.1399562370563738,
+        "point_global": 0.13152016883384224,
+        "local_ci95": [
+          0.02032983686603027,
+          0.26363665107518236
+        ],
+        "global_ci95": [
+          -0.14528353498926003,
+          0.417551155664544
+        ],
+        "point_gap": 0.00843606822253153,
+        "ci95": [
+          -0.34286763946630083,
+          0.36508246221460017
+        ],
+        "p_two_sided": 0.952,
+        "se_crossed": 0.1773652905982377,
+        "se_examples_only": 0.02113270562197317,
+        "se_inflation": 8.392928656225564
+      }
     },
     "B:importance": {
       "n": 95,
@@ -41,7 +87,30 @@
       "gap_ci95": [
         -0.3710839116230018,
         -0.24090004999345893
-      ]
+      ],
+      "crossed": {
+        "n_boot": 1000,
+        "n_features_resampled": 89,
+        "point_local": 0.014785469141954973,
+        "point_global": 0.3197353041236377,
+        "local_ci95": [
+          -0.24281443849889697,
+          0.2418200982995326
+        ],
+        "global_ci95": [
+          -0.0008124265564384786,
+          0.5626150437143772
+        ],
+        "point_gap": -0.3049498349816827,
+        "ci95": [
+          -0.5894276410089941,
+          0.058761029750181666
+        ],
+        "p_two_sided": 0.104,
+        "se_crossed": 0.16643260197237708,
+        "se_examples_only": 0.03315954294713785,
+        "se_inflation": 5.019146441122544
+      }
     },
     "B:directional": {
       "n": 95,
@@ -55,7 +124,30 @@
       "gap_ci95": [
         -0.09265580564403278,
         0.04006710365024684
-      ]
+      ],
+      "crossed": {
+        "n_boot": 1000,
+        "n_features_resampled": 89,
+        "point_local": 0.18723504267173816,
+        "point_global": 0.21302265655695676,
+        "local_ci95": [
+          0.00034522803365787016,
+          0.360449253010686
+        ],
+        "global_ci95": [
+          -0.2764813768009806,
+          0.5910779220832134
+        ],
+        "point_gap": -0.025787613885218573,
+        "ci95": [
+          -0.5233922991393165,
+          0.5437235466053619
+        ],
+        "p_two_sided": 0.896,
+        "se_crossed": 0.2760635348711953,
+        "se_examples_only": 0.03301705231978698,
+        "se_inflation": 8.361241100428325
+      }
     }
   },
   "decomposition": {
@@ -90,5 +182,32 @@
       "n": 100
     },
     "mean_frac_active": 0.4984504709952429
+  },
+  "continuous_control": {
+    "description": "Partial Spearman of |attribution| vs |oriented delta|, controlling for |activation| \u2014 continuous alternative to the binary block [B].",
+    "mean_partial_rho_local": 0.03793945884053427,
+    "n_finite_local": 100,
+    "mean_partial_rho_global": -0.1680057641754055,
+    "n_finite_global": 100,
+    "paired": {
+      "n": 100,
+      "mean_local": 0.03793945884053427,
+      "mean_global": -0.1680057641754055,
+      "mean_gap": 0.20594522301593976,
+      "median_gap": 0.23586762386459698,
+      "frac_local_wins": 0.8,
+      "wilcoxon_stat": 624.0,
+      "wilcoxon_p": 6.307811034237109e-11,
+      "gap_ci95": [
+        0.158005105236724,
+        0.2536498026615729
+      ]
+    }
+  },
+  "candidate_overlap": {
+    "n_examples": 100,
+    "n_distinct_features": 89,
+    "mean_candidates_per_example": 29.69,
+    "mean_pairwise_jaccard": 0.701028181774408
   }
 }

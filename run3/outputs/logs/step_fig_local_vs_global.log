@@ -1,5 +1,5 @@
-# step fig_local_vs_global  2026-10-25T12:04:50+00:00
+# step fig_local_vs_global  2026-10-26T00:58:31+00:00
 # SHAP_SAE_OUTPUTS=run3/outputs SHAP_SAE_CHECKPOINTS=run3/checkpoints
 # cmd: uv run python src/local/plot_local_vs_global.py
 Wrote run3/outputs/9_local_steer/local_vs_global_faithfulness.png
-# exit=0  elapsed=8s  2026-10-25T12:04:58+00:00
+# exit=0  elapsed=8s  2026-10-26T00:58:39+00:00

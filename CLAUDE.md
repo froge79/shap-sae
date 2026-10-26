@@ -309,9 +309,10 @@ GPU time, because they may change what you want to run next.
 
 ```bash
 # 21 — formal paired tests + activity decomposition for local vs global.
-#      Replaces "mean ± std" with Wilcoxon signed-rank, bootstrap CIs, a
-#      regression of the per-example gap on activity, and a continuous
-#      (partial-Spearman) alternative to the binary block [B] split.
+#      Crossed (examples × features) bootstrap CIs and p for the local-global
+#      gap, a regression of the per-example gap on activity, and a continuous
+#      (partial-Spearman) alternative to the binary block [B] split. Needs the
+#      per-example deltas steps 15-17 save. ~10 min (the crossed bootstrap).
 uv run python src/local/analyze_local_vs_global.py
 
 # 22 — sign-agreement reanalysis of existing steer deltas (linear arm).
@@ -327,11 +328,13 @@ uv run python src/global_linear/9c_sign_reanalysis.py --arm mlp \
 ```
 
 - **21** → `paired_tests.{json,txt}` in each of `9_local_steer/`,
-  `14_local_mlp_steer/`, `local_shap_faithfulness/`. **Read the block [B]
-  directional row** — on `run2` that is where local SHAP survives the activity
-  control (ρ gap ≈ +0.46 linear / +0.53 MLP, p < 1e-15) even though it *loses*
-  block [B] importance. The original `summary.txt` contained those numbers but
-  never tested them.
+  `14_local_mlp_steer/`, `local_shap_faithfulness/`. **Quote the crossed
+  table, never the Wilcoxon table.** The 100 examples are distinct sentences
+  but are scored on largely the same features (the global top-k is in every
+  candidate set; mean pairwise Jaccard ≈ 0.7), so the per-example gaps are
+  correlated and the examples-only Wilcoxon / CI understate the uncertainty
+  5-9×. The crossed bootstrap resamples examples and features independently.
+  The continuous-control Wilcoxon p is examples-only too — descriptive only.
 - **22/23** → `sign_test_<tag>.{json,txt}` beside each input. On `run2` the
   inversion is confined to the **top-|SHAP|** set (4/11 positive-Φ features agree
   in the linear arm, 3/10 in the MLP arm) and absent from the random set (6/10),
@@ -409,10 +412,13 @@ uv run python src/global_mlp/14a_seed_sweep.py --mode steering \
 ```
 
 → `9_seed_sweep/` and `14_mlp_seed_sweep/`: `seed_sweep_<tag>.{json,txt}`.
-Reports per-seed ρ, a one-sample Wilcoxon against 0, a bootstrap CI over seeds,
-and `ref_seed_outlier_p` (how extreme the published seed-0 run was among the
-draws). Also applies BH across the whole pooled sweep — that pooled count is the
-honest family size when the claim is "nothing was significant anywhere".
+Reports per-seed ρ, their spread (mean, std, min, max, fraction > 0) and
+`ref_seed_outlier_p` (how extreme the published seed-0 run was among the draws).
+**Descriptive only — no test across seeds.** The seeds are overlapping draws from
+one feature pool and share per-feature deltas, so they are not independent
+replicates. Inference on the pool comes from step 24's `--selection all` run.
+The pooled-BH count over per-seed tests is likewise descriptive (the tests
+overlap).
 
 ### Step 27 — known-ground-truth minimal pairs
 

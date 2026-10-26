@@ -1,0 +1,534 @@
+\clearpage
+\appendix
+
+\section{Experimental Setup Details}
+\label{app:setup}
+
+\subsection{Task and Dataset}
+\label{app:dataset}
+The HuggingFace \texttt{stanfordnlp/sst2} train set (67,349) consists of phrases, so we split at the sentence level(Table~\ref{tab:app-splits}).
+
+We use the train set for fitting probes, SHAP/IG/GA background and baseline, and steering $\alpha$ calibration. The val set is used for probe hyperparameters, the activation-frequency feature mask, and reported probe accuracy. The held-out split is used for all attribution (SHAP/IG/GA) and all causal evaluation (ablation/steering).
+
+\begin{table}[h]
+\centering
+\caption{Data split sizes and purposes.}
+\label{tab:app-splits}
+\begin{tabular}{l r}
+\toprule
+Split & $n$ \\
+\midrule
+Probe train & 6{,}696 \\
+Probe val & 1{,}435 \\
+Held-out (``shap'') & 1{,}436 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Canonical row sampling.} All evaluation and background rows are
+\emph{prefixes} of one seeded permutation (seed$=42$), not independent
+draws. The 100-row local sample is therefore exactly the first 100 rows of
+the 1000-row global sample, so local and global results join by row
+position, and the 100-row train background does not depend on evaluation
+size. Individual experiments may use a prefix of the 1000 rows (100 for
+local per-example runs).
+
+\subsection{Model and Probes}
+\label{app:model}
+\label{app:probes}
+
+GPT-2 Small and the layer-7 \texttt{resid\_post} SAE are frozen throughout.
+SAE decoder rows are approximately unit norm (median 0.9996 across all
+32{,}768 features), so we apply no decoder-norm correction to any steering
+vector.
+
+\paragraph{Linear probe.} \texttt{sklearn} \texttt{LogisticRegression}
+with an L1 penalty ($C=1$, \texttt{liblinear} solver, fixed
+\texttt{random\_state}) over the full 32{,}768-d activation. The number of
+non-zero coefficients is run-dependent ($\sim$600), so the 114-feature
+mask derived from it is a property of the reported run, not a fixed
+constant.
+
+\paragraph{MLP probe.} \texttt{sklearn} \texttt{MLPClassifier} with one
+hidden layer of width 32, ReLU activation, Adam, and L2 regularization,
+trained on the 114 masked features only.
+
+\clearpage
+\section{Attribution Method Details}
+\label{app:attribution}
+
+\paragraph{Global SHAP.} We report
+$\Phi_j = \mathbb{E}_e[\phi_j(x_e)]$, the \emph{mean signed} SHAP value per
+feature over the 1000-row held-out sample. Sign is preserved, and $\Phi$ is
+the basis for every directional comparison.
+
+\paragraph{Integrated Gradients.}
+\label{app:ig}
+\[
+\mathrm{IG}_j = (x_j - b_j) \cdot \int_0^1 \frac{\partial f}{\partial x_j}\big(b + \alpha(x-b)\big)\, d\alpha,
+\]
+approximated in the MLP arm with a 50-step trapezoidal Riemann sum. IG and
+GA share the baseline $b$, the \emph{mean} of the 100-row train background
+rather than a zero vector. SAE features very sparse, so a zero
+baseline would make GA degenerate to 0 whenever $x_j=0$. For the linear
+probe, IG, GA, and interventional SHAP all reduce to
+$w_j \cdot \mathbb{E}_e[x_{e,j} - \mu_j]$; we verify this numerically
+(Appendix~\ref{tab:app-identity}).
+
+\clearpage
+\section{Causal Evaluation Details}
+\label{app:causal}
+
+\subsection{Steering-Strength ($\alpha$) Calibration}
+\label{app:alpha}
+We sweep $\{0.5,1,2,4\}\times$ the median natural positive-activation scale
+over three top-$|\mathrm{SHAP}|$ pilot features on 200 train examples,
+reading out a layer-11 residual probe's $P(\text{positive})$ rather than
+the evaluation logit difference. $\alpha$ is meant as a rough
+``measurable, unsaturated'' magnitude, not a hyperparameter tuned against
+the evaluation metric. We select the smallest $\alpha$ with
+$\text{mean}|\Delta P| \geq 0.02$ and newly saturated fraction (examples
+with $P<0.02$ or $P>0.98$ after steering that were not saturated before
+steering) $\leq 0.25$, giving $\alpha=0.4936$
+(Table~\ref{tab:app-alpha-pilot-raw}).
+
+\begin{table}[h]
+\centering
+\caption{Raw $\alpha$-calibration pilot sweep (probe-readout, 3 pilot features, 200 train examples).}
+\label{tab:app-alpha-pilot-raw}
+\begin{tabular}{cccc}
+\toprule
+$\alpha$ & mean$|\Delta P|$ & mean signed $\Delta P$ & newly saturated frac.\ \\
+\midrule
+0.4936 & 0.0490 & $-0.0301$ & 0.028 \\
+0.9871 & 0.0961 & $-0.0571$ & 0.085 \\
+1.9743 & 0.1791 & $-0.0981$ & 0.182 \\
+3.9485 & 0.2969 & $-0.1422$ & 0.368 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Per-feature scaling.} In the primary \textbf{scaled} mode,\\
+$\alpha_i = \alpha \cdot \mathrm{scale}_i / \mathrm{median}(\mathrm{scale})$,
+where $\mathrm{scale}_i$ is feature $i$'s mean positive train activation.
+This equalizes the relative nudge across features whose natural scales
+differ severalfold. The \textbf{constant} mode (flat $\alpha$, robustness
+check) confounds the $|\text{attribution}|$-vs-$|\Delta|$ correlation,
+since $|\Delta|$ then partly reflects how hard a feature was pushed
+relative to its own scale.
+
+\subsection{Candidate Selection}
+\label{app:selection}
+
+\texttt{top} selection takes the top-$k$ by $|\mathrm{SHAP}|$ and scores all
+methods on that set. This range-restricts only SHAP's scored variance,
+which mechanically deflates SHAP's $\rho$ relative to the other methods.
+\texttt{all} scores every masked feature ($n=114$). At $n=20$ the
+confidence interval on Spearman $\rho$ spans most of $[-1,1]$, so a single
+$k=20$ random draw cannot distinguish a null from a moderate effect. We
+therefore treat \texttt{all}, not $k=20$ random, as the powered global
+faithfulness result.
+
+\subsection{Multiple-Comparison Correction}
+\label{app:bh}
+
+\paragraph{Family rule.} We apply Benjamini--Hochberg (BH, FDR 0.05) with the
+following primary family: the tests of one \texttt{all} run (one arm, one
+intervention scope; 8 linear, 7 MLP), and, for local faithfulness, the four
+crossed-bootstrap tests (Block A/B $\times$ importance/directional) of one
+local run. The rule is a property of how the experiments are run, not of
+their outcomes. The per-run correction was added to the pipeline on
+2026-08-17 (commit \texttt{611d898}), before run3 was generated (2026-10-25),
+but after run2 had been analysed. The wider families below were added after
+run3 and are post hoc. We report them because the choice of family is the
+author's, so we show whether any verdict depends on it.
+
+\paragraph{Duplicate tests.} In the linear arm SHAP, IG, and GA have identical
+$(\rho, p)$ by construction (the three methods are analytically the same for a
+linear probe), so the 8 linear tests are 4 distinct ones. Counting them
+separately inflates survivors and, when pooled, BH power. We therefore report
+the main sensitivity analysis with identical tests counted once (22 distinct
+global tests); the raw counts are 16/30.
+
+\paragraph{Sensitivity to the family.} All counts are from
+\texttt{src/global\_linear/9d\_bh\_family\_sensitivity.py}, which also lists
+the per-test $q$ under the narrow and wide families.
+\begin{table}[h]
+\centering
+\small
+\caption{Tests surviving FDR 0.05 under alternative family definitions. BY is
+Benjamini--Yekutieli (arbitrary dependence).}
+\begin{tabular}{lcc}
+\toprule
+Family & BH & BY \\
+\midrule
+Global, per run (primary) & 12/22 & 11/22 \\
+Global, pooled over arms, scopes, or both & 12/22 & 11/22 \\
+Global, raw (IG/GA counted separately) & 16/30 & 15/30 \\
+\midrule
+Paper-wide, per run / per local source (primary) & 13/32 & 11/32 \\
+Paper-wide, global and local pooled separately & 12/32 & 11/32 \\
+Paper-wide, one family of all inferential tests & 12/32 & 11/32 \\
+\bottomrule
+\end{tabular}
+\end{table}
+The paper-wide family has 32 tests: the 22 distinct global tests and the 10
+local crossed-bootstrap tests (three local runs; the language-model
+diagnostic has importance blocks only). The sign tests, minimal-pair
+summaries, and seed sweep carry no inferential claim in the paper and are
+excluded.
+
+Two tests have a verdict that depends on the family.
+\begin{itemize}
+\item Last-token MLP SHAP importance survives under BH in every family
+($q=0.030$ in its own run, $0.034$ pooled) but not under BY ($q=0.14$).
+\item The language-model-target local diagnostic, Block A importance, survives
+within its own local family ($q=0.048$) but not when pooled with the other
+tests ($q=0.055$).
+\end{itemize}
+Every other verdict is the same under every family. Importance faithfulness of
+SHAP, IG, and GA (all-token, both arms; last-token linear and IG/GA in MLP)
+survives all families including BY, and no directional test of SHAP, IG, or GA
+has $q<0.25$ in any. No linear- or MLP-arm local test survives in any family. A
+test that fails the FDR criterion is not evidence that its effect is zero.
+
+\paragraph{Dependence.} The two scopes share features and eval rows, and the
+local runs share sentences, so the tests are not independent. BH is valid under
+positive dependence, which we think is plausible here, but we do not
+verify it; the BY column does not assume it.
+
+\paragraph{Seed sweep.} The multi-seed sweep uses a different convention. Its
+10 seeds $\times$ 8 (linear) or 7 (MLP) per-seed tests each use $n=20$
+features that overlap across seeds, so the pooled BH count over them (80
+linear tests, 70 MLP) is descriptive only.
+
+\subsection{Local Faithfulness}
+\label{app:local}
+
+Local analyses use $k_{\text{local}}=k_{\text{global}}=20$ and
+$n_{\text{examples}}=100$ in both arms. We report Block B (active features
+only), not Block A, as the headline local-vs-global comparison, since
+Block A is dominated by the tied block of inactive features.
+
+\clearpage
+\section{Multi-Feature (Group) Steering Details}
+\label{app:group}
+
+\begin{itemize}
+  \item \textbf{Vector construction}: for method $m$, we take the top-$k$
+  features by $|\text{score}|$ from the shared 114-feature pool and set
+  $v = \sum_i \text{score}_i \cdot W_{\text{dec}}[i]$, unit-normalized.
+  \item \textbf{\texttt{actdiff} baseline}: top-$k$ by
+  $|\overline{a}^{+} - \overline{a}^{-}|$ (mean positive minus mean
+  negative activation), weighted by the signed difference. It uses no
+  probe, so it is scored once and shown in both arms.
+  \item \textbf{No MLP probe curve}: MLP probe saliency is unsigned, and
+  summing unsigned weights would add positive- and negative-sentiment
+  directions with the same sign. The logistic arm's probe curve is kept
+  because its coefficients are signed.
+  \item \textbf{Effect and cost}: effect is mean $\Delta$ logit difference
+  (wonderful $-$ awful); cost is mean $\Delta$ perplexity against the clean
+  baseline.
+  \item \textbf{Baseline}: we add $\alpha \cdot v$ directly to the clean
+  residual stream with no SAE encode/decode, so the baseline is a clean
+  forward pass rather than the per-feature experiments' reconstruction.
+  Effect sizes are therefore not comparable across the two families; we
+  compare only curve shapes.
+\end{itemize}
+
+\section{Minimal-Pair Stimuli}
+\label{app:minimal-pairs}
+
+\texttt{remove} pairs take held-out sentences containing \emph{exactly one}
+word from a hand-curated sentiment lexicon and delete that token, leaving
+everything else byte-identical. With two sentiment words, the remaining one
+would keep carrying sentiment and the edit would no longer have a single
+cause. \texttt{insert} pairs append ``\,it was
+\textlangle word\textrangle\,.'' to lexicon-free sentences.
+
+\clearpage
+\section{Supplementary Tables and Figures}
+\label{app:supptables}
+
+\subsection{Linear-Arm Identity Check and MLP-Arm Exact $p$-Values}
+
+\begin{quote}
+\textit{Closed-form identity check (linear probe, margin target):}
+$\max|\mathrm{IG}-\Phi| = 1.72\times10^{-7}$ (relative $1.75\times10^{-6}$),
+$\max|\mathrm{GA}-\Phi| = 1.72\times10^{-7}$. IG, GA, and
+interventional SHAP coincide analytically for a linear probe; we obtain
+pairwise $\rho = 1.000$ ($n=615$ non-zero-coefficient features on this
+fit) as an identity, not an empirical result.
+\end{quote}
+
+\begin{table}[h]
+\centering
+\caption{MLP-arm attribution agreement (Spearman $\rho$ on $|\text{score}|$, $n=114$).}
+\label{tab:app-mlp-ranking}
+\begin{tabular}{lcc}
+\toprule
+Pair & $\rho$ & $p$ \\
+\midrule
+Probe vs.\ IG   & 0.287 & 0.002 \\
+Probe vs.\ SHAP & 0.250 & 0.007 \\
+Probe vs.\ GA   & 0.242 & 0.010 \\
+IG vs.\ SHAP    & 0.866 & $<0.0001$ \\
+IG vs.\ GA      & 0.862 & $<0.0001$ \\
+SHAP vs.\ GA    & 0.693 & $<0.0001$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+\label{tab:app-identity}
+
+\subsection{Selection-Bias and Sign-Stratified Checks}
+\label{app:selection-table}
+
+\begin{table}[h]
+\centering
+\caption{SHAP faithfulness across candidate-selection strategies (steering), $k=20$ except \texttt{all} ($k=114$). \texttt{top} biases SHAP's $\rho$ downward relative to other methods; \texttt{top-pos}/\texttt{top-neg} test the sign-inversion hypothesis without mixed-sign cancellation.}
+\label{tab:app-selection-variants}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lccccc}
+\toprule
+Arm : kind & random & top & top-pos & top-neg & all ($k$=114) \\
+\midrule
+Linear : imp & $+0.555^{*}$ & $+0.496^{*}$ & $+0.293$ & $+0.397$ & $+0.377^{**}$ \\
+Linear : dir & $-0.077$ & $-0.083$ & $+0.268$ & $-0.226$ & $-0.097$ \\
+MLP : imp    & $+0.744^{**}$ & $+0.107$ & $+0.322$ & $+0.648^{**}$ & $+0.347^{**}$ \\
+MLP : dir    & $-0.147$ & $-0.161$ & $+0.168$ & $-0.376$ & $-0.091$ \\
+\bottomrule
+\end{tabular}%
+}
+\vspace{2pt}
+
+{\footnotesize $^{*}p<0.05$, $^{**}p<0.01$, uncorrected; all other cells $p>0.08$.}
+\end{table}
+
+\subsection{Alpha-Mode Robustness (Scaled vs.\ Constant)}
+\label{app:alpha-mode-table}
+
+\begin{table}[h]
+\centering
+\caption{Alpha-mode sensitivity: scaled vs.\ constant per-feature $\alpha$ (\texttt{steering}, \texttt{random}, $k=20$).}
+\label{tab:app-alpha-mode}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{llcc}
+\toprule
+Arm & Method & $\rho_{\text{imp}}$ (scaled / constant) & $\rho_{\text{dir}}$ (scaled / constant) \\
+\midrule
+Linear & SHAP/IG/GA & $+0.555$ / $+0.194$ & $-0.077$ / $+0.072$ \\
+Linear & Probe      & $+0.519$ / $+0.226$ & $+0.624$ / $+0.567$ \\
+MLP    & SHAP       & $+0.744$ / $+0.459$ & $-0.147$ / $-0.011$ \\
+MLP    & Probe saliency & $+0.400$ / $+0.365$ & n/a \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+A large gap here would indicate that constant-$\alpha$ steering numbers
+substantially reflect activation scale rather than faithfulness; we report
+both modes regardless of which way the comparison comes out.
+
+\subsection{Multi-Seed Replication}
+\label{app:seed-sweep}
+
+The sweep is descriptive. Seeds draw overlapping subsets of one
+114-feature pool and reuse the same per-feature effects, so they are not
+independent replicates; inference comes from the \texttt{all} run
+(Appendix~\ref{app:selection}). Few per-seed tests survive a pooled BH
+correction (0/80 linear, 3/70 MLP; the three MLP survivors are seed 0's
+SHAP, IG, and GA importance tests). This is expected because each per-seed
+test uses only $n=20$ features. In the $n=114$ \texttt{all} run, the same
+importance effects survive under every BH family definition
+(Appendix~\ref{app:bh}). The sweep's mean importance $\rho$ is positive in
+every method--arm cell, and SHAP/IG/GA directional $\rho$ is centered near
+zero, matching the \texttt{all} run.
+
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\caption{Multi-seed faithfulness sweep (10 seeds, $k=20$, scaled $\alpha$). Descriptive only. Ref $p$ is the fraction of seeds with $|\rho|$ at least that of the published seed-0 draw.}
+\label{tab:app-seed-sweep}
+\begin{threeparttable}
+\begin{tabular}{llrrrrrr}
+\toprule
+Method & Type & Mean $\rho$ & SD & Min & Max & Frac.\ $>0$ & Ref $p$ \\
+\midrule
+\multicolumn{8}{l}{\textit{Linear arm}} \\
+SHAP/IG/GA & imp & $+0.339$ & 0.199 & $-0.032$ & $+0.632$ & 0.90 & 0.200 \\
+SHAP/IG/GA & dir & $-0.047$ & 0.160 & $-0.356$ & $+0.141$ & 0.50 & 0.700 \\
+Probe      & imp & $+0.236$ & 0.268 & $-0.260$ & $+0.582$ & 0.80 & 0.200 \\
+Probe      & dir & $+0.422$ & 0.162 & $+0.162$ & $+0.624$ & 1.00 & 0.100 \\
+\midrule
+\multicolumn{8}{l}{\textit{MLP arm}} \\
+SHAP       & imp & $+0.368$ & 0.189 & $+0.128$ & $+0.744$ & 1.00 & 0.100 \\
+SHAP       & dir & $-0.005$ & 0.191 & $-0.377$ & $+0.202$ & 0.50 & 0.700 \\
+GA         & imp & $+0.460$ & 0.125 & $+0.316$ & $+0.752$ & 1.00 & 0.100 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}\footnotesize
+    \item Imp: importance; dir: directional. Pooled BH (descriptive): 0/80 tests survive (linear), 3/70 (MLP), at FDR 0.05.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+
+
+\subsection{Underpowered $k=20$ causal validation results}
+\label{app:k-20}
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\caption{Underpowered causal faithfulness ($k=20$, steering and ablation, random selection, $n_\text{eval}=1000$). Cells show Spearman $\rho$ with uncorrected $p$ in parentheses; at $n=20$ these are descriptive and not used for inference. For the linear arm, IG and GA are analytically identical to SHAP and omitted as separate rows.}
+\label{tab:headline-faithfulness}
+\begin{tabular}{lcc}
+\toprule
+Method & $\rho_\text{imp}$ ($p$) & $\rho_\text{dir}$ ($p$) \\
+\midrule
+\multicolumn{3}{l}{\textit{Linear arm, steering}} \\
+SHAP/IG/GA     & $+0.555$ (0.011) & $-0.077$ (0.748) \\
+Probe          & $+0.519$ (0.019) & $+0.624$ (0.003) \\
+\addlinespace
+\multicolumn{3}{l}{\textit{Linear arm, ablation}} \\
+SHAP/IG/GA     & $+0.511$ (0.021) & $-0.427$ (0.060) \\
+Probe          & $+0.347$ (0.133) & $+0.648$ (0.002) \\
+\midrule
+\multicolumn{3}{l}{\textit{MLP arm, steering}} \\
+SHAP           & $+0.744$ (0.0002) & $-0.147$ (0.535) \\
+Probe saliency & $+0.400$ (0.081) & n/a \\
+IG             & $+0.749$ (0.0001) & $-0.146$ (0.540) \\
+GA             & $+0.752$ (0.0001) & $-0.171$ (0.470) \\
+\addlinespace
+\multicolumn{3}{l}{\textit{MLP arm, ablation}} \\
+SHAP           & $+0.568$ (0.009) & $-0.408$ (0.075) \\
+Probe saliency & $+0.281$ (0.230) & n/a \\
+IG             & $+0.573$ (0.008) & $-0.421$ (0.065) \\
+GA             & $+0.600$ (0.005) & $-0.453$ (0.045) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\paragraph{Continuous (partial-Spearman) activity control.} We compute a
+partial Spearman of $|\text{attribution}|$ vs.\ $|\Delta|$ controlling
+continuously for $|\text{activation}|$ (rather than the binary
+active/inactive split of Block B), keeping the whole candidate set. Local
+SHAP's mean partial $\rho$ is near zero ($+0.038$ linear / $+0.063$ MLP),
+versus $-0.168$ / $-0.191$ for global $\Phi$.
+
+
+\subsection{Group-Steering Full Sweep}
+\label{app:group-full}
+
+This is the full parameter grid underlying the $k=20$
+spot-check: $k \in \{5,10,20,30,50,65\} \times \alpha \in
+\{0.5,1,2,5,10,20,50\}$ for 7 vectors (4 logistic, 3 MLP) plus
+\texttt{actdiff}.
+
+\begin{figure}[t]
+  \centering
+  \begin{subfigure}[b]{\linewidth}
+    \includegraphics[width=\linewidth]{figures/effect_vs_cost_logistic_grid.png}
+    \caption{Logistic arm.}
+  \end{subfigure}
+  
+  \vspace{1em} % Adds vertical space between the stacked subfigures
+  
+  \begin{subfigure}[b]{\linewidth}
+    \includegraphics[width=\linewidth]{figures/effect_vs_cost_mlp_grid.png}
+    \caption{MLP arm.}
+  \end{subfigure}
+  \caption{Full group-steering effect-vs-cost grid ($k\times\alpha$), one panel per method per arm. This experiment's baseline is a clean forward pass (no SAE encode/decode), unlike the per-feature steering/ablation experiments' encode$\to$decode-reconstruction baseline (Appendix~\ref{app:group}); we compare curve \emph{shapes} across arms, never magnitudes.}
+  \label{fig:app-group-steering-grid}
+\end{figure}
+
+\subsection{Lexical Simplicity Control}
+\label{app:lexical}
+
+We use the full 1{,}436-row held-out split as the population here, not
+the 1000-row canonical eval sample used everywhere else in the paper.
+
+\begin{table}[h]
+\centering
+\caption{Lexical simplicity control (full held-out split, $n=1{,}436$).}
+\label{tab:app-lexical-simplicity}
+\begin{tabular}{lc}
+\toprule
+Quantity & Value \\
+\midrule
+Mean active filtered features / example (of 114) & 24.33 \\
+Mean pairwise Jaccard, top-20 $|\Phi|$ features & 0.223 \\
+Mean $|r(\text{activation}, \text{has-lexicon-word})|$, top-20 & 0.048 \\
+Lexicon bag-of-words accuracy / AUROC & 0.614 / 0.689 \\
+SAE probe accuracy / AUROC (held-out) & 0.810 / 0.887 \\
+Accuracy gap (SAE probe $-$ lexicon) & $+0.196$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+By the reading thresholds we fixed in advance (mean $|r| \geq 0.25$ for
+``strong lexical tracking''; within 0.03 accuracy for
+``lexicon-near-probe''): the observed mean $|r|=0.048$ is well below the
+strong-tracking threshold, and the 0.196 accuracy gap is well above the
+near-tie threshold. We take this as indicating that the top SAE features
+are not simply lexical sentiment-word detectors, and that non-lexical
+signal remains in the representation for attribution methods to
+potentially explain.
+
+
+\subsection{All-token global faithfulness}
+\label{app:all-token-global-faithfulness}
+\begin{table}[h!]
+    \centering
+    \small
+    \setlength{\tabcolsep}{5pt}
+    \caption{All-token global faithfulness ($k=114$, steering, all filtered features). Cells show Spearman $\rho$ with BH-corrected $q$ in parentheses.}
+    \label{tab:all-selection-faithfulness}
+    \begin{threeparttable}
+    \begin{tabular}{llcc}
+        \toprule
+        Arm & Method & $\rho_\text{imp}$ ($q$) & $\rho_\text{dir}$ ($q$) \\
+        \midrule
+        Linear & SHAP/IG/GA     & $+0.377$ (0.0001)$^*$ & $-0.097$ (0.303) \\
+        Linear & Probe          & $+0.289$ (0.003)$^*$  & $+0.399$ (0.0001)$^*$ \\
+        \midrule
+        MLP    & SHAP           & $+0.347$ (0.0004)$^*$ & $-0.091$ (0.473) \\
+        MLP    & Probe saliency & $+0.122$ (0.343)      & n/a \\
+        MLP    & IG             & $+0.437$ ($<$0.0001)$^*$ & $-0.058$ (0.630) \\
+        MLP    & GA             & $+0.403$ ($<$0.0001)$^*$ & $-0.015$ (0.875) \\
+        \bottomrule
+    \end{tabular}
+    \begin{tablenotes}\footnotesize
+        \item[$^*$] Survives FDR 0.05. Linear arm: 5/8 tests survive (IG and GA counted separately from SHAP); MLP arm: 3/7. The same tests survive when BH is pooled over all 30 tests (both arms, both intervention scopes).
+    \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+
+\clearpage
+\section{Additional Limitations}
+\label{app:limitations}
+
+\begin{enumerate}
+  \item \textbf{We calibrate $\alpha$ against a different readout than we
+  evaluate it with} (Appendix~\ref{app:alpha}). We use a layer-11 residual
+  probe's $P(\text{positive})$ at calibration time, and a GPT-2 logit
+  difference at evaluation time.
+  \item \textbf{The MLP arm's \texttt{probe\_saliency} is magnitude-only}
+  ($\|W_1[i,:]\|_2$, no sign). This is valid for importance/ranking comparisons,
+  invalid for any directional or causal-sign comparison. We exclude it
+  from group-steering vector construction for the same reason.
+  \item \textbf{\texttt{selection=top} biases SHAP's faithfulness $\rho$
+  downward} relative to the other three methods, by range-restricting only
+  SHAP's scored variance (Appendix~\ref{app:selection}). We never present
+  a \texttt{top} number without this caveat.
+  \item \textbf{The MLP probe's reported validation accuracy is mildly
+  optimistic}: we select its inputs using a val-derived (label-free)
+  frequency filter.
+\end{enumerate}
+
+
+

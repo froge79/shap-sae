@@ -3,19 +3,21 @@ mode=steering  selection=random  k=20  seeds=0-9  n_eval=1000
 alpha: scaled alpha = +0.4936 x scale_i / 0.9110 (range +0.358 .. +3.059)
 union features intervened on: 98
 Probe saliency is magnitude-only: importance test only, no directional row.
-Pooled Benjamini-Hochberg over all 70 tests: 3 survive at FDR 0.05.
+Pooled Benjamini-Hochberg over all 70 per-seed tests: 3 survive at FDR 0.05 (the tests overlap - shared features - so this count is descriptive).
 
-test                          mean rho     std             95% CI  wilcoxon p  ref rho   ref p
------------------------------------------------------------------------------------------------
-SHAP:importance                 +0.368   0.189    [+0.255,+0.492]      0.0020   +0.744   0.100
-SHAP:directional                -0.005   0.191    [-0.128,+0.111]      0.6953   -0.147   0.700
-Probe saliency:importance       +0.144   0.214    [-0.001,+0.268]      0.1055   +0.400   0.100
-IG:importance                   +0.457   0.161    [+0.356,+0.557]      0.0020   +0.749   0.100
-IG:directional                  +0.009   0.217    [-0.133,+0.143]      0.9414   -0.146   0.500
-GA:importance                   +0.460   0.125    [+0.389,+0.545]      0.0020   +0.752   0.100
-GA:directional                  +0.050   0.251    [-0.114,+0.204]      0.6250   -0.171   0.500
+test                          mean rho     std     min     max  frac>0  ref rho   ref p
+----------------------------------------------------------------------------------------
+SHAP:importance                 +0.368   0.189  +0.128  +0.744    1.00   +0.744   0.100
+SHAP:directional                -0.005   0.191  -0.377  +0.202    0.50   -0.147   0.700
+Probe saliency:importance       +0.144   0.214  -0.356  +0.400    0.80   +0.400   0.100
+IG:importance                   +0.457   0.161  +0.192  +0.749    1.00   +0.749   0.100
+IG:directional                  +0.009   0.217  -0.405  +0.329    0.50   -0.146   0.500
+GA:importance                   +0.460   0.125  +0.316  +0.752    1.00   +0.752   0.100
+GA:directional                  +0.050   0.251  -0.433  +0.415    0.50   -0.171   0.500
 
-Reading: 'wilcoxon p' tests whether the typical rho across draws differs from 0.
+DESCRIPTIVE ONLY. Seeds are overlapping draws from one feature pool and share
+per-feature deltas, so they are not independent replicates and no test across
+seeds is reported. For inference use the --selection all run (n = pool size).
 'ref p' is the fraction of draws with |rho| at least as large as the reference
 seed's - a small value means the headline run was an unusually extreme draw.
 

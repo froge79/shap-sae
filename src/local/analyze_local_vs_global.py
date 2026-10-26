@@ -31,6 +31,16 @@ block [B]) resting on two point estimates. This script adds:
      three pairwise Spearman rhos via the standard residualised-rank identity,
      so it needs no extra dependency.
 
+  4. Inference that respects the crossed design. The per-example gaps are not
+     independent: every example is scored on largely the same features (the
+     global top-k is in every candidate set, and candidate sets overlap heavily),
+     so a feature-level quirk moves all gaps together. The Wilcoxon / bootstrap
+     in (1) resample examples only and understate the uncertainty. A pigeonhole
+     (crossed) bootstrap resamples examples and features independently and
+     recomputes every per-example rho; its CI and p are the ones to quote. It is
+     mildly conservative (it double-counts the interaction variance, and a
+     resampled duplicate feature introduces rank ties).
+
 Usage
 -----
     uv run python src/local/analyze_local_vs_global.py
@@ -45,7 +55,7 @@ import sys
 from pathlib import Path
 
 import numpy as np
-from scipy.stats import linregress, spearmanr, wilcoxon
+from scipy.stats import linregress, rankdata, spearmanr, wilcoxon
 
 _SRC = Path(__file__).resolve().parents[1]
 if str(_SRC) not in sys.path:
@@ -54,6 +64,7 @@ if str(_SRC) not in sys.path:
 from utils import CANONICAL_SEED, load_activations, output_path
 
 N_BOOTSTRAP = 5000
+N_CROSSED_BOOTSTRAP = 1000
 DEFAULT_DIRS = ("9_local_steer", "14_local_mlp_steer", "local_shap_faithfulness")
 
 
@@ -260,6 +271,167 @@ def continuous_control(in_dir: Path, mode: str) -> dict | None:
     return out
 
 
+def load_per_example_inputs(in_dir: Path, mode: str) -> dict | None:
+    """
+    Raw per-example inputs behind the rho arrays, in one layout for both writers.
+
+    Local steer scripts save Δ over the union of candidates
+    (`delta_signed_<mode>.npy` + `union_local.npy`); local_shap_faithfulness
+    saves ragged Δ aligned with each example's candidates. Returns None when
+    the raw arrays are absent (older runs saved only the rho).
+    """
+    common = ["example_indices.npy", "feature_indices.npy", "global_phi_filtered.npy",
+              "cands_per_example.npy"]
+    if not all((in_dir / f).exists() for f in common):
+        return None
+    cands = load_ragged(in_dir / "cands_per_example.npy")
+
+    if (in_dir / "union_local.npy").exists():
+        delta_path = in_dir / f"delta_signed_{mode}.npy"
+        if not (delta_path.exists() and (in_dir / "local_shap.npy").exists()):
+            return None
+        local_shap = np.load(in_dir / "local_shap.npy")
+        union_local = np.load(in_dir / "union_local.npy")
+        delta_signed = np.load(delta_path)
+        # Same orientation as the local scripts: positive == faithful.
+        oriented = -delta_signed if mode == "ablation" else delta_signed
+        col_of = {int(f): j for j, f in enumerate(union_local)}
+        deltas = [oriented[e, [col_of[int(c)] for c in cand]] for e, cand in enumerate(cands)]
+        kinds = ("importance", "directional")
+    elif (in_dir / "deltas_per_example.npy").exists():
+        local_shap = np.load(in_dir / "local_shap_values.npy")
+        deltas = [
+            np.asarray(a, dtype=np.float64)
+            for a in np.load(in_dir / "deltas_per_example.npy", allow_pickle=True)
+        ]
+        # This script only reports |attribution| vs |Δ|, so orientation is moot.
+        kinds = ("importance",)
+    else:
+        return None
+
+    example_idx = np.load(in_dir / "example_indices.npy")
+    feature_indices = np.load(in_dir / "feature_indices.npy")
+    acts = load_activations("shap", 7, mmap=True)
+    active = np.asarray(acts[example_idx][:, feature_indices]) > 0
+    return {
+        "local_shap": local_shap.astype(np.float64),
+        "global_phi": np.load(in_dir / "global_phi_filtered.npy").astype(np.float64),
+        "cands": cands,
+        "deltas": deltas,
+        "active": active,
+        "kinds": kinds,
+    }
+
+
+def _rank_corr(a: np.ndarray, b: np.ndarray) -> float:
+    """Spearman rho (average ranks); nan for n < 3 or a constant input, as scipy."""
+    if len(a) < 3:
+        return float("nan")
+    ra, rb = rankdata(a), rankdata(b)
+    if ra.std() == 0 or rb.std() == 0:
+        return float("nan")
+    return float(np.corrcoef(ra, rb)[0, 1])
+
+
+def per_example_rhos(
+    inp: dict, block: str, kind: str, weights: np.ndarray | None = None,
+    pos_of: dict[int, int] | None = None,
+) -> np.ndarray:
+    """
+    Per-example (rho_local, rho_global), shape (n_examples, 2), optionally with
+    each feature repeated `weights[pos_of[f]]` times (one draw of the
+    feature-level bootstrap). A row is nan unless both rhos are finite, so the
+    local, global and gap means are always over the same examples.
+    """
+    out = np.full((len(inp["cands"]), 2), np.nan)
+    for e, (cand, d) in enumerate(zip(inp["cands"], inp["deltas"])):
+        if block == "B":
+            keep = inp["active"][e, cand]
+            cand, d = cand[keep], d[keep]
+        if weights is not None:
+            reps = weights[[pos_of[int(c)] for c in cand]] if len(cand) else np.zeros(0, int)
+            cand, d = np.repeat(cand, reps), np.repeat(d, reps)
+        if len(cand) < 3:
+            continue
+        sl, sg = inp["local_shap"][e, cand], inp["global_phi"][cand]
+        if kind == "importance":
+            sl, sg, d = np.abs(sl), np.abs(sg), np.abs(d)
+        pair = (_rank_corr(sl, d), _rank_corr(sg, d))
+        if np.isfinite(pair).all():
+            out[e] = pair
+    return out
+
+
+def crossed_bootstrap(
+    inp: dict, block: str, kind: str, n_boot: int = N_CROSSED_BOOTSTRAP,
+    seed: int = CANONICAL_SEED,
+) -> dict:
+    """
+    Pigeonhole bootstrap over examples x features for the mean per-example
+    rho_local, rho_global and their gap.
+
+    Each replicate draws features with replacement (every per-example rho is
+    recomputed on the reweighted candidate set) and, independently, examples
+    with replacement. The examples-only bootstrap is run from the same draws
+    so the SE inflation from feature-level dependence is reported directly.
+    """
+    rng = np.random.default_rng(seed)
+    feats = np.unique(np.concatenate(inp["cands"]))
+    pos_of = {int(f): i for i, f in enumerate(feats)}
+    base = per_example_rhos(inp, block, kind)
+    base_gap = base[:, 0] - base[:, 1]
+    n_e = len(base)
+    crossed_means, example_means = [], []  # columns: local, global, gap
+    for _ in range(n_boot):
+        w = np.bincount(rng.integers(0, len(feats), len(feats)), minlength=len(feats))
+        ei = rng.integers(0, n_e, n_e)
+        r = per_example_rhos(inp, block, kind, w, pos_of)[ei]
+        r = r[np.isfinite(r).all(axis=1)]
+        crossed_means.append(
+            [r[:, 0].mean(), r[:, 1].mean(), (r[:, 0] - r[:, 1]).mean()]
+            if len(r) else [np.nan] * 3
+        )
+        example_means.append(np.nanmean(base_gap[ei]))
+    cms = np.asarray(crossed_means)
+    cms = cms[np.isfinite(cms).all(axis=1)]
+    cm = cms[:, 2]
+    em = np.asarray(example_means)
+
+    def ci(x: np.ndarray) -> list[float]:
+        return [float(np.percentile(x, 2.5)), float(np.percentile(x, 97.5))]
+
+    return {
+        "n_boot": int(n_boot),
+        "n_features_resampled": int(len(feats)),
+        "point_local": float(np.nanmean(base[:, 0])),
+        "point_global": float(np.nanmean(base[:, 1])),
+        "local_ci95": ci(cms[:, 0]),
+        "global_ci95": ci(cms[:, 1]),
+        "point_gap": float(np.nanmean(base_gap)),
+        "ci95": ci(cm),
+        "p_two_sided": float(min(1.0, 2 * min((cm <= 0).mean(), (cm >= 0).mean()))),
+        "se_crossed": float(cm.std()),
+        "se_examples_only": float(em.std()),
+        "se_inflation": float(cm.std() / em.std()) if em.std() > 0 else float("nan"),
+    }
+
+
+def candidate_overlap(inp: dict) -> dict:
+    """How much of each example's candidate set is shared with the others."""
+    sets = [set(map(int, c)) for c in inp["cands"]]
+    n = len(sets)
+    jac = [
+        len(sets[i] & sets[j]) / len(sets[i] | sets[j])
+        for i in range(n) for j in range(i + 1, n) if sets[i] | sets[j]
+    ]
+    return {
+        "n_examples": n,
+        "n_distinct_features": int(len(set().union(*sets))),
+        "mean_candidates_per_example": float(np.mean([len(s) for s in sets])),
+        "mean_pairwise_jaccard": float(np.mean(jac)),
+    }
+
+
 def analyze_dir(in_dir: Path, mode: str) -> dict | None:
     """Both blocks, both correlation types, for one local-script output dir."""
     if not in_dir.exists():
@@ -330,6 +502,25 @@ def analyze_dir(in_dir: Path, mode: str) -> dict | None:
     cont = continuous_control(in_dir, mode)
     if cont:
         result["continuous_control"] = cont
+
+    inp = load_per_example_inputs(in_dir, mode)
+    if inp is None:
+        print(f"  {in_dir}: no per-example deltas saved; crossed bootstrap skipped")
+    else:
+        result["candidate_overlap"] = candidate_overlap(inp)
+        for key, row in result["blocks"].items():
+            block, kind = key.split(":")
+            if kind not in inp["kinds"]:
+                continue
+            cb = crossed_bootstrap(inp, block, kind)
+            # The crossed bootstrap recomputes rho from the raw arrays; it must
+            # land on exactly the gap the saved rho arrays give.
+            if not np.isclose(cb["point_gap"], row["mean_gap"], atol=1e-9):
+                raise RuntimeError(
+                    f"{in_dir} {key}: recomputed gap {cb['point_gap']:.6f} != "
+                    f"saved {row['mean_gap']:.6f}"
+                )
+            row["crossed"] = cb
     return result
 
 
@@ -341,6 +532,8 @@ def render(res: dict) -> str:
         "",
         "Paired Wilcoxon signed-rank on per-example (rho_local - rho_global).",
         "Positive gap = local SHAP ranks that example's effects better.",
+        "Wilcoxon and the 95% CI here resample EXAMPLES ONLY and treat them as",
+        "independent. They are not (shared features) - quote the crossed table below.",
         "",
         f"{'block:kind':22s} {'local':>7s} {'global':>7s} {'gap':>7s} "
         f"{'95% CI':>17s} {'wilcoxon p':>11s} {'win frac':>9s}",
@@ -352,6 +545,33 @@ def render(res: dict) -> str:
             f"{key:22s} {row['mean_local']:+7.3f} {row['mean_global']:+7.3f} "
             f"{row['mean_gap']:+7.3f} {ci:>17s} {row['wilcoxon_p']:11.2e} "
             f"{row['frac_local_wins']:9.3f}"
+        )
+
+    crossed = {k: r["crossed"] for k, r in res["blocks"].items() if "crossed" in r}
+    if crossed:
+        ov = res["candidate_overlap"]
+        n_boot = next(iter(crossed.values()))["n_boot"]
+        lines += [
+            "",
+            f"Crossed (pigeonhole) bootstrap over examples x features, B={n_boot}:",
+            f"  {ov['n_examples']} examples share {ov['n_distinct_features']} distinct "
+            f"features (mean {ov['mean_candidates_per_example']:.1f} candidates/example, "
+            f"mean pairwise Jaccard {ov['mean_pairwise_jaccard']:.2f}), so the",
+            "  per-example gaps are correlated through the features. This resamples both.",
+            "",
+            f"{'block:kind':22s} {'gap':>7s} {'crossed 95% CI':>17s} {'crossed p':>10s} "
+            f"{'SE inflation':>13s}",
+            "-" * 72,
+        ]
+        for key, cb in crossed.items():
+            ci = f"[{cb['ci95'][0]:+.3f},{cb['ci95'][1]:+.3f}]"
+            lines.append(
+                f"{key:22s} {cb['point_gap']:+7.3f} {ci:>17s} {cb['p_two_sided']:10.3f} "
+                f"{cb['se_inflation']:12.2f}x"
+            )
+        lines.append(
+            "  Mildly conservative: it double-counts interaction variance, and a "
+            "resampled\n  duplicate feature introduces rank ties."
         )
 
     if "decomposition" in res:
@@ -392,6 +612,10 @@ def render(res: dict) -> str:
             p = c["paired"]
             lines.append(
                 f"  paired gap = {p['mean_gap']:+.3f}  wilcoxon p={p['wilcoxon_p']:.2e}"
+            )
+            lines.append(
+                "  (examples-only Wilcoxon - same shared-feature dependence as above, "
+                "so this p\n  understates the uncertainty; descriptive only)"
             )
     return "\n".join(lines) + "\n"
 

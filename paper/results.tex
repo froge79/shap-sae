@@ -1,0 +1,119 @@
+\section{Results}
+\subsection{Probe Performance}
+Table~\ref{tab:probe-performance} shows the mean probe accuracy and AUROC for both the linear and MLP probe. Both probes perform well above chance and comparably to each other, while the MLP probe's validation remains mildly optimistic due to pre-filtered input features from the feature mask. 
+\begin{table}[h!]
+\centering
+\caption{Probe architectures and performance.}
+\label{tab:probe-performance}
+\begin{tabular}{lccc}
+\toprule
+Arm & Input dim & Val.\ Accuracy & Val.\ AUROC \\
+\midrule
+Linear & 32{,}768 & 0.815 & 0.898 \\
+MLP & 114 (filtered) & 0.822 & 0.899 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Attribution Method Agreement}
+As illustrated in Figure~\ref{fig:mlp-ranking-agreement} and Table~\ref{tab:app-mlp-ranking}, IG correlates strongly with both GA and SHAP, and SHAP and GA agree moderately. Probe saliency correlates only weakly with all three.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\linewidth]{figures/mlp_ranking_agreement_heatmap.png}
+\caption{MLP-arm attribution agreement (Spearman $\rho$ on $|\text{score}|$, $n=114$ filtered features). IG, GA, and SHAP form a correlated cluster ($\rho=0.69$–$0.87$); saliency correlates only weakly with all three ($\rho=0.24$–$0.29$).}
+\label{fig:mlp-ranking-agreement}
+\end{figure}
+
+\subsection{Causal Faithfulness}
+Table~\ref{tab:all-selection-faithfulness-last} reports global faithfulness across all 114 masked features under last-token steering, BH-corrected within arm. Importance faithfulness is modest but significant for SHAP, IG, and GA in both arms ($\rho_{\text{imp}} = 0.23$--$0.33$, $q < 0.03$). The zero-cost baseline is comparable in the linear arm (probe weights, $\rho_{\text{imp}} = 0.270$) but not in the MLP arm (saliency, $\rho_{\text{imp}} = 0.032$). Directional faithfulness is weaker: SHAP, IG, and GA are near zero and nonsignificant in both arms, while probe weights alone reach $\rho_{\text{dir}} = 0.305$ in the linear arm. This is notable because attribution adds instance-specific information (the feature’s activation relative to the baseline) to the same weights, yet predicts the direction of intervention effects worse than the weights do. One untested explanation is that steering adds a fixed shift, so the sign of its effect follows the sign of the weight. Attribution multiplies each weight by an activation deviation $(x_j - \text{baseline}_j)$ that can change sign across examples, which adds noise to the direction. This noise is not present in the weights. Overall, 5/8 linear-arm and 3/7 MLP-arm tests survive FDR correction (the five linear survivors include SHAP, IG, and GA counted separately; they have identical $p$-values by construction, so 3/4 distinct tests). The importance and directional conclusions do not depend on how the test family is defined (Appendix~\ref{app:bh}). Pooling every global test (both arms, both scopes, duplicates removed) into one family leaves the same 12 of 22 tests significant. Pooling all 32 inferential tests in the paper into one family gives the same 12 survivors. Under Benjamini--Yekutieli, which allows arbitrary dependence, 11 survive; the one that drops is last-token MLP SHAP importance ($q=0.14$). No directional test of SHAP, IG, or GA has $q<0.25$ under any family.
+\begin{table}[H]
+    \centering
+    \small
+    \setlength{\tabcolsep}{5pt}
+    \caption{Last-token global faithfulness ($k=114$, steering, all filtered features). Cells show Spearman $\rho$ with BH-corrected $q$ in parentheses.}
+    \label{tab:all-selection-faithfulness-last}
+    \begin{threeparttable}
+    \begin{tabular}{llcc}
+        \toprule
+        Arm & Method & $\rho_\text{imp}$ ($q$) & $\rho_\text{dir}$ ($q$) \\
+        \midrule
+        Linear & SHAP/IG/GA     & $+0.303$ (0.002)$^*$ & $-0.108$ (0.254) \\
+        Linear & Probe          & $+0.270$ (0.006)$^*$ & $+0.305$ (0.002)$^*$ \\
+        \midrule
+        MLP    & SHAP           & $+0.233$ (0.030)$^*$ & $-0.105$ (0.464) \\
+        MLP    & Probe saliency & $+0.032$ (0.859)     & n/a \\
+        MLP    & IG             & $+0.322$ (0.002)$^*$ & $-0.053$ (0.804) \\
+        MLP    & GA             & $+0.329$ (0.002)$^*$ & $-0.014$ (0.884) \\
+        \bottomrule
+    \end{tabular}
+    \begin{tablenotes}\footnotesize
+        \item[$^*$] Survives FDR 0.05. Linear arm: 5/8 tests survive (IG and GA counted separately from SHAP); MLP arm: 3/7. The same tests survive when BH is pooled over all 30 tests (both arms, both intervention scopes).
+    \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+All-token steering gives somewhat higher importance faithfulness than last-token steering in both arms, with the same tests surviving FDR correction (Appendix~\ref{app:all-token-global-faithfulness}). Matching the intervention scope to the attributed token position therefore does not improve measured faithfulness.
+
+
+
+\subsection{Local Faithfulness}
+Figure~\ref{fig:local-vs-global} outlines local vs. global SHAP causal faithfulness results. Before the activity control (Block A), local SHAP ranks importance better than $\Phi$ in both arms. The MLP-arm gap has an uncorrected $p=0.024$, but it does not survive FDR correction ($q=0.096$ within the local family, $0.055$ with all inferential tests pooled), and the linear-arm gap does not reach $p<0.05$. With the control (Block B), the importance gap reverses sign in both arms without reaching significance, and no directional gap is significant in either block. We therefore find no evidence that local SHAP is more faithful than global $\Phi$ among active features.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/local_vs_global_faithfulness.png}
+\caption{Local vs.\ global attribution, per-example faithfulness ($n=100$ sentences, ablation). Bars are mean Spearman $\rho$ across examples with 95\% CIs from a crossed (sentences $\times$ features) bootstrap; asterisks mark the \emph{uncorrected} crossed-bootstrap $p$ for the local--global gap (** $p<10^{-2}$, * $p<0.05$, n.s.\ otherwise); no local test survives FDR correction in the linear or MLP arm (Appendix~\ref{app:bh}). Block A = all top-20-local $\cup$ top-20-global candidates; Block B = active-only control.}
+\label{fig:local-vs-global}
+\end{figure}
+
+Our full local-versus-global results are in Table~\ref{tab:app-local-vs-global}. In Block A, local attribution scored higher than global attribution on importance faithfulness (gap $+0.294$ linear, $p=0.064$; $+0.396$ MLP, $p=0.024$), with no directional difference. The active fraction of candidates explained essentially none of the between-example variation in the Block A importance gap ($R^2<0.001$ in both arms; $0.002$ and $0.025$ controlling for candidate-set size). In Block B, restricting to active features reversed the importance gap in both arms ($-0.305$ and $-0.310$), though neither crossed-bootstrap CI excludes zero.
+
+\paragraph{Why global directional attribution may fail.} For a linear probe, $\Phi_j = w_j(\bar{x}_j^{\text{eval}} - \mathbb{E}_{\text{bg}}[x_j])$, so global attribution mostly reflects how the evaluation rows differ from the background rather than feature importance. Its magnitude tracks the size of this mean shift more closely than the size of the weights ($\rho = 0.85$ vs.\ $0.42$ over the non-zero-weight features), and summed over features it totals only $+0.24$ logits. Only 40\% of the top-20 $|\Phi|$ features have $\Phi$ matching the sign of their weight. The background's class balance (49\% positive versus 51.5\% in the evaluation rows) does not by itself predict these sign mismatches, so they more plausibly reflect per-feature differences between the small background and the evaluation rows, which we did not separate from sampling noise. This plausibly explains the near-zero global directional faithfulness. Recomputing $\Phi$ against a larger background would test it.
+
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\caption{Local vs.\ global attribution, per-example faithfulness ($n=100$ sentences, ablation). Mean $\rho$ across examples; 95\% CI and two-sided $p$ (uncorrected; none survive BH, Appendix~\ref{app:bh}) for the gap from a crossed (sentences $\times$ features) bootstrap. Block A: all candidates; Block B: active features only.}
+\label{tab:app-local-vs-global}
+\begin{tabular}{lrrrcrr}
+\toprule
+Block, kind & Local & Global & Gap & 95\% CI & $p$ & Win frac. \\
+\midrule
+\multicolumn{7}{l}{\textit{Linear arm}} \\
+A, importance  & $+0.351$ & $+0.057$ & $+0.294$ & [$-0.020$, $+0.605$] & 0.064 & 0.970 \\
+A, directional & $+0.140$ & $+0.132$ & $+0.008$ & [$-0.343$, $+0.365$] & 0.952 & 0.530 \\
+B, importance  & $+0.015$ & $+0.320$ & $-0.305$ & [$-0.589$, $+0.059$] & 0.104 & 0.168 \\
+B, directional & $+0.187$ & $+0.213$ & $-0.026$ & [$-0.523$, $+0.544$] & 0.896 & 0.484 \\
+\midrule
+\multicolumn{7}{l}{\textit{MLP arm}} \\
+A, importance  & $+0.246$ & $-0.151$ & $+0.396$ & [$+0.054$, $+0.688$] & 0.024 & 0.980 \\
+A, directional & $+0.152$ & $+0.056$ & $+0.096$ & [$-0.225$, $+0.372$] & 0.540 & 0.660 \\
+B, importance  & $-0.156$ & $+0.154$ & $-0.310$ & [$-0.717$, $+0.176$] & 0.216 & 0.137 \\
+B, directional & $+0.222$ & $+0.137$ & $+0.085$ & [$-0.393$, $+0.598$] & 0.834 & 0.632 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Known Ground-Truth Validation and Lexical Simplicity Control}
+Table~\ref{tab:minimal-pairs} reports results on 100 minimal pairs across two edit types. The readout tracks the known edit direction in both conditions (sign accuracy 0.760 for removal, 0.910 for insertion), so it is a usable behavioral signal. Feature recovery is weak: only local SHAP exceeds chance, modestly (AUROC 0.553 for removal, 0.622 for insertion), while global SHAP/IG/GA are at chance (0.474--0.495) and probe weights fall below it (0.395--0.406). Causal recovery follows the same ordering, weakly positive for local SHAP ($\rho = 0.186$ and $0.219$), near zero for global SHAP/IG/GA, and negative for probe weights.
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\caption{Minimal-pair ground-truth validation ($n=100$ pairs, linear arm, random distractors). Sign acc.\ is readout validity; AUROC is feature recovery (chance $=0.5$); $\rho$ is causal recovery.}
+\label{tab:minimal-pairs}
+\begin{tabular}{llccc}
+\toprule
+Edit & Method & Sign acc. & AUROC & $\rho$ \\
+\midrule
+Remove & Local SHAP        & 0.760 & 0.553 & $+0.186$ \\
+       & Global SHAP/IG/GA &       & 0.495 & $+0.064$ \\
+       & Probe weights     &       & 0.395 & $-0.148$ \\
+\midrule
+Insert & Local SHAP        & 0.910 & 0.622 & $+0.219$ \\
+       & Global SHAP/IG/GA &       & 0.474 & $+0.008$ \\
+       & Probe weights     &       & 0.406 & $-0.200$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Our lexical baseline provides substantially weaker held-out performance than the SAE probe (held-out accuracy 0.614 vs. 0.810), while top-feature activation showed only weak association with sentiment-lexicon presence (mean $|r|=0.048$; Appendix~\ref{app:lexical}), suggesting that the probe signal is not reducible to simple sentiment-word detection.

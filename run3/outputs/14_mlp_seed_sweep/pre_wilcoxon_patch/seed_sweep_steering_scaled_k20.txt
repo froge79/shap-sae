@@ -1,0 +1,33 @@
+MLP arm - multi-seed faithfulness sweep
+mode=steering  selection=random  k=20  seeds=0-9  n_eval=1000
+alpha: scaled alpha = +0.4936 x scale_i / 0.9110 (range +0.358 .. +3.059)
+union features intervened on: 98
+Probe saliency is magnitude-only: importance test only, no directional row.
+Pooled Benjamini-Hochberg over all 70 tests: 3 survive at FDR 0.05.
+
+test                          mean rho     std             95% CI  wilcoxon p  ref rho   ref p
+-----------------------------------------------------------------------------------------------
+SHAP:importance                 +0.368   0.189    [+0.255,+0.492]      0.0020   +0.744   0.100
+SHAP:directional                -0.005   0.191    [-0.128,+0.111]      0.6953   -0.147   0.700
+Probe saliency:importance       +0.144   0.214    [-0.001,+0.268]      0.1055   +0.400   0.100
+IG:importance                   +0.457   0.161    [+0.356,+0.557]      0.0020   +0.749   0.100
+IG:directional                  +0.009   0.217    [-0.133,+0.143]      0.9414   -0.146   0.500
+GA:importance                   +0.460   0.125    [+0.389,+0.545]      0.0020   +0.752   0.100
+GA:directional                  +0.050   0.251    [-0.114,+0.204]      0.6250   -0.171   0.500
+
+Reading: 'wilcoxon p' tests whether the typical rho across draws differs from 0.
+'ref p' is the fraction of draws with |rho| at least as large as the reference
+seed's - a small value means the headline run was an unusually extreme draw.
+
+Per-seed rho:
+   seed SHAP:importanc SHAP:direction Probe saliency  IG:importance IG:directional  GA:importance GA:directional
+      0         +0.744         -0.147         +0.400         +0.749         -0.146         +0.752         -0.171
+      1         +0.153         +0.192         +0.307         +0.379         +0.265         +0.377         +0.293
+      2         +0.591         +0.191         +0.143         +0.597         +0.119         +0.552         +0.126
+      3         +0.334         +0.202         +0.346         +0.486         +0.329         +0.436         +0.415
+      4         +0.496         +0.111         -0.356         +0.526         +0.089         +0.472         +0.164
+      5         +0.411         -0.152         +0.026         +0.338         -0.141         +0.370         -0.117
+      6         +0.128         -0.137         +0.150         +0.192         -0.089         +0.379         -0.030
+      7         +0.274         -0.087         +0.308         +0.477         -0.135         +0.371         -0.084
+      8         +0.364         -0.377         +0.159         +0.577         -0.405         +0.571         -0.433
+      9         +0.180         +0.153         -0.044         +0.248         +0.205         +0.316         +0.338

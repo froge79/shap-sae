@@ -1,0 +1,69 @@
+# step 21  2026-10-25T11:00:34+00:00
+# SHAP_SAE_OUTPUTS=run3/outputs SHAP_SAE_CHECKPOINTS=run3/checkpoints
+# cmd: uv run python src/local/analyze_local_vs_global.py
+Analysing run3/outputs/9_local_steer ...
+Local vs global faithfulness - formal tests
+==============================================================
+source: run3/outputs/9_local_steer
+
+Paired Wilcoxon signed-rank on per-example (rho_local - rho_global).
+Positive gap = local SHAP ranks that example's effects better.
+
+block:kind               local  global     gap            95% CI  wilcoxon p  win frac
+----------------------------------------------------------------------------------------
+A:importance            +0.351  +0.057  +0.294   [+0.262,+0.326]    1.29e-17     0.970
+A:directional           +0.140  +0.132  +0.008   [-0.035,+0.054]    8.10e-01     0.530
+B:importance            +0.015  +0.320  -0.305   [-0.371,-0.241]    3.15e-12     0.168
+B:directional           +0.187  +0.213  -0.026   [-0.093,+0.040]    5.71e-01     0.484
+
+Decomposition of the block [A] importance gap:
+  mean active fraction of candidates = 0.498
+  gap ~ frac_active            slope=-0.026  R2=0.000  p=8.35e-01
+  gap ~ n_active               slope=-0.001  R2=0.000  p=8.68e-01
+  gap ~ frac_active + n_cands  coefs=[-0.047, 0.006]  R2=0.002
+  A high R2 here means the local-vs-global margin is largely an activity effect,
+  not a ranking-quality effect.
+
+Wrote -> run3/outputs/9_local_steer/paired_tests.{json,txt}
+
+Analysing run3/outputs/14_local_mlp_steer ...
+Local vs global faithfulness - formal tests
+==============================================================
+source: run3/outputs/14_local_mlp_steer
+
+Paired Wilcoxon signed-rank on per-example (rho_local - rho_global).
+Positive gap = local SHAP ranks that example's effects better.
+
+block:kind               local  global     gap            95% CI  wilcoxon p  win frac
+----------------------------------------------------------------------------------------
+A:importance            +0.246  -0.151  +0.396   [+0.362,+0.431]    4.27e-18     0.980
+A:directional           +0.152  +0.056  +0.096   [+0.054,+0.138]    1.28e-04     0.660
+B:importance            -0.156  +0.154  -0.310   [-0.380,-0.240]    4.47e-12     0.137
+B:directional           +0.222  +0.137  +0.085   [+0.018,+0.149]    1.38e-02     0.632
+
+Decomposition of the block [A] importance gap:
+  mean active fraction of candidates = 0.501
+  gap ~ frac_active            slope=+0.005  R2=0.000  p=9.67e-01
+  gap ~ n_active               slope=-0.000  R2=0.000  p=9.28e-01
+  gap ~ frac_active + n_cands  coefs=[0.127, -0.025]  R2=0.025
+  A high R2 here means the local-vs-global margin is largely an activity effect,
+  not a ranking-quality effect.
+
+Wrote -> run3/outputs/14_local_mlp_steer/paired_tests.{json,txt}
+
+Analysing run3/outputs/local_shap_faithfulness ...
+Local vs global faithfulness - formal tests
+==============================================================
+source: run3/outputs/local_shap_faithfulness
+
+Paired Wilcoxon signed-rank on per-example (rho_local - rho_global).
+Positive gap = local SHAP ranks that example's effects better.
+
+block:kind               local  global     gap            95% CI  wilcoxon p  win frac
+----------------------------------------------------------------------------------------
+A:importance            +0.246  -0.150  +0.396   [+0.362,+0.431]    4.27e-18     0.980
+B:importance            -0.155  +0.155  -0.310   [-0.380,-0.241]    4.23e-12     0.137
+
+Wrote -> run3/outputs/local_shap_faithfulness/paired_tests.{json,txt}
+
+# exit=0  elapsed=7s  2026-10-25T11:00:41+00:00

@@ -1,0 +1,86 @@
+\section{Methodology}
+\subsection{Experimental Setup}
+We evaluate on SST-2 \citep{socher2013recursive}, a binary sentiment classification dataset of single-sentence movie reviews. We partition the training split into three sentence-level subsets with a fixed random seed (Appendix~\ref{app:dataset}, Table~\ref{tab:app-splits}). The train set is used for fitting probes, computing attribution backgrounds and baselines, and calibrating the steering parameter $\alpha$. The validation set is used for probe hyperparameter selection, constructing the activation-frequency feature mask, and reporting probe accuracy. The held-out split is not used for probe fitting, hyperparameter selection, or steering calibration. It is used for the primary attribution and causal evaluations, as well as the explicitly identified held-out baseline analyses.
+
+Evaluation and background rows are drawn from a fixed seeded permutation, ensuring nested samples and stable backgrounds across evaluation sizes (Appendix~\ref{app:dataset}).
+
+We experiment on frozen GPT-2 Small (124M parameters) \citep{radford2019language} with the \verb|gpt2-small-resid-post-v5-32k| SAE from \verb|sae-lens| \citep{gao2025scaling}, which decomposes layer 7 residual stream activations into 32,768 latent features. Activations are extracted at the last non-padding token position.
+
+\subsection{Probing Models}
+We attribute a trained probe’s output to SAE features because a probe gives a fixed, interpretable prediction target. The cost is that the probe is only a proxy for the language model (Section~\ref{sec:limitations}). We train two probe architectures on SAE activations, each evaluated with identical attribution methods and causal evaluation.
+
+\paragraph{Linear probe.} An L1-penalized logistic regression over the full 32,768-dimensional SAE activation vector (Appendix~\ref{app:probes}). The penalty yields $\sim$600 non-zero weights, which seed the feature mask below. Because the probe’s gradient is constant, IG and GA collapse to closed-form identities with SHAP, so this arm acts as a control in which method agreement is expected by construction.
+
+\paragraph{MLP probe.} A one-hidden-layer MLP fit on the masked feature subset (Appendix~\ref{app:probes}). Its nonlinearity is what allows the methods to diverge, so this arm supports the substantive method comparison. The mask was derived from the validation set, a label-free but non-independent dependency that introduces a mild optimistic bias.
+
+\paragraph{Feature Mask.} The mask combines two filters on the full val split: a non-zero linear-probe coefficient and an activation frequency threshold of $5\%$. It yields 114 features and restricts only the MLP probe’s input layer, the steering candidate pool, and the group-steering ranking pool. It does not gate the linear probe’s attribution methods.
+
+\subsection{Attribution Methods}
+Each method asks a different question of the same target scalar: the log-odds margin ($wx+b$) in the linear arm and the pre-sigmoid logit in the MLP arm. Scales are not comparable across arms. In the linear arm, the methods coincide by construction, so we treat it as a control. Only the MLP arm lets them diverge.
+
+\paragraph{Zero-cost baseline.} Raw probe weight for the linear arm and first-layer saliency $\|W_1[i,:]\|_2$ for the MLP arm rank features with no input-specific computation, so any gain from attribution is measured against them.
+
+\paragraph{SHAP} SHAP asks how much each feature moves the output away from its expectation over a background set. We use \texttt{shap.\allowbreak LinearExplainer} on a deterministic 100-row background, giving exact Shapley values $\phi$ over all 32,768 features. For the MLP arm we use \texttt{shap.\allowbreak DeepExplainer} on the pre-sigmoid logit over the 114 post-mask features, enforcing additivity against the background expectation.
+
+\paragraph{Integrated Gradients and Gradient$\times$Input.} Integrated Gradients (IG) asks how much gradient accumulates along a path from a baseline to the input. We evaluate it with a trapezoidal sum in the MLP arm (Appendix~\ref{app:ig}). Gradient$\times$Input evaluates local sensitivity at the input via $\text{GA}_j = (x_j - \text{baseline}_j)\,\partial f/\partial x_j(x)$. For a linear probe the gradient is constant, so IG reduces to the closed form $(x_j - \text{baseline}_j)\,w_j$ and GA equals it exactly. We include GA in the linear arm for structural parity.
+
+\subsection{Feature-Ranking Agreement}
+We compute pairwise Spearman $\rho$ between attribution methods, restricting evaluation to features with non-zero probe scores to prevent artificial inflation from zero-weighted features. For the linear probe, IG, GA, and SHAP are analytically identical, serving as a sanity check ($\rho=1$). MLP agreement is evaluated on $|\text{score}|$ since raw probe saliency lacks directional sign.
+
+\subsection{Causal Evaluation}
+Attribution methods score features using the probe alone and involve no intervention on the language model. To test whether those scores track the model’s actual behavior, we intervene directly on SAE feature activations and measure the change in the model’s logit difference. If an attribution is faithful, features it ranks highly should produce larger, and correctly signed, changes. Because the attribution explains the probe while the intervention acts on the language model, this tests the probe-attribution-LM pipeline as a whole (Section~\ref{sec:limitations}). We intervene at the residual stream output of layer 7, the layer used for probe training and attribution. For feature $i$ with activation $a_i$:
+
+\textbf{Ablation:}
+
+
+$$\tilde{a}_i = 0, \quad \tilde{z} = \Dec(\tilde{\mathbf{a}})$$
+
+\noindent\textbf{Steering (additive, signed):}
+
+
+$$\tilde{a}_i = a_i + \alpha_i, \quad \tilde{z} = \Dec(\tilde{\mathbf{a}})$$
+
+A no-edit encode-decode pass serves as the baseline, isolating SAE reconstruction error from intervention effects. Interventions are applied at every token position. Because attribution is computed at the last token, we also run a last-token-only steering condition that matches its scope (Table~\ref{tab:all-selection-faithfulness-last}); all-token results are in Appendix~\ref{app:all-token-global-faithfulness}.
+
+\paragraph{Readout.} The causal readout is the logit difference at the final token,
+\begin{equation*}
+\Delta = \ell(\text{''wonderful''}) - \ell(\text{''awful’’}),
+\end{equation*}
+compared before and after the intervention. We report $|\Delta|$ for importance and signed $\Delta$ for direction. Ablation removes a feature’s contribution, so its effect on $\Delta$ has the opposite sign; we negate ablation $\Delta$ so that positive $\rho$ always indicates greater faithfulness.
+
+\paragraph{Steering calibration.}\label{para:steering_calibration} We set the global multiplier $\alpha$ on the training split by sweeping multiples of the median natural positive activation, choosing the smallest value that gives a measurable mean probability shift on a layer-11 probe without saturating the output (Appendix~\ref{app:alpha}). Steering is scaled per feature to normalize for differing baseline activation magnitudes, with unscaled $\alpha$ as a robustness check. Decoder weights are near unit-norm and left unadjusted (Appendix~\ref{app:model}).
+
+\paragraph{Feature selection.} We evaluate three candidate sets: (1) $k$ features sampled uniformly at random, (2) the top $k$ by $|\text{SHAP}|$, and (3) all 114 masked features, with no resampling (Appendix~\ref{app:selection}). Inference comes from set (3), with one Spearman correlation per method and correlation type over all 114 features. Random draws are repeated across 10 seeds and summarized descriptively (mean, standard deviation, range, and fraction of positive correlations), with an exchangeability check on whether the seed-0 draw is typical. We do not test across seeds: the draws overlap in features and share per-feature effects, so they are not independent replicates. Multiple comparisons are controlled with Benjamini--Hochberg (FDR 0.05). The primary family is fixed by a rule that does not depend on results: the tests of one \texttt{all} run (one arm, one intervention scope), and for local faithfulness the four crossed-bootstrap tests of one local run. Because any family choice can be questioned, we also report survivors under wider families, up to one paper-wide family of all inferential tests, and under Benjamini--Yekutieli, which is valid under arbitrary dependence (Appendix~\ref{app:bh}).
+
+\subsection{Local Faithfulness}\label{subsection:local_faithfulness}
+Global attribution $\Phi$ averages over examples, which could hide per-example attribution quality. If it does, local attributions should track each sentence’s intervention effects better than the global average. We test this for two properties: importance faithfulness (does $|\text{attribution}|$ rank features by effect size?) and directional faithfulness (does the signed attribution match the sign of $\Delta$?). For each sentence $x$, we compute local SHAP $\phi(x)$ and take candidates as the union of the top-$k$ features by $|\phi(x)|$ and by $|\Phi|$, so both are scored on identical sets. We compute Spearman $\rho\big(|\phi(x)|, |\Delta(x,\cdot)|\big)$ and $\rho\big(|\Phi|, |\Delta(x,\cdot)|\big)$ per sentence, and report mean $\rho$ and the fraction of sentences where local wins.
+
+\paragraph{Confound.}\label{para:confound} Globally top features are often inactive in a given sentence, and ablating an inactive feature moves the logit by zero. Global attribution’s lower correlation may therefore reflect predicted effects for inactive features rather than worse ranking. To isolate this, we evaluate two regimes: Block [A] uses all candidates, and Block [B] restricts candidates to active features ($\text{activation} > 0$).
+
+\paragraph{Significance tests.} For both blocks and both correlation types, we test the mean gap $\rho_\text{local}-\rho_\text{global}$ with a crossed bootstrap that resamples sentences and features independently ($B=1000$), giving 95\% CIs and two-sided $p$-values for the gap and for each method's mean $\rho$. Sentences are not independent units here: they are scored on largely overlapping candidate features (the global top-$k$ appears in every set), which a sentence-only test would ignore. Two follow-up checks quantify the confound:
+\begin{enumerate}
+\item \textbf{Margin decomposition} regresses the per-example Block [A] gap on the active fraction of candidates (simple and size-controlled variants).
+\item \textbf{Continuous activity control} computes a partial Spearman of $|\text{attribution}|$ against $|\Delta|$, controlling for activation magnitude, to test whether local SHAP merely ranks features by activation strength.
+\end{enumerate}
+
+\subsection{Multi-Feature Steering}
+As a secondary analysis, we constructed steering vectors by aggregating the decoder directions of the top-\(k\) features selected by each attribution method and evaluated their effects on model outputs across intervention strengths. Full experimental details and results are provided in Appendix~\ref{app:group-full}.
+
+\subsection{Known-Ground-Truth Validation}
+Natural SST-2 text has no known feature importance, so a near-zero faithfulness $\rho$ could mean attribution failure or an insensitive harness. Minimal pairs resolve this: the sentiment change has a known source, so a working method should recover it. Primary stimuli delete the single sentiment word from a sentence (removal). Secondary stimuli append a sentiment clause to a neutral sentence (insertion). Insertion adds signal to the representation and deletion withdraws it, so the two test attribution separately. The expected direction of change is known in both.
+
+We check three quantities in dependency order:
+\begin{enumerate}
+\item \textbf{Readout validity:} whether the logit-difference sign tracks the known edit direction, a precondition for any faithfulness claim.
+\item \textbf{Feature recovery:} AUROC of each attribution method at identifying features whose activation changed, against a chance level of $0.5$.
+\item \textbf{Causal recovery:} correlation between per-feature ablation effects and attribution scores on the edited sentence.
+\end{enumerate}
+
+We control two confounds. Setting the SHAP background to the pair’s original activations makes scores proportional to activation change, which tautologically inflates AUROC. Selecting distractors by top global SHAP magnitude biases AUROC downward. We therefore use the canonical training background for SHAP and sample distractors at random.
+
+\subsection{Lexical Simplicity Control}
+We evaluate whether SST-2 is sufficiently lexically simple that interaction-aware attribution cannot outperform simpler methods, using the full held-out split (Appendix~\ref{app:lexical}). 
+
+We conduct three sub-analyses: (1) \textbf{co-activation} (mean active features per example and pairwise Jaccard similarity among top-20 features to test sparsity); (2) \textbf{lexical tracking} (point-biserial correlation between top feature activations and sentiment lexicon words to test if features act as simple word detectors); and (3) \textbf{lexicon baseline} (held-out accuracy of a bag-of-words logistic regression versus the SAE probe to assess value added beyond word-spotting).
+
+

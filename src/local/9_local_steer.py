@@ -82,13 +82,23 @@ def save_local_artifacts(
     n_active: np.ndarray,
     faith: dict[str, dict],
     faith_active: dict[str, dict],
+    *,
+    mode: str,
+    feature_indices: np.ndarray,
+    local_shap: np.ndarray,
+    global_phi_filtered: np.ndarray,
+    cands_per_example: list[np.ndarray],
+    union_local: np.ndarray,
+    delta_signed: np.ndarray,
 ) -> None:
     """
-    Persist only what later stats need.
+    Persist the per-example ρ plus the raw per-example inputs behind them.
 
-    Local SHAP, per-feature Δ, and the ragged candidate lists are cheap to
-    recompute; the deliverable is the per-example ρ (Wilcoxon / gap regression)
-    plus the eval-row ids so results join the rest of the pipeline.
+    The raw inputs (local SHAP, candidate sets, per-example Δ over the union)
+    are what `analyze_local_vs_global.py` needs for its crossed
+    examples × features bootstrap and its continuous activity control. Every
+    example is scored on largely the same features, so the per-example ρ are
+    not independent and those analyses cannot be run from the ρ alone.
     """
     arrays: dict[str, np.ndarray] = {
         "n_cands": np.asarray(n_cands, dtype=np.int64),
@@ -101,6 +111,26 @@ def save_local_artifacts(
             arrays[f"{prefix}directional_{safe}"] = block["directional_rho"]
     np.savez(out_dir / "rhos.npz", **arrays)
     np.save(out_dir / "example_indices.npy", example_indices)
+    np.save(out_dir / "feature_indices.npy", feature_indices)
+    np.save(out_dir / "local_shap.npy", local_shap)
+    np.save(out_dir / "global_phi_filtered.npy", global_phi_filtered)
+    np.save(out_dir / "union_local.npy", union_local)
+    np.save(out_dir / f"delta_signed_{mode}.npy", delta_signed)
+    save_ragged(out_dir / "cands_per_example.npy", cands_per_example)
+
+
+def save_ragged(path: Path, arrays: list[np.ndarray], dtype=np.int64) -> None:
+    """
+    Save variable-length arrays as a 1-D object array.
+
+    `np.asarray(arrays, dtype=object)` silently produces a 2-D array when every
+    element happens to share a length, so the reload shape would depend on the
+    data. Preallocating pins it to 1-D. (Same helper as local_shap_faithfulness.)
+    """
+    out = np.empty(len(arrays), dtype=object)
+    for i, arr in enumerate(arrays):
+        out[i] = np.asarray(arr, dtype=dtype)
+    np.save(path, out, allow_pickle=True)
 
 
 def spearman_pair(
@@ -539,7 +569,21 @@ def main(
         )
 
     out_dir.mkdir(parents=True, exist_ok=True)
-    save_local_artifacts(out_dir, pick, n_cands, n_active, faith, faith_active)
+    save_local_artifacts(
+        out_dir,
+        pick,
+        n_cands,
+        n_active,
+        faith,
+        faith_active,
+        mode=mode,
+        feature_indices=feature_indices,
+        local_shap=local_shap,
+        global_phi_filtered=shap_global_f,
+        cands_per_example=cands_per_example,
+        union_local=union_local,
+        delta_signed=delta_signed,
+    )
     with open(out_dir / "summary.json", "w") as f:
         json.dump(
             {
