@@ -6,6 +6,7 @@ edit=insert  n_pairs=100  seed=42  distractors=random
 1) Readout validity (does the known edit move the logit diff correctly?)
    sign accuracy      = 0.910  (0.5 = chance)
    mean |text delta|  = 0.7676 logits
+   last token changed = 0.05 of pairs
 
 2) Ground-truth feature recovery (AUROC for ranking edit-carrying
    features above distractors) and 3) causal recovery (Spearman of

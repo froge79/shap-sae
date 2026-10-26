@@ -125,9 +125,24 @@ methods on that set. This range-restricts only SHAP's scored variance,
 which mechanically deflates SHAP's $\rho$ relative to the other methods.
 \texttt{all} scores every masked feature ($n=114$). At $n=20$ the
 confidence interval on Spearman $\rho$ spans most of $[-1,1]$, so a single
-$k=20$ random draw cannot distinguish a null from a moderate effect. We
-therefore treat \texttt{all}, not $k=20$ random, as the powered global
-faithfulness result.
+$k=20$ random draw cannot distinguish a null from a moderate effect.
+
+\paragraph{Provenance of the \texttt{all} analysis.} The \texttt{all}
+selection was introduced after an earlier analysis of this work (the
+\emph{initial analysis}, on a phrase-level split we later found leaked
+sub-phrases across splits), whose single $k=20$ draw looked null for several
+tests. An earlier version of this manuscript presented \texttt{all} as the
+powered result after seeing that $k=20$ outcome, which is outcome-dependent.
+We have since rebuilt the split at sentence level and regenerated every
+number reported here (the \emph{final analysis}). The \texttt{all}
+selection, the BH family, and the rule for it were fixed before the final
+analysis was run, so it is a confirmatory test of a design chosen on the
+initial data, not a second look at the same data. All $k=20$ results from the final analysis are
+reported (Table~\ref{tab:headline-faithfulness}, and the multi-seed sweep below). We treat
+\texttt{all} as the inferential run because it uses the whole filtered pool
+with no sampling, not because of how $k=20$ came out: in the final analysis the $k=20$
+draw is also positive for importance and null for direction, so the two
+agree.
 
 \subsection{Multiple-Comparison Correction}
 \label{app:bh}
@@ -137,10 +152,9 @@ following primary family: the tests of one \texttt{all} run (one arm, one
 intervention scope; 8 linear, 7 MLP), and, for local faithfulness, the four
 crossed-bootstrap tests (Block A/B $\times$ importance/directional) of one
 local run. The rule is a property of how the experiments are run, not of
-their outcomes. The per-run correction was added to the pipeline on
-2026-08-17 (commit \texttt{611d898}), before run3 was generated (2026-10-25),
-but after run2 had been analysed. The wider families below were added after
-run3 and are post hoc. We report them because the choice of family is the
+their outcomes. The per-run correction was specified before the final
+analysis was run, but after the initial analysis had been examined. The wider
+families below were added after the final results were in and are post hoc. We report them because the choice of family is the
 author's, so we show whether any verdict depends on it.
 
 \paragraph{Duplicate tests.} In the linear arm SHAP, IG, and GA have identical
@@ -150,9 +164,7 @@ separately inflates survivors and, when pooled, BH power. We therefore report
 the main sensitivity analysis with identical tests counted once (22 distinct
 global tests); the raw counts are 16/30.
 
-\paragraph{Sensitivity to the family.} All counts are from
-\texttt{src/global\_linear/9d\_bh\_family\_sensitivity.py}, which also lists
-the per-test $q$ under the narrow and wide families.
+\paragraph{Sensitivity to the family.} Counts are recomputed from the per-test $p$-values of every inferential test in the paper under each family definition.
 \begin{table}[h]
 \centering
 \small
@@ -245,6 +257,35 @@ everything else byte-identical. With two sentiment words, the remaining one
 would keep carrying sentiment and the edit would no longer have a single
 cause. \texttt{insert} pairs append ``\,it was
 \textlangle word\textrangle\,.'' to lexicon-free sentences.
+\texttt{substitute} pairs swap that word in place for a random word of
+opposite polarity. \texttt{insert-interior} pairs place ``it was
+\textlangle word\textrangle,'' at the midpoint of a lexicon-free sentence,
+so the final token and its immediate context are unchanged. Only 5\% of
+\texttt{insert} pairs change the identity of the final token (both
+sentences end in ``.''), so the type/position confound concerns distance
+from the final token, not a replaced token.
+
+\paragraph{Changed-feature threshold.} A candidate counts as changed if
+$|\Delta a_j|\ge 0.10\max_i|\Delta a_i|$ within the pair. Local-SHAP AUROC
+(random distractors) is stable across relative thresholds $0.05$--$0.50$ for
+insertion ($0.62$--$0.68$) but not for removal ($0.55$ at $0.10$, $0.40$ at
+$0.50$); absolute thresholds $0.1$--$1.0$ give $0.61$--$0.62$ for insertion and a non-monotone $0.38$--$0.56$ for removal. A
+threshold-free Spearman of $|$score$|$ against $|\Delta a|$ per pair gives
+local SHAP $0.04$ (removal) and $0.26$ (insertion), against $0.57$ and $0.67$
+for activation magnitude at the edited last token.
+
+\paragraph{Readout noise floor.} Null edits (a neutral word deleted or
+appended) give a median $|\Delta|$ of $0.14$ logits (removal-type) and $0.23$
+(insertion-type), against mean effects of $0.28$ and $0.77$. Restricting to
+pairs above the null 90th percentile leaves 26 removal pairs (sign accuracy
+$0.85$) and 52 insertion pairs ($0.94$); AUROC and $\rho$ on those subsets are
+within $0.03$ and $0.06$ of the full-sample values, with the same method ordering.
+
+\paragraph{Seeds.} Seeds $0$--$3$ ($0$--$2$ for \texttt{substitute}) redraw pairs
+and distractors from the same held-out pool, so they overlap and are descriptive.
+Per-edit standard deviations of local-SHAP AUROC under random distractors are
+$\le 0.03$, and no local or global SHAP run exceeds $0.5$ under activity-matched
+distractors.
 
 \clearpage
 \section{Supplementary Tables and Figures}
@@ -309,7 +350,7 @@ MLP : dir    & $-0.147$ & $-0.161$ & $+0.168$ & $-0.376$ & $-0.091$ \\
 
 \begin{table}[h]
 \centering
-\caption{Alpha-mode sensitivity: scaled vs.\ constant per-feature $\alpha$ (\texttt{steering}, \texttt{random}, $k=20$).}
+\caption{Alpha-mode sensitivity: scaled vs.\ constant per-feature $\alpha$ (steering, random selection, $k=20$).}
 \label{tab:app-alpha-mode}
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{llcc}
@@ -376,14 +417,14 @@ GA         & imp & $+0.460$ & 0.125 & $+0.316$ & $+0.752$ & 1.00 & 0.100 \\
 
 
 
-\subsection{Underpowered $k=20$ causal validation results}
+\subsection{Single-draw $k=20$ causal validation results}
 \label{app:k-20}
 
 \begin{table}[H]
 \centering
 \small
 \setlength{\tabcolsep}{5pt}
-\caption{Underpowered causal faithfulness ($k=20$, steering and ablation, random selection, $n_\text{eval}=1000$). Cells show Spearman $\rho$ with uncorrected $p$ in parentheses; at $n=20$ these are descriptive and not used for inference. For the linear arm, IG and GA are analytically identical to SHAP and omitted as separate rows.}
+\caption{Single-draw causal faithfulness ($k=20$, steering and ablation, random selection, $n_\text{eval}=1000$). Cells show Spearman $\rho$ with uncorrected $p$ in parentheses; at $n=20$ these are descriptive and not used for inference. For the linear arm, IG and GA are analytically identical to SHAP and omitted as separate rows.}
 \label{tab:headline-faithfulness}
 \begin{tabular}{lcc}
 \toprule
@@ -454,31 +495,43 @@ the 1000-row canonical eval sample used everywhere else in the paper.
 
 \begin{table}[h]
 \centering
-\caption{Lexical simplicity control (full held-out split, $n=1{,}436$).}
+\caption{Lexical simplicity control (held-out, $n=1{,}436$). Models are fit on train with regularisation chosen on validation. Diff.\ is probe minus baseline accuracy with a paired-bootstrap 95\% interval; $p$ is McNemar.}
 \label{tab:app-lexical-simplicity}
-\begin{tabular}{lc}
+\begin{tabular}{lcccc}
 \toprule
-Quantity & Value \\
+Model & Features & Accuracy & Diff.\ [95\% CI] & $p$ \\
 \midrule
-Mean active filtered features / example (of 114) & 24.33 \\
-Mean pairwise Jaccard, top-20 $|\Phi|$ features & 0.223 \\
-Mean $|r(\text{activation}, \text{has-lexicon-word})|$, top-20 & 0.048 \\
-Lexicon bag-of-words accuracy / AUROC & 0.614 / 0.689 \\
-SAE probe accuracy / AUROC (held-out) & 0.810 / 0.887 \\
-Accuracy gap (SAE probe $-$ lexicon) & $+0.196$ \\
+SAE probe (held-out) & 114 masked / 32768 & 0.810 & -- & -- \\
+Lexicon-count LR & 158 & 0.611 & $+0.198$ [$+0.166$, $+0.229$] & $<10^{-30}$ \\
+Unigram BoW LR (binary) & 13{,}605 & 0.794 & $+0.016$ [$-0.010$, $+0.041$] & 0.26 \\
+Unigram+bigram BoW LR & 79{,}812 & 0.800 & $+0.010$ [$-0.015$, $+0.034$] & 0.49 \\
+TF-IDF unigram+bigram LR & 79{,}812 & 0.806 & $+0.003$ [$-0.022$, $+0.028$] & 0.83 \\
+Dense layer-7 residual LR & 768 & 0.870 & $-0.060$ [$-0.080$, $-0.040$] & $<10^{-8}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-By the reading thresholds we fixed in advance (mean $|r| \geq 0.25$ for
-``strong lexical tracking''; within 0.03 accuracy for
-``lexicon-near-probe''): the observed mean $|r|=0.048$ is well below the
-strong-tracking threshold, and the 0.196 accuracy gap is well above the
-near-tie threshold. We take this as indicating that the top SAE features
-are not simply lexical sentiment-word detectors, and that non-lexical
-signal remains in the representation for attribution methods to
-potentially explain.
+The best validation-selected bag-of-words (TF-IDF) is within $0.03$ accuracy
+of the probe, so by our pre-fixed rule the probe is no better than word
+presence on this split. Co-activation is unchanged from the earlier analysis
+(24.33 active filtered features per example; mean pairwise Jaccard of the
+top-20 features $0.223$).
 
+\paragraph{Word-detector tests.} Held-out $R^2$ of a ridge regression from
+bag-of-words to feature activation: for the top-20 $|\Phi|$ features the
+median is $0.171$ with full vocabulary and $0.003$ with the lexicon only; for
+the other 94 masked features it is $0.106$ (90th percentile $0.287$) and
+$0.003$. Four of the 20 top features reach $R^2\ge0.25$. Full bag-of-words
+explains $0.389$ of the probe logit's variance ($0.148$ with the lexicon only);
+this is a lower bound on reducibility, since a linear ridge fit on 6.7k
+sentences with a 13.6k-word vocabulary is limited. Signed and position-aware
+correlations with the lexicon are small for the top-20 features: mean $|r|$ is
+$0.067$ (has-positive), $0.056$ (has-negative) and $0.049$ (lexicon word in
+the last three tokens, present in 12\% of sentences); mean $|\rho|$ with the
+net lexicon score is $0.076$, and the mean sign-agreement of $\Phi$ with it is
+$-0.006$. The earlier lexicon-presence correlation (mean $|r|=0.048$) was
+therefore a weak test: the lexicon explains almost none of any feature's
+variance, so it could not have revealed word-detection.
 
 \subsection{All-token global faithfulness}
 \label{app:all-token-global-faithfulness}
@@ -517,11 +570,11 @@ potentially explain.
   evaluate it with} (Appendix~\ref{app:alpha}). We use a layer-11 residual
   probe's $P(\text{positive})$ at calibration time, and a GPT-2 logit
   difference at evaluation time.
-  \item \textbf{The MLP arm's \texttt{probe\_saliency} is magnitude-only}
+  \item \textbf{The MLP arm's probe saliency score is magnitude-only}
   ($\|W_1[i,:]\|_2$, no sign). This is valid for importance/ranking comparisons,
   invalid for any directional or causal-sign comparison. We exclude it
   from group-steering vector construction for the same reason.
-  \item \textbf{\texttt{selection=top} biases SHAP's faithfulness $\rho$
+  \item \textbf{\texttt{top} selection biases SHAP's faithfulness $\rho$
   downward} relative to the other three methods, by range-restricting only
   SHAP's scored variance (Appendix~\ref{app:selection}). We never present
   a \texttt{top} number without this caveat.

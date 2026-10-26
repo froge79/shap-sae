@@ -31,6 +31,14 @@ lexicon in `10_simplicity_check.py`:
       the direction the remove-pairs cannot: adding sentiment where there was
       none.
 
+  --edit insert-interior / substitute: position-matched controls. `insert`
+      changes the last token while `remove` does not, so edit type and edit
+      position are confounded between the two. `insert-interior` adds the same
+      " it was <word> ," clause mid-sentence (last token unchanged); `substitute`
+      swaps the lexicon word for one of opposite polarity in place (last token
+      unchanged unless the word is final). Together with remove/insert they give
+      type x position. Each row records `last_token_changed`.
+
 Three things get measured
 -------------------------
 1. Readout validity. Does the GPT-2 logit difference move in the known direction
@@ -180,6 +188,94 @@ def build_insert_pairs(
     return pairs
 
 
+def _swap_core(token: str, new: str) -> str:
+    core = token.strip(".,!?;:'\"")
+    return token.replace(core, new, 1) if core else token
+
+
+def build_substitute_pairs(
+    sentences: list[str], rng: np.random.Generator, n_pairs: int
+) -> list[dict]:
+    """
+    Single-lexicon-word sentences, the word swapped in place for one of opposite
+    polarity. Same position as `remove`, but sentiment is flipped, not withdrawn.
+    """
+    pool = []
+    for s in sentences:
+        toks = _simplicity.tokenize(s)
+        pos_hits = [t for t in toks if t in _simplicity.POS_WORDS]
+        neg_hits = [t for t in toks if t in _simplicity.NEG_WORDS]
+        if len(pos_hits) + len(neg_hits) != 1:
+            continue
+        word = (pos_hits + neg_hits)[0]
+        polarity = 1 if pos_hits else -1
+        parts = s.split()
+        idx = next((i for i, p in enumerate(parts) if p.strip(".,!?;:'\"") == word), None)
+        if idx is None or len(parts) < 3:
+            continue
+        pool.append((s, parts, idx, word, polarity))
+    if not pool:
+        raise RuntimeError("No single-lexicon-word sentences found")
+    pos_words = sorted(_simplicity.POS_WORDS)
+    neg_words = sorted(_simplicity.NEG_WORDS)
+    pairs = []
+    for i in rng.permutation(len(pool))[:n_pairs]:
+        s, parts, idx, word, polarity = pool[int(i)]
+        vocab = neg_words if polarity == 1 else pos_words
+        new = vocab[int(rng.integers(len(vocab)))]
+        edited = parts[:idx] + [_swap_core(parts[idx], new)] + parts[idx + 1 :]
+        pairs.append(
+            {
+                "original": s,
+                "edited": " ".join(edited) + s[len(s.rstrip()) :],
+                "word": f"{word}->{new}",
+                "polarity": -polarity,
+                # pos -> neg should LOWER the logit diff, neg -> pos RAISE it.
+                "expected_sign": -polarity,
+            }
+        )
+    return pairs
+
+
+def build_insert_interior_pairs(
+    sentences: list[str], rng: np.random.Generator, n_pairs: int
+) -> list[dict]:
+    """Like `insert`, but the clause goes mid-sentence so the last token is unchanged."""
+    flags = _simplicity.lexicon_flags(sentences)
+    neutral = [s for s, ok in zip(sentences, ~flags["has_any"]) if ok and len(s.split()) >= 4]
+    if not neutral:
+        raise RuntimeError("No lexicon-free sentences found")
+    pos_words = sorted(_simplicity.POS_WORDS)
+    neg_words = sorted(_simplicity.NEG_WORDS)
+    pairs = []
+    for j, i in enumerate(rng.permutation(len(neutral))[:n_pairs]):
+        s = neutral[int(i)]
+        polarity = 1 if j % 2 == 0 else -1
+        vocab = pos_words if polarity == 1 else neg_words
+        word = vocab[int(rng.integers(len(vocab)))]
+        parts = s.split()
+        m = len(parts) // 2
+        edited = parts[:m] + ["it", "was", word + ","] + parts[m:]
+        pairs.append(
+            {
+                "original": s,
+                "edited": " ".join(edited) + s[len(s.rstrip()) :],
+                "word": word,
+                "polarity": polarity,
+                "expected_sign": polarity,
+            }
+        )
+    return pairs
+
+
+BUILDERS = {
+    "remove": build_remove_pairs,
+    "insert": build_insert_pairs,
+    "insert-interior": build_insert_interior_pairs,
+    "substitute": build_substitute_pairs,
+}
+
+
 def last_token_sae_acts(model, sae, tokens: torch.Tensor) -> np.ndarray:
     """SAE feature activations at the last real token, shape (n_features,)."""
     hook_point = f"blocks.{LAYER}.hook_resid_post"
@@ -224,7 +320,7 @@ def auroc(labels: np.ndarray, scores: np.ndarray) -> float:
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--edit", choices=("remove", "insert"), default="remove")
+    p.add_argument("--edit", choices=tuple(BUILDERS), default="remove")
     p.add_argument("--n-pairs", type=int, default=100)
     p.add_argument(
         "--k-moved",
@@ -240,13 +336,15 @@ def parse_args() -> argparse.Namespace:
     )
     p.add_argument(
         "--distractors",
-        choices=("random", "global"),
+        choices=("random", "global", "active"),
         default="random",
         help=(
             "'random' = uniform from the filtered pool (headline; unbiased). "
             "'global' = top-|Phi|, which makes the negative class the features "
             "global SHAP ranks highest and drives its AUROC down by construction "
-            "- labelled secondary only"
+            "- labelled secondary only. 'active' = per pair, random mask features "
+            "active in the original or edited last token (and not top-moved), so "
+            "'is this feature active' no longer separates the classes"
         ),
     )
     p.add_argument("--seed", type=int, default=CANONICAL_SEED)
@@ -260,7 +358,7 @@ def main() -> None:
 
     _, _, shap_ds = load_splits()
     sentences = list(shap_ds["sentence"])
-    builder = build_remove_pairs if args.edit == "remove" else build_insert_pairs
+    builder = BUILDERS[args.edit]
     pairs = builder(sentences, rng, args.n_pairs)
     print(f"Built {len(pairs)} '{args.edit}' minimal pairs from the held-out split")
 
@@ -286,8 +384,11 @@ def main() -> None:
         distractors = rng.choice(
             feature_indices, size=min(args.k_distractor, len(feature_indices)), replace=False
         )
-    else:
+    elif args.distractors == "global":
         distractors = np.argsort(np.abs(phi))[::-1][: args.k_distractor]
+    else:
+        distractors = np.array([], dtype=int)  # drawn per pair below
+        active_rng = np.random.default_rng(args.seed + 2)
     print(
         f"Distractors: {len(distractors)} {args.distractors}"
         + (
@@ -337,6 +438,14 @@ def main() -> None:
         # Ground-truth candidates: features the edit actually moved, plus
         # distractors it did not, so AUROC has both classes.
         moved = np.argsort(np.abs(d_act))[::-1][: args.k_moved]
+        if args.distractors == "active":
+            pool = np.setdiff1d(
+                feature_indices[(acts_o[feature_indices] > 0) | (acts_e[feature_indices] > 0)],
+                moved,
+            )
+            distractors = active_rng.choice(
+                pool, size=min(args.k_distractor, len(pool)), replace=False
+            )
         cand = np.unique(np.concatenate([moved, distractors]))
 
         max_move = float(np.abs(d_act[cand]).max())
@@ -383,6 +492,7 @@ def main() -> None:
             "sign_correct": bool(np.sign(text_delta) == pair["expected_sign"]),
             "n_candidates": int(len(cand)),
             "n_moved": int(moved_label.sum()),
+            "last_token_changed": bool(tok_o[0, -1].item() != tok_e[0, -1].item()),
             "methods": {},
         }
         for name, vec in scores_by_method.items():
@@ -406,6 +516,7 @@ def main() -> None:
         "k_distractor": args.k_distractor,
         "distractors": args.distractors,
         "moved_rel_threshold": MOVED_REL_THRESHOLD,
+        "frac_last_token_changed": float(np.mean([r["last_token_changed"] for r in rows])),
         "readout_sign_accuracy": sign_acc,
         "mean_abs_text_delta": mean_abs_delta,
         "methods": {
@@ -437,6 +548,7 @@ def main() -> None:
         "1) Readout validity (does the known edit move the logit diff correctly?)",
         f"   sign accuracy      = {sign_acc:.3f}  (0.5 = chance)",
         f"   mean |text delta|  = {mean_abs_delta:.4f} logits",
+        f"   last token changed = {summary['frac_last_token_changed']:.2f} of pairs",
         "",
         "2) Ground-truth feature recovery (AUROC for ranking edit-carrying",
         "   features above distractors) and 3) causal recovery (Spearman of",
@@ -464,7 +576,7 @@ def main() -> None:
 
     out_dir = args.out_dir
     out_dir.mkdir(parents=True, exist_ok=True)
-    tag = f"{args.edit}_n{len(rows)}"
+    tag = f"{args.edit}_n{len(rows)}" + ("_actdist" if args.distractors == "active" else "")
     with open(out_dir / f"summary_{tag}.json", "w") as f:
         json.dump(summary, f, indent=2)
     with open(out_dir / f"per_pair_{tag}.json", "w") as f:

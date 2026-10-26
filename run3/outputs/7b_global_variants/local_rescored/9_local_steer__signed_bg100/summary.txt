@@ -1,0 +1,38 @@
+Local steering faithfulness (linear probe)
+==================================================
+mode=ablation  candidates=top-20 local ∪ top-20 global  N=100  n_union=89
+
+[A] All candidates — mean Spearman ρ across examples (± std)
+Importance (|attr| vs |Δ|):
+  local_SHAP      ρ=+0.351 ± 0.148  (n=100)
+  global_SHAP     ρ=+0.057 ± 0.148  (n=100)
+  Probe weights   ρ=-0.421 ± 0.136  (n=100)
+  IG              ρ=+0.057 ± 0.148  (n=100)
+  GA              ρ=+0.057 ± 0.148  (n=100)
+Directional (attr vs −Δ; positive = faithful):
+  local_SHAP      ρ=+0.140 ± 0.182  (n=100)
+  global_SHAP     ρ=+0.132 ± 0.117  (n=100)
+  Probe weights   ρ=+0.106 ± 0.108  (n=100)
+  IG              ρ=+0.132 ± 0.117  (n=100)
+  GA              ρ=+0.132 ± 0.117  (n=100)
+Fraction examples with ρ_local_SHAP > ρ_global_SHAP (importance): 0.970
+
+[B] Active candidates only (control)
+    Inactive features move the logit by ~0 under ablation, and local |φ(x)|
+    tracks activity while global |Φ| does not — so part of any local win in
+    [A] is just 'local knows which features are on here'. [B] removes that
+    advantage; a local win that survives here is about ranking, not activity.
+Importance (|attr| vs |Δ|):
+  local_SHAP      ρ=+0.015 ± 0.256  (n=95)
+  global_SHAP     ρ=+0.320 ± 0.257  (n=95)
+  Probe weights   ρ=-0.126 ± 0.234  (n=95)
+  IG              ρ=+0.320 ± 0.257  (n=95)
+  GA              ρ=+0.320 ± 0.257  (n=95)
+Directional (attr vs −Δ; positive = faithful):
+  local_SHAP      ρ=+0.187 ± 0.240  (n=95)
+  global_SHAP     ρ=+0.213 ± 0.197  (n=95)
+  Probe weights   ρ=+0.059 ± 0.207  (n=95)
+  IG              ρ=+0.213 ± 0.197  (n=95)
+  GA              ρ=+0.213 ± 0.197  (n=95)
+Fraction examples with ρ_local_SHAP > ρ_global_SHAP (importance): 0.168
+

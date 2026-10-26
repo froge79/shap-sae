@@ -1,0 +1,39 @@
+{
+  "edit": "insert",
+  "n_pairs": 100,
+  "seed": 2,
+  "k_moved": 15,
+  "k_distractor": 15,
+  "distractors": "random",
+  "moved_rel_threshold": 0.1,
+  "frac_last_token_changed": 0.05,
+  "readout_sign_accuracy": 0.89,
+  "mean_abs_text_delta": 0.7297493743896485,
+  "methods": {
+    "local_SHAP": {
+      "mean_rho_recovery": 0.32559048342393565,
+      "mean_auroc_moved": 0.6590150570719843,
+      "n": 100
+    },
+    "global_SHAP": {
+      "mean_rho_recovery": 0.09120760626111317,
+      "mean_auroc_moved": 0.49488650459590855,
+      "n": 100
+    },
+    "Probe weights": {
+      "mean_rho_recovery": -0.13553159929589248,
+      "mean_auroc_moved": 0.40806723541121753,
+      "n": 100
+    },
+    "IG": {
+      "mean_rho_recovery": 0.09120760626111317,
+      "mean_auroc_moved": 0.49488650459590855,
+      "n": 100
+    },
+    "GA": {
+      "mean_rho_recovery": 0.09120760626111317,
+      "mean_auroc_moved": 0.49488650459590855,
+      "n": 100
+    }
+  }
+}

@@ -25,7 +25,7 @@ As illustrated in Figure~\ref{fig:mlp-ranking-agreement} and Table~\ref{tab:app-
 \end{figure}
 
 \subsection{Causal Faithfulness}
-Table~\ref{tab:all-selection-faithfulness-last} reports global faithfulness across all 114 masked features under last-token steering, BH-corrected within arm. Importance faithfulness is modest but significant for SHAP, IG, and GA in both arms ($\rho_{\text{imp}} = 0.23$--$0.33$, $q < 0.03$). The zero-cost baseline is comparable in the linear arm (probe weights, $\rho_{\text{imp}} = 0.270$) but not in the MLP arm (saliency, $\rho_{\text{imp}} = 0.032$). Directional faithfulness is weaker: SHAP, IG, and GA are near zero and nonsignificant in both arms, while probe weights alone reach $\rho_{\text{dir}} = 0.305$ in the linear arm. This is notable because attribution adds instance-specific information (the feature’s activation relative to the baseline) to the same weights, yet predicts the direction of intervention effects worse than the weights do. One untested explanation is that steering adds a fixed shift, so the sign of its effect follows the sign of the weight. Attribution multiplies each weight by an activation deviation $(x_j - \text{baseline}_j)$ that can change sign across examples, which adds noise to the direction. This noise is not present in the weights. Overall, 5/8 linear-arm and 3/7 MLP-arm tests survive FDR correction (the five linear survivors include SHAP, IG, and GA counted separately; they have identical $p$-values by construction, so 3/4 distinct tests). The importance and directional conclusions do not depend on how the test family is defined (Appendix~\ref{app:bh}). Pooling every global test (both arms, both scopes, duplicates removed) into one family leaves the same 12 of 22 tests significant. Pooling all 32 inferential tests in the paper into one family gives the same 12 survivors. Under Benjamini--Yekutieli, which allows arbitrary dependence, 11 survive; the one that drops is last-token MLP SHAP importance ($q=0.14$). No directional test of SHAP, IG, or GA has $q<0.25$ under any family.
+Table~\ref{tab:all-selection-faithfulness-last} reports global faithfulness across all 114 masked features under last-token steering, BH-corrected within arm. Importance faithfulness is statistically significant for SHAP, IG, and GA in both arms but small-to-moderate in size ($\rho_{\text{imp}} = 0.23$--$0.33$, $q < 0.03$), so each method explains only a small share of the variation in feature effects. The zero-cost baseline is comparable in the linear arm (probe weights, $\rho_{\text{imp}} = 0.270$) but not in the MLP arm (saliency, $\rho_{\text{imp}} = 0.032$). Directional faithfulness is weaker: SHAP, IG, and GA are near zero and nonsignificant in both arms, while probe weights alone reach $\rho_{\text{dir}} = 0.305$ in the linear arm. This is notable because attribution adds instance-specific information (the feature’s activation relative to the baseline) to the same weights, yet predicts the direction of intervention effects worse than the weights do. One untested explanation is that steering adds a fixed shift, so the sign of its effect follows the sign of the weight. Attribution multiplies each weight by an activation deviation $(x_j - \text{baseline}_j)$ that can change sign across examples, which adds noise to the direction. This noise is not present in the weights. Overall, 5/8 linear-arm and 3/7 MLP-arm tests survive FDR correction (the five linear survivors include SHAP, IG, and GA counted separately; they have identical $p$-values by construction, so 3/4 distinct tests). The importance and directional conclusions do not depend on how the test family is defined (Appendix~\ref{app:bh}). Pooling every global test (both arms, both scopes, duplicates removed) into one family leaves the same 12 of 22 tests significant. Pooling all 32 inferential tests in the paper into one family gives the same 12 survivors. Under Benjamini--Yekutieli, which allows arbitrary dependence, 11 survive; the one that drops is last-token MLP SHAP importance ($q=0.14$). No directional test of SHAP, IG, or GA has $q<0.25$ under any family.
 \begin{table}[H]
     \centering
     \small
@@ -94,26 +94,38 @@ B, directional & $+0.222$ & $+0.137$ & $+0.085$ & [$-0.393$, $+0.598$] & 0.834 &
 \end{table}
 
 \subsection{Known Ground-Truth Validation and Lexical Simplicity Control}
-Table~\ref{tab:minimal-pairs} reports results on 100 minimal pairs across two edit types. The readout tracks the known edit direction in both conditions (sign accuracy 0.760 for removal, 0.910 for insertion), so it is a usable behavioral signal. Feature recovery is weak: only local SHAP exceeds chance, modestly (AUROC 0.553 for removal, 0.622 for insertion), while global SHAP/IG/GA are at chance (0.474--0.495) and probe weights fall below it (0.395--0.406). Causal recovery follows the same ordering, weakly positive for local SHAP ($\rho = 0.186$ and $0.219$), near zero for global SHAP/IG/GA, and negative for probe weights.
+Table~\ref{tab:minimal-pairs} reports 100 minimal pairs for each of four edits that cross type with position relative to the final token. The readout tracks the known direction in all four (sign accuracy 0.76--0.96), but it is weakest for removal and interior insertion, where effects sit close to a null-edit noise floor (Appendix~\ref{app:minimal-pairs}). Against random distractors, local SHAP is modestly above chance (AUROC 0.49--0.62) and global SHAP/IG/GA are near chance (0.41--0.51). The apparent insertion advantage for local SHAP is a position effect: appending the clause (0.622) beats placing it mid-sentence (0.492), while removal and interior insertion are alike. Same-seed differences over seeds 0--3 agree (insertion minus interior insertion $+0.12 \pm 0.03$, positive in 4/4; removal minus interior insertion $+0.01 \pm 0.02$). Feature recovery is also not shown to exceed what activity alone gives. The attribution-free baseline ``active at the edited last token'' reaches AUROC 0.79--0.85, above every method, and once distractors are activity-matched, local and global SHAP fall below chance (0.38--0.49), in all seeds (0 of 15 seed-by-edit runs above 0.5 for either method). Causal recovery is more informative: among active candidates $\rho$ is positive for local and global SHAP in every seed ($0.15$--$0.36$), but local SHAP's edge over global SHAP largely disappears except for insertion, so we read it as weak evidence that $|$attribution$|$ tracks ablation effect, not that attribution identifies the changed features.
 \begin{table}[H]
 \centering
 \small
-\setlength{\tabcolsep}{5pt}
-\caption{Minimal-pair ground-truth validation ($n=100$ pairs, linear arm, random distractors). Sign acc.\ is readout validity; AUROC is feature recovery (chance $=0.5$); $\rho$ is causal recovery.}
+\setlength{\tabcolsep}{4pt}
+\caption{Minimal-pair ground-truth validation (seed 42, $n=100$ pairs per edit, linear arm). Sign acc.\ is readout validity (Wilson 95\% CI); AUROC is feature recovery (chance $=0.5$) with random or activity-matched distractors; $\rho$ is causal recovery (random distractors). The baseline row scores whether a feature is active at the edited last token, with no attribution.}
 \label{tab:minimal-pairs}
-\begin{tabular}{llccc}
+\begin{tabular}{llcccc}
 \toprule
-Edit & Method & Sign acc. & AUROC & $\rho$ \\
+Edit & Method & Sign acc. & AUROC rand. & AUROC act.-matched & $\rho$ \\
 \midrule
-Remove & Local SHAP        & 0.760 & 0.553 & $+0.186$ \\
-       & Global SHAP/IG/GA &       & 0.495 & $+0.064$ \\
-       & Probe weights     &       & 0.395 & $-0.148$ \\
+Remove & Local SHAP        & 0.76 [0.67, 0.83] & 0.553 & 0.420 & $+0.186$ \\
+       & Global SHAP/IG/GA &                   & 0.495 & 0.463 & $+0.064$ \\
+       & Probe weights     &                   & 0.395 & 0.508 & $-0.148$ \\
+       & Active baseline   &                   & 0.851 & --    & -- \\
 \midrule
-Insert & Local SHAP        & 0.910 & 0.622 & $+0.219$ \\
-       & Global SHAP/IG/GA &       & 0.474 & $+0.008$ \\
-       & Probe weights     &       & 0.406 & $-0.200$ \\
+Substitute & Local SHAP        & 0.96 [0.90, 0.98] & 0.565 & 0.427 & $+0.355$ \\
+           & Global SHAP/IG/GA &                   & 0.509 & 0.451 & $+0.235$ \\
+           & Probe weights     &                   & 0.466 & 0.522 & $+0.013$ \\
+           & Active baseline   &                   & 0.803 & --    & -- \\
+\midrule
+Insert (final) & Local SHAP        & 0.91 [0.84, 0.95] & 0.622 & 0.486 & $+0.219$ \\
+               & Global SHAP/IG/GA &                   & 0.474 & 0.378 & $+0.008$ \\
+               & Probe weights     &                   & 0.406 & 0.490 & $-0.200$ \\
+               & Active baseline   &                   & 0.822 & --    & -- \\
+\midrule
+Insert (interior) & Local SHAP        & 0.79 [0.70, 0.86] & 0.492 & 0.379 & $+0.194$ \\
+                  & Global SHAP/IG/GA &                   & 0.414 & 0.428 & $+0.062$ \\
+                  & Probe weights     &                   & 0.410 & 0.475 & $-0.151$ \\
+                  & Active baseline   &                   & 0.789 & --    & -- \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Our lexical baseline provides substantially weaker held-out performance than the SAE probe (held-out accuracy 0.614 vs. 0.810), while top-feature activation showed only weak association with sentiment-lexicon presence (mean $|r|=0.048$; Appendix~\ref{app:lexical}), suggesting that the probe signal is not reducible to simple sentiment-word detection.
+A hand-built sentiment lexicon is a weak baseline (accuracy 0.611), but a full-vocabulary bag-of-words logistic regression is not: it reaches 0.794--0.806 against the SAE probe's 0.810, with differences of $+0.003$ to $+0.016$ whose intervals include zero (Appendix~\ref{app:lexical}). SST-2 sentiment is therefore largely recoverable from word presence, and we do not claim the probe carries signal beyond it. The probe also trails a logistic regression on the dense layer-7 residual (0.870). The earlier lexicon-correlation test was uninformative, since the lexicon explains almost none of any top feature's variance ($R^2\approx0.003$). Full-vocabulary bag-of-words explains more (median $R^2$ $0.17$ for the top-20 features against $0.11$ for other masked features; $4/20$ at or above $0.25$), and explains $0.39$ of the probe logit's variance. Top features are thus neither simple lexicon detectors nor free of word identity. Because the task is largely lexical, it gives interaction-aware attribution little room to differ from simpler methods, which limits what these experiments can show.

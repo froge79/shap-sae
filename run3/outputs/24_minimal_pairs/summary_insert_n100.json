@@ -6,6 +6,7 @@
   "k_distractor": 15,
   "distractors": "random",
   "moved_rel_threshold": 0.1,
+  "frac_last_token_changed": 0.05,
   "readout_sign_accuracy": 0.91,
   "mean_abs_text_delta": 0.7676397705078125,
   "methods": {

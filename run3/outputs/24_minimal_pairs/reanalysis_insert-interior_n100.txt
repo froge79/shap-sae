@@ -1,0 +1,81 @@
+Minimal-pair reanalysis  edit=insert-interior  n=100
+======================================================================
+frac candidates 'moved' @rel0.10 = 0.57;  frac candidates active in edited = 0.43
+
+AUROC, moved = |dact| >= 0.05*max
+  local_SHAP      0.510 [0.483,0.535]
+  global_SHAP     0.435 [0.411,0.458]
+  Probe weights   0.411 [0.387,0.434]
+  act_edited      0.815 [0.803,0.826]
+  active_edited   0.820 [0.809,0.830]
+  oracle_dact     1.000 [1.000,1.000]
+
+AUROC, moved = |dact| >= 0.1*max
+  local_SHAP      0.492 [0.467,0.517]
+  global_SHAP     0.414 [0.389,0.436]
+  Probe weights   0.410 [0.387,0.433]
+  act_edited      0.777 [0.765,0.790]
+  active_edited   0.789 [0.777,0.800]
+  oracle_dact     1.000 [1.000,1.000]
+
+AUROC, moved = |dact| >= 0.25*max
+  local_SHAP      0.460 [0.432,0.485]
+  global_SHAP     0.373 [0.350,0.395]
+  Probe weights   0.410 [0.387,0.432]
+  act_edited      0.697 [0.681,0.712]
+  active_edited   0.726 [0.712,0.739]
+  oracle_dact     1.000 [1.000,1.000]
+
+AUROC, moved = |dact| >= 0.5*max
+  local_SHAP      0.457 [0.422,0.490]
+  global_SHAP     0.359 [0.330,0.387]
+  Probe weights   0.421 [0.395,0.447]
+  act_edited      0.604 [0.580,0.628]
+  active_edited   0.635 [0.614,0.653]
+  oracle_dact     1.000 [1.000,1.000]
+
+AUROC, moved = |dact| >= 0.1
+  local_SHAP      0.494 [0.468,0.519]
+  global_SHAP     0.417 [0.393,0.440]
+  Probe weights   0.408 [0.385,0.429]
+  act_edited      0.784 [0.772,0.796]
+  active_edited   0.795 [0.783,0.805]
+  oracle_dact     1.000 [1.000,1.000]
+
+AUROC, moved = |dact| >= 0.5
+  local_SHAP      0.417 [0.389,0.444]
+  global_SHAP     0.330 [0.307,0.352]
+  Probe weights   0.394 [0.369,0.418]
+  act_edited      0.603 [0.580,0.624]
+  active_edited   0.652 [0.635,0.671]
+  oracle_dact     1.000 [1.000,1.000]
+
+AUROC, moved = |dact| >= 1.0
+  local_SHAP      0.662 [0.602,0.717]
+  global_SHAP     0.476 [0.414,0.541]
+  Probe weights   0.499 [0.441,0.556]
+  act_edited      0.716 [0.670,0.757]
+  active_edited   0.672 [0.631,0.712]
+  oracle_dact     1.000 [1.000,1.000]
+
+AUROC, rel0.10, candidates active at edited last token only
+  local_SHAP      0.442 [0.387,0.500]
+  global_SHAP     0.360 [0.311,0.410]
+  Probe weights   0.510 [0.450,0.572]
+  act_edited      0.288 [0.234,0.342]
+  active_edited   0.500 [0.500,0.500]
+  oracle_dact     1.000 [1.000,1.000]
+
+Spearman(|score|, |dact|) per pair (threshold-free)
+  local_SHAP      -0.018 [-0.065,0.028]
+  global_SHAP     -0.176 [-0.217,-0.137]
+  Probe weights   -0.144 [-0.184,-0.104]
+  act_edited      0.439 [0.416,0.462]
+  active_edited   0.491 [0.470,0.513]
+
+Readout
+  sign acc 0.790  Wilson95 [0.700,0.858]
+  null-edit |delta| quantiles {50: 0.16892242431640625, 75: 0.32581520080566406, 90: 0.48976364135742206, 95: 0.5630718231201168}
+  pairs with |delta| >= null p90 (0.490): 24, sign acc 0.958
+  sign acc by |delta| tertile: [0.6060606060606061, 0.8529411764705882, 0.9090909090909091]
+  above-floor subset (committed per-pair): {'local_SHAP': {'auroc': 0.4992353952257848, 'rho': 0.18064780747651313}, 'global_SHAP': {'auroc': 0.4224063320759335, 'rho': 0.0032852715375401484}, 'Probe weights': {'auroc': 0.41268678130100983, 'rho': -0.18460548874337332}}

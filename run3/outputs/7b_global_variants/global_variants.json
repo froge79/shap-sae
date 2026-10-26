@@ -1,0 +1,429 @@
+{
+  "descriptives": {
+    "bg100_pos_frac": 0.49,
+    "eval_pos_frac": 0.515,
+    "train_pos_frac": 0.514336917562724,
+    "closed_form_max_err": 2.452603267144582e-07,
+    "bg100_sign_agree_w": 0.4649122807017544,
+    "bg100_sum_phi": 0.16322337028897457,
+    "bg100_rho_absPhi_vs_absw": 0.687231931309613,
+    "bg100_rho_absPhi_vs_absshift": 0.6009801340596587,
+    "bgfull_sign_agree_w": 0.4298245614035088,
+    "bgfull_sum_phi": -0.0804704252230821,
+    "bgfull_rho_absPhi_vs_absw": 0.7031327838642394,
+    "bgfull_rho_absPhi_vs_absshift": 0.6214819464976409
+  },
+  "n_pool": 114,
+  "point": {
+    "signed_mean@bg100": {
+      "all-token, all 114": {
+        "importance": 0.3769911504424779,
+        "directional": -0.09724792936554547
+      },
+      "last-token, all 114": {
+        "importance": 0.30324618780502627,
+        "directional": -0.10768919219942893
+      },
+      "random k=20 (scaled)": {
+        "importance": 0.5548872180451127,
+        "directional": -0.07669172932330826
+      },
+      "ablation random k=20": {
+        "importance": 0.5112781954887218,
+        "directional": -0.4270676691729323
+      }
+    },
+    "mean_abs@bg100": {
+      "all-token, all 114": {
+        "importance": 0.4367631275186813,
+        "directional": 0.1986958546809502
+      },
+      "last-token, all 114": {
+        "importance": 0.46070755958769577,
+        "directional": 0.10901763836293311
+      },
+      "random k=20 (scaled)": {
+        "importance": 0.6180451127819548,
+        "directional": 0.23157894736842105
+      },
+      "ablation random k=20": {
+        "importance": 0.5864661654135337,
+        "directional": 0.02857142857142857
+      }
+    },
+    "signed_by_w@bg100": {
+      "all-token, all 114": {
+        "importance": 0.4367631275186813,
+        "directional": 0.41319940867945165
+      },
+      "last-token, all 114": {
+        "importance": 0.46070755958769577,
+        "directional": 0.3388955266195501
+      },
+      "random k=20 (scaled)": {
+        "importance": 0.6180451127819548,
+        "directional": 0.6090225563909774
+      },
+      "ablation random k=20": {
+        "importance": 0.5864661654135337,
+        "directional": 0.706766917293233
+      }
+    },
+    "signed_mean@bgfull": {
+      "all-token, all 114": {
+        "importance": 0.3701464125878374,
+        "directional": -0.057742856564265616
+      },
+      "last-token, all 114": {
+        "importance": 0.3894979850549807,
+        "directional": -0.15324517526984066
+      },
+      "random k=20 (scaled)": {
+        "importance": 0.5669172932330826,
+        "directional": -0.13533834586466165
+      },
+      "ablation random k=20": {
+        "importance": 0.4842105263157894,
+        "directional": -0.45714285714285713
+      }
+    },
+    "mean_abs@bgfull": {
+      "all-token, all 114": {
+        "importance": 0.42995079078998,
+        "directional": 0.2001782061926652
+      },
+      "last-token, all 114": {
+        "importance": 0.45518316761507466,
+        "directional": 0.1102164800226808
+      },
+      "random k=20 (scaled)": {
+        "importance": 0.6360902255639098,
+        "directional": 0.19999999999999998
+      },
+      "ablation random k=20": {
+        "importance": 0.5353383458646617,
+        "directional": -0.013533834586466165
+      }
+    },
+    "signed_by_w@bgfull": {
+      "all-token, all 114": {
+        "importance": 0.42995079078998,
+        "directional": 0.4122921771531561
+      },
+      "last-token, all 114": {
+        "importance": 0.45518316761507466,
+        "directional": 0.3396650533606043
+      },
+      "random k=20 (scaled)": {
+        "importance": 0.6360902255639098,
+        "directional": 0.6180451127819548
+      },
+      "ablation random k=20": {
+        "importance": 0.5353383458646617,
+        "directional": 0.7112781954887217
+      }
+    }
+  },
+  "boot": {
+    "signed_mean@boot100": {
+      "all-token, all 114|importance": {
+        "mean": 0.3163724671432333,
+        "lo": 0.20104999898746484,
+        "hi": 0.41916243089447364,
+        "frac_pos": 1.0
+      },
+      "all-token, all 114|directional": {
+        "mean": -0.02664052975840911,
+        "lo": -0.20731941434964865,
+        "hi": 0.17012737692634816,
+        "frac_pos": 0.392
+      },
+      "last-token, all 114|importance": {
+        "mean": 0.33086724043660526,
+        "lo": 0.21370527125817626,
+        "hi": 0.4363969947955692,
+        "frac_pos": 1.0
+      },
+      "last-token, all 114|directional": {
+        "mean": -0.05204641461290781,
+        "lo": -0.2419177416415221,
+        "hi": 0.16522974423361206,
+        "frac_pos": 0.304
+      },
+      "random k=20 (scaled)|importance": {
+        "mean": 0.5014285714285713,
+        "lo": 0.2368045112781955,
+        "hi": 0.6917293233082705,
+        "frac_pos": 0.998
+      },
+      "random k=20 (scaled)|directional": {
+        "mean": -0.05452631578947369,
+        "lo": -0.47605263157894734,
+        "hi": 0.4812030075187969,
+        "frac_pos": 0.37
+      },
+      "ablation random k=20|importance": {
+        "mean": 0.41366917293233074,
+        "lo": 0.1518796992481203,
+        "hi": 0.6355263157894735,
+        "frac_pos": 0.992
+      },
+      "ablation random k=20|directional": {
+        "mean": -0.18844511278195486,
+        "lo": -0.6631578947368421,
+        "hi": 0.4085338345864659,
+        "frac_pos": 0.254
+      }
+    },
+    "mean_abs@boot100": {
+      "all-token, all 114|importance": {
+        "mean": 0.42787802596140223,
+        "lo": 0.40824912415706455,
+        "hi": 0.44687308883983723,
+        "frac_pos": 1.0
+      },
+      "all-token, all 114|directional": {
+        "mean": 0.19625396002511086,
+        "lo": 0.17333164577469068,
+        "hi": 0.218072133006622,
+        "frac_pos": 1.0
+      },
+      "last-token, all 114|importance": {
+        "mean": 0.4503135861971204,
+        "lo": 0.4325847998217939,
+        "hi": 0.46579068872643326,
+        "frac_pos": 1.0
+      },
+      "last-token, all 114|directional": {
+        "mean": 0.10836336242684434,
+        "lo": 0.08487758449606125,
+        "hi": 0.12983455175067335,
+        "frac_pos": 1.0
+      },
+      "random k=20 (scaled)|importance": {
+        "mean": 0.6354616541353383,
+        "lo": 0.5804511278195488,
+        "hi": 0.6804887218045111,
+        "frac_pos": 1.0
+      },
+      "random k=20 (scaled)|directional": {
+        "mean": 0.21573533834586464,
+        "lo": 0.15710526315789472,
+        "hi": 0.28120300751879695,
+        "frac_pos": 1.0
+      },
+      "ablation random k=20|importance": {
+        "mean": 0.5621984962406016,
+        "lo": 0.4939473684210526,
+        "hi": 0.629360902255639,
+        "frac_pos": 1.0
+      },
+      "ablation random k=20|directional": {
+        "mean": 0.007548872180451127,
+        "lo": -0.04060150375939849,
+        "hi": 0.05793233082706763,
+        "frac_pos": 0.592
+      }
+    },
+    "signed_by_w@boot100": {
+      "all-token, all 114|importance": {
+        "mean": 0.42787802596140223,
+        "lo": 0.40824912415706455,
+        "hi": 0.44687308883983723,
+        "frac_pos": 1.0
+      },
+      "all-token, all 114|directional": {
+        "mean": 0.41026075616127666,
+        "lo": 0.4014693910613394,
+        "hi": 0.4194088819586481,
+        "frac_pos": 1.0
+      },
+      "last-token, all 114|importance": {
+        "mean": 0.4503135861971204,
+        "lo": 0.4325847998217939,
+        "hi": 0.46579068872643326,
+        "frac_pos": 1.0
+      },
+      "last-token, all 114|directional": {
+        "mean": 0.3362078208217736,
+        "lo": 0.3260357222413479,
+        "hi": 0.34565743909600866,
+        "frac_pos": 1.0
+      },
+      "random k=20 (scaled)|importance": {
+        "mean": 0.6354616541353383,
+        "lo": 0.5804511278195488,
+        "hi": 0.6804887218045111,
+        "frac_pos": 1.0
+      },
+      "random k=20 (scaled)|directional": {
+        "mean": 0.6169533834586466,
+        "lo": 0.5894736842105263,
+        "hi": 0.6375939849624059,
+        "frac_pos": 1.0
+      },
+      "ablation random k=20|importance": {
+        "mean": 0.5621984962406016,
+        "lo": 0.4939473684210526,
+        "hi": 0.629360902255639,
+        "frac_pos": 1.0
+      },
+      "ablation random k=20|directional": {
+        "mean": 0.7087248120300752,
+        "lo": 0.6796992481203006,
+        "hi": 0.730112781954887,
+        "frac_pos": 1.0
+      }
+    },
+    "signed_mean@boot1000": {
+      "all-token, all 114|importance": {
+        "mean": 0.32455102974828376,
+        "lo": 0.22052753083169643,
+        "hi": 0.4142265243717219,
+        "frac_pos": 1.0
+      },
+      "all-token, all 114|directional": {
+        "mean": -0.0705523986958547,
+        "lo": -0.20682590470018833,
+        "hi": 0.07809096616107408,
+        "frac_pos": 0.168
+      },
+      "last-token, all 114|importance": {
+        "mean": 0.3257044126283389,
+        "lo": 0.21089467608999415,
+        "hi": 0.43513537595431445,
+        "frac_pos": 1.0
+      },
+      "last-token, all 114|directional": {
+        "mean": -0.1271149632449728,
+        "lo": -0.2675790283712359,
+        "hi": 0.0338462161560114,
+        "frac_pos": 0.064
+      },
+      "random k=20 (scaled)|importance": {
+        "mean": 0.522784962406015,
+        "lo": 0.3028947368421052,
+        "hi": 0.6556390977443608,
+        "frac_pos": 1.0
+      },
+      "random k=20 (scaled)|directional": {
+        "mean": -0.15147669172932327,
+        "lo": -0.40229323308270676,
+        "hi": 0.2076315789473676,
+        "frac_pos": 0.144
+      },
+      "ablation random k=20|importance": {
+        "mean": 0.41658947368421045,
+        "lo": 0.17462406015037596,
+        "hi": 0.5909774436090225,
+        "frac_pos": 1.0
+      },
+      "ablation random k=20|directional": {
+        "mean": -0.4163609022556391,
+        "lo": -0.6880075187969924,
+        "hi": -0.05992481203007538,
+        "frac_pos": 0.016
+      }
+    },
+    "mean_abs@boot1000": {
+      "all-token, all 114|importance": {
+        "mean": 0.4283820902776372,
+        "lo": 0.42078775237439503,
+        "hi": 0.4359751726372492,
+        "frac_pos": 1.0
+      },
+      "all-token, all 114|directional": {
+        "mean": 0.19961269314108668,
+        "lo": 0.19193130961300908,
+        "hi": 0.2076490958060793,
+        "frac_pos": 1.0
+      },
+      "last-token, all 114|importance": {
+        "mean": 0.45268855632733246,
+        "lo": 0.44653976225673847,
+        "hi": 0.4589583038010571,
+        "frac_pos": 1.0
+      },
+      "last-token, all 114|directional": {
+        "mean": 0.11064700998359694,
+        "lo": 0.10245114517729492,
+        "hi": 0.11894858346327535,
+        "frac_pos": 1.0
+      },
+      "random k=20 (scaled)|importance": {
+        "mean": 0.6407338345864662,
+        "lo": 0.6195488721804511,
+        "hi": 0.6631578947368421,
+        "frac_pos": 1.0
+      },
+      "random k=20 (scaled)|directional": {
+        "mean": 0.20773533834586463,
+        "lo": 0.1969924812030075,
+        "hi": 0.23308270676691725,
+        "frac_pos": 1.0
+      },
+      "ablation random k=20|importance": {
+        "mean": 0.548821052631579,
+        "lo": 0.5308270676691729,
+        "hi": 0.5827443609022556,
+        "frac_pos": 1.0
+      },
+      "ablation random k=20|directional": {
+        "mean": -0.0054676691729323304,
+        "lo": -0.018045112781954885,
+        "hi": 0.021842105263157857,
+        "frac_pos": 0.248
+      }
+    },
+    "signed_by_w@boot1000": {
+      "all-token, all 114|importance": {
+        "mean": 0.4283820902776372,
+        "lo": 0.42078775237439503,
+        "hi": 0.4359751726372492,
+        "frac_pos": 1.0
+      },
+      "all-token, all 114|directional": {
+        "mean": 0.41175691055264174,
+        "lo": 0.40782041675948244,
+        "hi": 0.41552459447965817,
+        "frac_pos": 1.0
+      },
+      "last-token, all 114|importance": {
+        "mean": 0.45268855632733246,
+        "lo": 0.44653976225673847,
+        "hi": 0.4589583038010571,
+        "frac_pos": 1.0
+      },
+      "last-token, all 114|directional": {
+        "mean": 0.3387041331686277,
+        "lo": 0.33434661104473384,
+        "hi": 0.34287296733561495,
+        "frac_pos": 1.0
+      },
+      "random k=20 (scaled)|importance": {
+        "mean": 0.6407338345864662,
+        "lo": 0.6195488721804511,
+        "hi": 0.6631578947368421,
+        "frac_pos": 1.0
+      },
+      "random k=20 (scaled)|directional": {
+        "mean": 0.6189233082706767,
+        "lo": 0.6105263157894737,
+        "hi": 0.6240601503759398,
+        "frac_pos": 1.0
+      },
+      "ablation random k=20|importance": {
+        "mean": 0.548821052631579,
+        "lo": 0.5308270676691729,
+        "hi": 0.5827443609022556,
+        "frac_pos": 1.0
+      },
+      "ablation random k=20|directional": {
+        "mean": 0.714760902255639,
+        "lo": 0.7037593984962407,
+        "hi": 0.7263157894736841,
+        "frac_pos": 1.0
+      }
+    }
+  }
+}
