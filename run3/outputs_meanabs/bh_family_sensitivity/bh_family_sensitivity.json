@@ -1,0 +1,653 @@
+{
+  "alpha": 0.05,
+  "global_raw": {
+    "PRIMARY: per run": {
+      "n_tests": 30,
+      "bh": 16,
+      "by": 16,
+      "bh_survivors": [
+        "global|linear|all-token|GA:importance",
+        "global|linear|all-token|IG:importance",
+        "global|linear|all-token|Probe weights:directional",
+        "global|linear|all-token|Probe weights:importance",
+        "global|linear|all-token|SHAP:importance",
+        "global|linear|last-token|GA:importance",
+        "global|linear|last-token|IG:importance",
+        "global|linear|last-token|Probe weights:directional",
+        "global|linear|last-token|Probe weights:importance",
+        "global|linear|last-token|SHAP:importance",
+        "global|mlp|all-token|GA:importance",
+        "global|mlp|all-token|IG:importance",
+        "global|mlp|all-token|SHAP:importance",
+        "global|mlp|last-token|GA:importance",
+        "global|mlp|last-token|IG:importance",
+        "global|mlp|last-token|SHAP:importance"
+      ],
+      "by_survivors": [
+        "global|linear|all-token|GA:importance",
+        "global|linear|all-token|IG:importance",
+        "global|linear|all-token|Probe weights:directional",
+        "global|linear|all-token|Probe weights:importance",
+        "global|linear|all-token|SHAP:importance",
+        "global|linear|last-token|GA:importance",
+        "global|linear|last-token|IG:importance",
+        "global|linear|last-token|Probe weights:directional",
+        "global|linear|last-token|Probe weights:importance",
+        "global|linear|last-token|SHAP:importance",
+        "global|mlp|all-token|GA:importance",
+        "global|mlp|all-token|IG:importance",
+        "global|mlp|all-token|SHAP:importance",
+        "global|mlp|last-token|GA:importance",
+        "global|mlp|last-token|IG:importance",
+        "global|mlp|last-token|SHAP:importance"
+      ]
+    },
+    "pooled over arms, per scope": {
+      "n_tests": 30,
+      "bh": 16,
+      "by": 16,
+      "bh_survivors": [
+        "global|linear|all-token|GA:importance",
+        "global|linear|all-token|IG:importance",
+        "global|linear|all-token|Probe weights:directional",
+        "global|linear|all-token|Probe weights:importance",
+        "global|linear|all-token|SHAP:importance",
+        "global|linear|last-token|GA:importance",
+        "global|linear|last-token|IG:importance",
+        "global|linear|last-token|Probe weights:directional",
+        "global|linear|last-token|Probe weights:importance",
+        "global|linear|last-token|SHAP:importance",
+        "global|mlp|all-token|GA:importance",
+        "global|mlp|all-token|IG:importance",
+        "global|mlp|all-token|SHAP:importance",
+        "global|mlp|last-token|GA:importance",
+        "global|mlp|last-token|IG:importance",
+        "global|mlp|last-token|SHAP:importance"
+      ],
+      "by_survivors": [
+        "global|linear|all-token|GA:importance",
+        "global|linear|all-token|IG:importance",
+        "global|linear|all-token|Probe weights:directional",
+        "global|linear|all-token|Probe weights:importance",
+        "global|linear|all-token|SHAP:importance",
+        "global|linear|last-token|GA:importance",
+        "global|linear|last-token|IG:importance",
+        "global|linear|last-token|Probe weights:directional",
+        "global|linear|last-token|Probe weights:importance",
+        "global|linear|last-token|SHAP:importance",
+        "global|mlp|all-token|GA:importance",
+        "global|mlp|all-token|IG:importance",
+        "global|mlp|all-token|SHAP:importance",
+        "global|mlp|last-token|GA:importance",
+        "global|mlp|last-token|IG:importance",
+        "global|mlp|last-token|SHAP:importance"
+      ]
+    },
+    "pooled over scopes, per arm": {
+      "n_tests": 30,
+      "bh": 16,
+      "by": 16,
+      "bh_survivors": [
+        "global|linear|all-token|GA:importance",
+        "global|linear|all-token|IG:importance",
+        "global|linear|all-token|Probe weights:directional",
+        "global|linear|all-token|Probe weights:importance",
+        "global|linear|all-token|SHAP:importance",
+        "global|linear|last-token|GA:importance",
+        "global|linear|last-token|IG:importance",
+        "global|linear|last-token|Probe weights:directional",
+        "global|linear|last-token|Probe weights:importance",
+        "global|linear|last-token|SHAP:importance",
+        "global|mlp|all-token|GA:importance",
+        "global|mlp|all-token|IG:importance",
+        "global|mlp|all-token|SHAP:importance",
+        "global|mlp|last-token|GA:importance",
+        "global|mlp|last-token|IG:importance",
+        "global|mlp|last-token|SHAP:importance"
+      ],
+      "by_survivors": [
+        "global|linear|all-token|GA:importance",
+        "global|linear|all-token|IG:importance",
+        "global|linear|all-token|Probe weights:directional",
+        "global|linear|all-token|Probe weights:importance",
+        "global|linear|all-token|SHAP:importance",
+        "global|linear|last-token|GA:importance",
+        "global|linear|last-token|IG:importance",
+        "global|linear|last-token|Probe weights:directional",
+        "global|linear|last-token|Probe weights:importance",
+        "global|linear|last-token|SHAP:importance",
+        "global|mlp|all-token|GA:importance",
+        "global|mlp|all-token|IG:importance",
+        "global|mlp|all-token|SHAP:importance",
+        "global|mlp|last-token|GA:importance",
+        "global|mlp|last-token|IG:importance",
+        "global|mlp|last-token|SHAP:importance"
+      ]
+    },
+    "pooled over all global runs": {
+      "n_tests": 30,
+      "bh": 16,
+      "by": 16,
+      "bh_survivors": [
+        "global|linear|all-token|GA:importance",
+        "global|linear|all-token|IG:importance",
+        "global|linear|all-token|Probe weights:directional",
+        "global|linear|all-token|Probe weights:importance",
+        "global|linear|all-token|SHAP:importance",
+        "global|linear|last-token|GA:importance",
+        "global|linear|last-token|IG:importance",
+        "global|linear|last-token|Probe weights:directional",
+        "global|linear|last-token|Probe weights:importance",
+        "global|linear|last-token|SHAP:importance",
+        "global|mlp|all-token|GA:importance",
+        "global|mlp|all-token|IG:importance",
+        "global|mlp|all-token|SHAP:importance",
+        "global|mlp|last-token|GA:importance",
+        "global|mlp|last-token|IG:importance",
+        "global|mlp|last-token|SHAP:importance"
+      ],
+      "by_survivors": [
+        "global|linear|all-token|GA:importance",
+        "global|linear|all-token|IG:importance",
+        "global|linear|all-token|Probe weights:directional",
+        "global|linear|all-token|Probe weights:importance",
+        "global|linear|all-token|SHAP:importance",
+        "global|linear|last-token|GA:importance",
+        "global|linear|last-token|IG:importance",
+        "global|linear|last-token|Probe weights:directional",
+        "global|linear|last-token|Probe weights:importance",
+        "global|linear|last-token|SHAP:importance",
+        "global|mlp|all-token|GA:importance",
+        "global|mlp|all-token|IG:importance",
+        "global|mlp|all-token|SHAP:importance",
+        "global|mlp|last-token|GA:importance",
+        "global|mlp|last-token|IG:importance",
+        "global|mlp|last-token|SHAP:importance"
+      ]
+    }
+  },
+  "global_dedup": {
+    "PRIMARY: per run": {
+      "n_tests": 22,
+      "bh": 12,
+      "by": 12,
+      "bh_survivors": [
+        "global|linear|all-token|Probe weights:directional",
+        "global|linear|all-token|Probe weights:importance",
+        "global|linear|all-token|SHAP:importance",
+        "global|linear|last-token|Probe weights:directional",
+        "global|linear|last-token|Probe weights:importance",
+        "global|linear|last-token|SHAP:importance",
+        "global|mlp|all-token|GA:importance",
+        "global|mlp|all-token|IG:importance",
+        "global|mlp|all-token|SHAP:importance",
+        "global|mlp|last-token|GA:importance",
+        "global|mlp|last-token|IG:importance",
+        "global|mlp|last-token|SHAP:importance"
+      ],
+      "by_survivors": [
+        "global|linear|all-token|Probe weights:directional",
+        "global|linear|all-token|Probe weights:importance",
+        "global|linear|all-token|SHAP:importance",
+        "global|linear|last-token|Probe weights:directional",
+        "global|linear|last-token|Probe weights:importance",
+        "global|linear|last-token|SHAP:importance",
+        "global|mlp|all-token|GA:importance",
+        "global|mlp|all-token|IG:importance",
+        "global|mlp|all-token|SHAP:importance",
+        "global|mlp|last-token|GA:importance",
+        "global|mlp|last-token|IG:importance",
+        "global|mlp|last-token|SHAP:importance"
+      ]
+    },
+    "pooled over arms, per scope": {
+      "n_tests": 22,
+      "bh": 12,
+      "by": 12,
+      "bh_survivors": [
+        "global|linear|all-token|Probe weights:directional",
+        "global|linear|all-token|Probe weights:importance",
+        "global|linear|all-token|SHAP:importance",
+        "global|linear|last-token|Probe weights:directional",
+        "global|linear|last-token|Probe weights:importance",
+        "global|linear|last-token|SHAP:importance",
+        "global|mlp|all-token|GA:importance",
+        "global|mlp|all-token|IG:importance",
+        "global|mlp|all-token|SHAP:importance",
+        "global|mlp|last-token|GA:importance",
+        "global|mlp|last-token|IG:importance",
+        "global|mlp|last-token|SHAP:importance"
+      ],
+      "by_survivors": [
+        "global|linear|all-token|Probe weights:directional",
+        "global|linear|all-token|Probe weights:importance",
+        "global|linear|all-token|SHAP:importance",
+        "global|linear|last-token|Probe weights:directional",
+        "global|linear|last-token|Probe weights:importance",
+        "global|linear|last-token|SHAP:importance",
+        "global|mlp|all-token|GA:importance",
+        "global|mlp|all-token|IG:importance",
+        "global|mlp|all-token|SHAP:importance",
+        "global|mlp|last-token|GA:importance",
+        "global|mlp|last-token|IG:importance",
+        "global|mlp|last-token|SHAP:importance"
+      ]
+    },
+    "pooled over scopes, per arm": {
+      "n_tests": 22,
+      "bh": 12,
+      "by": 12,
+      "bh_survivors": [
+        "global|linear|all-token|Probe weights:directional",
+        "global|linear|all-token|Probe weights:importance",
+        "global|linear|all-token|SHAP:importance",
+        "global|linear|last-token|Probe weights:directional",
+        "global|linear|last-token|Probe weights:importance",
+        "global|linear|last-token|SHAP:importance",
+        "global|mlp|all-token|GA:importance",
+        "global|mlp|all-token|IG:importance",
+        "global|mlp|all-token|SHAP:importance",
+        "global|mlp|last-token|GA:importance",
+        "global|mlp|last-token|IG:importance",
+        "global|mlp|last-token|SHAP:importance"
+      ],
+      "by_survivors": [
+        "global|linear|all-token|Probe weights:directional",
+        "global|linear|all-token|Probe weights:importance",
+        "global|linear|all-token|SHAP:importance",
+        "global|linear|last-token|Probe weights:directional",
+        "global|linear|last-token|Probe weights:importance",
+        "global|linear|last-token|SHAP:importance",
+        "global|mlp|all-token|GA:importance",
+        "global|mlp|all-token|IG:importance",
+        "global|mlp|all-token|SHAP:importance",
+        "global|mlp|last-token|GA:importance",
+        "global|mlp|last-token|IG:importance",
+        "global|mlp|last-token|SHAP:importance"
+      ]
+    },
+    "pooled over all global runs": {
+      "n_tests": 22,
+      "bh": 12,
+      "by": 12,
+      "bh_survivors": [
+        "global|linear|all-token|Probe weights:directional",
+        "global|linear|all-token|Probe weights:importance",
+        "global|linear|all-token|SHAP:importance",
+        "global|linear|last-token|Probe weights:directional",
+        "global|linear|last-token|Probe weights:importance",
+        "global|linear|last-token|SHAP:importance",
+        "global|mlp|all-token|GA:importance",
+        "global|mlp|all-token|IG:importance",
+        "global|mlp|all-token|SHAP:importance",
+        "global|mlp|last-token|GA:importance",
+        "global|mlp|last-token|IG:importance",
+        "global|mlp|last-token|SHAP:importance"
+      ],
+      "by_survivors": [
+        "global|linear|all-token|Probe weights:directional",
+        "global|linear|all-token|Probe weights:importance",
+        "global|linear|all-token|SHAP:importance",
+        "global|linear|last-token|Probe weights:directional",
+        "global|linear|last-token|Probe weights:importance",
+        "global|linear|last-token|SHAP:importance",
+        "global|mlp|all-token|GA:importance",
+        "global|mlp|all-token|IG:importance",
+        "global|mlp|all-token|SHAP:importance",
+        "global|mlp|last-token|GA:importance",
+        "global|mlp|last-token|IG:importance",
+        "global|mlp|last-token|SHAP:importance"
+      ]
+    }
+  },
+  "paper_wide": {
+    "per run / per local source (primary)": {
+      "n_tests": 30,
+      "bh": 13,
+      "by": 13,
+      "bh_survivors": [
+        "global|linear|all-token|Probe weights:directional",
+        "global|linear|all-token|Probe weights:importance",
+        "global|linear|all-token|SHAP:importance",
+        "global|linear|last-token|Probe weights:directional",
+        "global|linear|last-token|Probe weights:importance",
+        "global|linear|last-token|SHAP:importance",
+        "global|mlp|all-token|GA:importance",
+        "global|mlp|all-token|IG:importance",
+        "global|mlp|all-token|SHAP:importance",
+        "global|mlp|last-token|GA:importance",
+        "global|mlp|last-token|IG:importance",
+        "global|mlp|last-token|SHAP:importance",
+        "local|mlp|A:importance"
+      ],
+      "by_survivors": [
+        "global|linear|all-token|Probe weights:directional",
+        "global|linear|all-token|Probe weights:importance",
+        "global|linear|all-token|SHAP:importance",
+        "global|linear|last-token|Probe weights:directional",
+        "global|linear|last-token|Probe weights:importance",
+        "global|linear|last-token|SHAP:importance",
+        "global|mlp|all-token|GA:importance",
+        "global|mlp|all-token|IG:importance",
+        "global|mlp|all-token|SHAP:importance",
+        "global|mlp|last-token|GA:importance",
+        "global|mlp|last-token|IG:importance",
+        "global|mlp|last-token|SHAP:importance",
+        "local|mlp|A:importance"
+      ]
+    },
+    "global pooled; local pooled": {
+      "n_tests": 30,
+      "bh": 13,
+      "by": 13,
+      "bh_survivors": [
+        "global|linear|all-token|Probe weights:directional",
+        "global|linear|all-token|Probe weights:importance",
+        "global|linear|all-token|SHAP:importance",
+        "global|linear|last-token|Probe weights:directional",
+        "global|linear|last-token|Probe weights:importance",
+        "global|linear|last-token|SHAP:importance",
+        "global|mlp|all-token|GA:importance",
+        "global|mlp|all-token|IG:importance",
+        "global|mlp|all-token|SHAP:importance",
+        "global|mlp|last-token|GA:importance",
+        "global|mlp|last-token|IG:importance",
+        "global|mlp|last-token|SHAP:importance",
+        "local|mlp|A:importance"
+      ],
+      "by_survivors": [
+        "global|linear|all-token|Probe weights:directional",
+        "global|linear|all-token|Probe weights:importance",
+        "global|linear|all-token|SHAP:importance",
+        "global|linear|last-token|Probe weights:directional",
+        "global|linear|last-token|Probe weights:importance",
+        "global|linear|last-token|SHAP:importance",
+        "global|mlp|all-token|GA:importance",
+        "global|mlp|all-token|IG:importance",
+        "global|mlp|all-token|SHAP:importance",
+        "global|mlp|last-token|GA:importance",
+        "global|mlp|last-token|IG:importance",
+        "global|mlp|last-token|SHAP:importance",
+        "local|mlp|A:importance"
+      ]
+    },
+    "one family: every inferential test": {
+      "n_tests": 30,
+      "bh": 13,
+      "by": 13,
+      "bh_survivors": [
+        "global|linear|all-token|Probe weights:directional",
+        "global|linear|all-token|Probe weights:importance",
+        "global|linear|all-token|SHAP:importance",
+        "global|linear|last-token|Probe weights:directional",
+        "global|linear|last-token|Probe weights:importance",
+        "global|linear|last-token|SHAP:importance",
+        "global|mlp|all-token|GA:importance",
+        "global|mlp|all-token|IG:importance",
+        "global|mlp|all-token|SHAP:importance",
+        "global|mlp|last-token|GA:importance",
+        "global|mlp|last-token|IG:importance",
+        "global|mlp|last-token|SHAP:importance",
+        "local|mlp|A:importance"
+      ],
+      "by_survivors": [
+        "global|linear|all-token|Probe weights:directional",
+        "global|linear|all-token|Probe weights:importance",
+        "global|linear|all-token|SHAP:importance",
+        "global|linear|last-token|Probe weights:directional",
+        "global|linear|last-token|Probe weights:importance",
+        "global|linear|last-token|SHAP:importance",
+        "global|mlp|all-token|GA:importance",
+        "global|mlp|all-token|IG:importance",
+        "global|mlp|all-token|SHAP:importance",
+        "global|mlp|last-token|GA:importance",
+        "global|mlp|last-token|IG:importance",
+        "global|mlp|last-token|SHAP:importance",
+        "local|mlp|A:importance"
+      ]
+    }
+  },
+  "per_test": [
+    {
+      "test": "global|linear|all-token|SHAP:importance",
+      "p": 1.8054006750436325e-06,
+      "q_narrow": 7.22160270017453e-06,
+      "q_wide_bh": 9.027003375218162e-06,
+      "q_wide_by": 3.606276231477149e-05,
+      "flag": ""
+    },
+    {
+      "test": "global|linear|all-token|SHAP:directional",
+      "p": 0.3033279844669599,
+      "q_narrow": 0.3033279844669599,
+      "q_wide_bh": 0.4549919767004399,
+      "q_wide_by": 1.0,
+      "flag": ""
+    },
+    {
+      "test": "global|linear|all-token|Probe weights:importance",
+      "p": 0.0018303584169512895,
+      "q_narrow": 0.002440477889268386,
+      "q_wide_bh": 0.0049918865916853345,
+      "q_wide_by": 0.019942522692796963,
+      "flag": ""
+    },
+    {
+      "test": "global|linear|all-token|Probe weights:directional",
+      "p": 1.073408149917118e-05,
+      "q_narrow": 2.146816299834236e-05,
+      "q_wide_bh": 3.578027166390394e-05,
+      "q_wide_by": 0.00014294172483813176,
+      "flag": ""
+    },
+    {
+      "test": "global|linear|last-token|SHAP:importance",
+      "p": 3.614575112400366e-07,
+      "q_narrow": 1.4458300449601465e-06,
+      "q_wide_bh": 2.7109313343002746e-06,
+      "q_wide_by": 1.0830135793338442e-05,
+      "flag": ""
+    },
+    {
+      "test": "global|linear|last-token|SHAP:directional",
+      "p": 0.2540970307054454,
+      "q_narrow": 0.2540970307054454,
+      "q_wide_bh": 0.44141392641610705,
+      "q_wide_by": 1.0,
+      "flag": ""
+    },
+    {
+      "test": "global|linear|last-token|Probe weights:importance",
+      "p": 0.0037232706611918156,
+      "q_narrow": 0.0049643608815890874,
+      "q_wide_bh": 0.008592163064288805,
+      "q_wide_by": 0.03432558086860329,
+      "flag": ""
+    },
+    {
+      "test": "global|linear|last-token|Probe weights:directional",
+      "p": 0.0009715445685983934,
+      "q_narrow": 0.0019430891371967868,
+      "q_wide_bh": 0.00291463370579518,
+      "q_wide_by": 0.011643924145998553,
+      "flag": ""
+    },
+    {
+      "test": "global|mlp|all-token|SHAP:importance",
+      "p": 8.471703125987651e-08,
+      "q_narrow": 1.9767307293971187e-07,
+      "q_wide_bh": 8.47170312598765e-07,
+      "q_wide_by": 3.384434496529871e-06,
+      "flag": ""
+    },
+    {
+      "test": "global|mlp|all-token|SHAP:directional",
+      "p": 0.3377016013281602,
+      "q_narrow": 0.47278224185942425,
+      "q_wide_bh": 0.48243085904022887,
+      "q_wide_by": 1.0,
+      "flag": ""
+    },
+    {
+      "test": "global|mlp|all-token|Probe saliency:importance",
+      "p": 0.1961227437329372,
+      "q_narrow": 0.3432148015326401,
+      "q_wide_bh": 0.38625,
+      "q_wide_by": 1.0,
+      "flag": ""
+    },
+    {
+      "test": "global|mlp|all-token|IG:importance",
+      "p": 5.148095610172888e-08,
+      "q_narrow": 1.8018334635605107e-07,
+      "q_wide_bh": 7.722143415259332e-07,
+      "q_wide_by": 3.0849863567082667e-06,
+      "flag": ""
+    },
+    {
+      "test": "global|mlp|all-token|IG:directional",
+      "p": 0.5401704647671276,
+      "q_narrow": 0.6301988755616489,
+      "q_wide_bh": 0.7045701714353838,
+      "q_wide_by": 1.0,
+      "flag": ""
+    },
+    {
+      "test": "global|mlp|all-token|GA:importance",
+      "p": 1.4763054725333108e-08,
+      "q_narrow": 1.0334138307733176e-07,
+      "q_wide_bh": 4.4289164175999326e-07,
+      "q_wide_by": 1.769346409223377e-06,
+      "flag": ""
+    },
+    {
+      "test": "global|mlp|all-token|GA:directional",
+      "p": 0.8747002373031403,
+      "q_narrow": 0.8747002373031403,
+      "q_wide_bh": 0.914285342660344,
+      "q_wide_by": 1.0,
+      "flag": ""
+    },
+    {
+      "test": "global|mlp|last-token|SHAP:importance",
+      "p": 2.37613667898232e-06,
+      "q_narrow": 6.378965951615452e-06,
+      "q_wide_bh": 1.0183442909924228e-05,
+      "q_wide_by": 4.068272337360979e-05,
+      "flag": ""
+    },
+    {
+      "test": "global|mlp|last-token|SHAP:directional",
+      "p": 0.2648483558496642,
+      "q_narrow": 0.4634846227369124,
+      "q_wide_bh": 0.44141392641610705,
+      "q_wide_by": 1.0,
+      "flag": ""
+    },
+    {
+      "test": "global|mlp|last-token|Probe saliency:importance",
+      "p": 0.7365325869703656,
+      "q_narrow": 0.8592880181320932,
+      "q_wide_bh": 0.8723076923076922,
+      "q_wide_by": 1.0,
+      "flag": ""
+    },
+    {
+      "test": "global|mlp|last-token|IG:importance",
+      "p": 2.7338425506923363e-06,
+      "q_narrow": 6.378965951615452e-06,
+      "q_wide_bh": 1.0251909565096261e-05,
+      "q_wide_by": 4.0956246779919225e-05,
+      "flag": ""
+    },
+    {
+      "test": "global|mlp|last-token|IG:directional",
+      "p": 0.5741346253610957,
+      "q_narrow": 0.803788475505534,
+      "q_wide_bh": 0.7176682817013696,
+      "q_wide_by": 1.0,
+      "flag": ""
+    },
+    {
+      "test": "global|mlp|last-token|GA:importance",
+      "p": 7.493365327042464e-07,
+      "q_narrow": 5.245355728929725e-06,
+      "q_wide_bh": 4.496019196225478e-06,
+      "q_wide_by": 1.7961538829291827e-05,
+      "flag": ""
+    },
+    {
+      "test": "global|mlp|last-token|GA:directional",
+      "p": 0.8838091645716658,
+      "q_narrow": 0.8838091645716658,
+      "q_wide_bh": 0.914285342660344,
+      "q_wide_by": 1.0,
+      "flag": ""
+    },
+    {
+      "test": "local|linear|A:importance",
+      "p": 0.206,
+      "q_narrow": 0.412,
+      "q_wide_bh": 0.38625,
+      "q_wide_by": 1.0,
+      "flag": ""
+    },
+    {
+      "test": "local|linear|A:directional",
+      "p": 0.852,
+      "q_narrow": 0.938,
+      "q_wide_bh": 0.914285342660344,
+      "q_wide_by": 1.0,
+      "flag": ""
+    },
+    {
+      "test": "local|linear|B:importance",
+      "p": 0.036,
+      "q_narrow": 0.144,
+      "q_wide_bh": 0.07714285714285714,
+      "q_wide_by": 0.3081847215281444,
+      "flag": ""
+    },
+    {
+      "test": "local|linear|B:directional",
+      "p": 0.938,
+      "q_narrow": 0.938,
+      "q_wide_bh": 0.938,
+      "q_wide_by": 1.0,
+      "flag": ""
+    },
+    {
+      "test": "local|mlp|A:importance",
+      "p": 0.002,
+      "q_narrow": 0.008,
+      "q_wide_bh": 0.005,
+      "q_wide_by": 0.019974935654601955,
+      "flag": ""
+    },
+    {
+      "test": "local|mlp|A:directional",
+      "p": 0.532,
+      "q_narrow": 0.7093333333333334,
+      "q_wide_bh": 0.7045701714353838,
+      "q_wide_by": 1.0,
+      "flag": ""
+    },
+    {
+      "test": "local|mlp|B:importance",
+      "p": 0.29,
+      "q_narrow": 0.58,
+      "q_wide_bh": 0.4549919767004399,
+      "q_wide_by": 1.0,
+      "flag": ""
+    },
+    {
+      "test": "local|mlp|B:directional",
+      "p": 0.756,
+      "q_narrow": 0.756,
+      "q_wide_bh": 0.8723076923076922,
+      "q_wide_by": 1.0,
+      "flag": ""
+    }
+  ],
+  "family_sensitive_tests": []
+}

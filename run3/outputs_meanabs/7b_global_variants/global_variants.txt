@@ -1,0 +1,98 @@
+Global-attribution variants — linear arm, pool n=114, bootstrap B=500 (bg sizes [100, 1000], train n=6696)
+
+class balance: bg100 0.490  eval 0.515  train 0.514
+closed-form vs saved LinearExplainer: max err 2.5e-07
+[bg100] signed Phi: sign agrees with w for 46.5% of pool; sum Phi +0.163; rho(|Phi|,|w|)=0.69, rho(|Phi|,|mean shift|)=0.60
+[bgfull] signed Phi: sign agrees with w for 43.0% of pool; sum Phi -0.080; rho(|Phi|,|w|)=0.70, rho(|Phi|,|mean shift|)=0.62
+
+== importance faithfulness (Spearman rho vs causal effect) ==
+-- all-token, all 114
+   signed_mean@bg100      +0.377
+   mean_abs@bg100         +0.437
+   signed_by_w@bg100      +0.437
+   signed_mean@bgfull     +0.370
+   mean_abs@bgfull        +0.430
+   signed_by_w@bgfull     +0.430
+   signed_mean@boot100    +0.316  [+0.201, +0.419]  frac>0 1.00
+   mean_abs@boot100       +0.428  [+0.408, +0.447]  frac>0 1.00
+   signed_by_w@boot100    +0.428  [+0.408, +0.447]  frac>0 1.00
+   signed_mean@boot1000   +0.325  [+0.221, +0.414]  frac>0 1.00
+   mean_abs@boot1000      +0.428  [+0.421, +0.436]  frac>0 1.00
+   signed_by_w@boot1000   +0.428  [+0.421, +0.436]  frac>0 1.00
+-- last-token, all 114
+   signed_mean@bg100      +0.303
+   mean_abs@bg100         +0.461
+   signed_by_w@bg100      +0.461
+   signed_mean@bgfull     +0.389
+   mean_abs@bgfull        +0.455
+   signed_by_w@bgfull     +0.455
+   signed_mean@boot100    +0.331  [+0.214, +0.436]  frac>0 1.00
+   mean_abs@boot100       +0.450  [+0.433, +0.466]  frac>0 1.00
+   signed_by_w@boot100    +0.450  [+0.433, +0.466]  frac>0 1.00
+   signed_mean@boot1000   +0.326  [+0.211, +0.435]  frac>0 1.00
+   mean_abs@boot1000      +0.453  [+0.447, +0.459]  frac>0 1.00
+   signed_by_w@boot1000   +0.453  [+0.447, +0.459]  frac>0 1.00
+-- random k=20 (scaled)
+   signed_mean@bg100      +0.555
+   mean_abs@bg100         +0.618
+   signed_by_w@bg100      +0.618
+   signed_mean@bgfull     +0.567
+   mean_abs@bgfull        +0.636
+   signed_by_w@bgfull     +0.636
+   signed_mean@boot100    +0.501  [+0.237, +0.692]  frac>0 1.00
+   mean_abs@boot100       +0.635  [+0.580, +0.680]  frac>0 1.00
+   signed_by_w@boot100    +0.635  [+0.580, +0.680]  frac>0 1.00
+   signed_mean@boot1000   +0.523  [+0.303, +0.656]  frac>0 1.00
+   mean_abs@boot1000      +0.641  [+0.620, +0.663]  frac>0 1.00
+   signed_by_w@boot1000   +0.641  [+0.620, +0.663]  frac>0 1.00
+-- ablation random k=20
+   signed_mean@bg100      +0.511
+   mean_abs@bg100         +0.586
+   signed_by_w@bg100      +0.586
+   signed_mean@bgfull     +0.484
+   mean_abs@bgfull        +0.535
+   signed_by_w@bgfull     +0.535
+   signed_mean@boot100    +0.414  [+0.152, +0.636]  frac>0 0.99
+   mean_abs@boot100       +0.562  [+0.494, +0.629]  frac>0 1.00
+   signed_by_w@boot100    +0.562  [+0.494, +0.629]  frac>0 1.00
+   signed_mean@boot1000   +0.417  [+0.175, +0.591]  frac>0 1.00
+   mean_abs@boot1000      +0.549  [+0.531, +0.583]  frac>0 1.00
+   signed_by_w@boot1000   +0.549  [+0.531, +0.583]  frac>0 1.00
+
+== directional faithfulness (Spearman rho vs causal effect) ==
+-- all-token, all 114
+   signed_mean@bg100      -0.097
+   signed_by_w@bg100      +0.413
+   signed_mean@bgfull     -0.058
+   signed_by_w@bgfull     +0.412
+   signed_mean@boot100    -0.027  [-0.207, +0.170]  frac>0 0.39
+   signed_by_w@boot100    +0.410  [+0.401, +0.419]  frac>0 1.00
+   signed_mean@boot1000   -0.071  [-0.207, +0.078]  frac>0 0.17
+   signed_by_w@boot1000   +0.412  [+0.408, +0.416]  frac>0 1.00
+-- last-token, all 114
+   signed_mean@bg100      -0.108
+   signed_by_w@bg100      +0.339
+   signed_mean@bgfull     -0.153
+   signed_by_w@bgfull     +0.340
+   signed_mean@boot100    -0.052  [-0.242, +0.165]  frac>0 0.30
+   signed_by_w@boot100    +0.336  [+0.326, +0.346]  frac>0 1.00
+   signed_mean@boot1000   -0.127  [-0.268, +0.034]  frac>0 0.06
+   signed_by_w@boot1000   +0.339  [+0.334, +0.343]  frac>0 1.00
+-- random k=20 (scaled)
+   signed_mean@bg100      -0.077
+   signed_by_w@bg100      +0.609
+   signed_mean@bgfull     -0.135
+   signed_by_w@bgfull     +0.618
+   signed_mean@boot100    -0.055  [-0.476, +0.481]  frac>0 0.37
+   signed_by_w@boot100    +0.617  [+0.589, +0.638]  frac>0 1.00
+   signed_mean@boot1000   -0.151  [-0.402, +0.208]  frac>0 0.14
+   signed_by_w@boot1000   +0.619  [+0.611, +0.624]  frac>0 1.00
+-- ablation random k=20
+   signed_mean@bg100      -0.427
+   signed_by_w@bg100      +0.707
+   signed_mean@bgfull     -0.457
+   signed_by_w@bgfull     +0.711
+   signed_mean@boot100    -0.188  [-0.663, +0.409]  frac>0 0.25
+   signed_by_w@boot100    +0.709  [+0.680, +0.730]  frac>0 1.00
+   signed_mean@boot1000   -0.416  [-0.688, -0.060]  frac>0 0.02
+   signed_by_w@boot1000   +0.715  [+0.704, +0.726]  frac>0 1.00

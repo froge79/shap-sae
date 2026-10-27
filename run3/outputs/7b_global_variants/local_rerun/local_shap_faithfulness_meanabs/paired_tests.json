@@ -1,0 +1,85 @@
+{
+  "dir": "run3/outputs/7b_global_variants/local_rerun/local_shap_faithfulness_meanabs",
+  "blocks": {
+    "A:importance": {
+      "n": 100,
+      "mean_local": 0.17263886785341392,
+      "mean_global": -0.15806921390511192,
+      "mean_gap": 0.3307080817585259,
+      "median_gap": 0.31056724910599925,
+      "frac_local_wins": 0.93,
+      "wilcoxon_stat": 78.0,
+      "wilcoxon_p": 3.976797993175688e-17,
+      "gap_ci95": [
+        0.28520144327115676,
+        0.3757534097190326
+      ],
+      "crossed": {
+        "n_boot": 1000,
+        "n_features_resampled": 97,
+        "point_local": 0.17263886785341392,
+        "point_global": -0.15806921390511192,
+        "local_ci95": [
+          -0.0788537210103951,
+          0.39508435366937894
+        ],
+        "global_ci95": [
+          -0.35636507951132623,
+          0.06527681185962332
+        ],
+        "point_gap": 0.3307080817585259,
+        "ci95": [
+          0.047684985599720286,
+          0.6276581761491433
+        ],
+        "p_two_sided": 0.028,
+        "se_crossed": 0.14494467350978335,
+        "se_examples_only": 0.02318117752845,
+        "se_inflation": 6.252688127334963
+      }
+    },
+    "B:importance": {
+      "n": 96,
+      "mean_local": -0.07706884217222197,
+      "mean_global": 0.21229426084259692,
+      "mean_gap": -0.2893631030148189,
+      "median_gap": -0.2905462184873949,
+      "frac_local_wins": 0.125,
+      "wilcoxon_stat": 449.0,
+      "wilcoxon_p": 1.0725485541743903e-11,
+      "gap_ci95": [
+        -0.355742945898193,
+        -0.22373359304064255
+      ],
+      "crossed": {
+        "n_boot": 1000,
+        "n_features_resampled": 97,
+        "point_local": -0.07706884217222197,
+        "point_global": 0.21229426084259684,
+        "local_ci95": [
+          -0.27318739745922865,
+          0.15272080732375595
+        ],
+        "global_ci95": [
+          -0.08664768681371034,
+          0.49222737817338025
+        ],
+        "point_gap": -0.2893631030148189,
+        "ci95": [
+          -0.6002605097627719,
+          0.08535747499073076
+        ],
+        "p_two_sided": 0.144,
+        "se_crossed": 0.1717092471899956,
+        "se_examples_only": 0.034040523962572004,
+        "se_inflation": 5.044259817469089
+      }
+    }
+  },
+  "candidate_overlap": {
+    "n_examples": 100,
+    "n_distinct_features": 97,
+    "mean_candidates_per_example": 26.4,
+    "mean_pairwise_jaccard": 0.6619551317245901
+  }
+}

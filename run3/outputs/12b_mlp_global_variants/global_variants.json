@@ -1,0 +1,180 @@
+{
+  "closed_check_max_err": 0.0,
+  "n_pool": 114,
+  "point": {
+    "signed_mean@bg100": {
+      "all-token, all 114": {
+        "importance": 0.34671229825236427,
+        "directional": -0.09060569854802455
+      },
+      "last-token, all 114": {
+        "importance": 0.23289524310969809,
+        "directional": -0.10529960916141837
+      },
+      "random k=20 (scaled)": {
+        "importance": 0.7443609022556391,
+        "directional": -0.14736842105263157
+      },
+      "ablation random k=20": {
+        "importance": 0.5684210526315789,
+        "directional": -0.40751879699248117
+      }
+    },
+    "mean_abs@bg100": {
+      "all-token, all 114": {
+        "importance": 0.486806666531662
+      },
+      "last-token, all 114": {
+        "importance": 0.4515137401024686
+      },
+      "random k=20 (scaled)": {
+        "importance": 0.7293233082706766
+      },
+      "ablation random k=20": {
+        "importance": 0.5669172932330826
+      }
+    },
+    "signed_mean@bg1000": {
+      "all-token, all 114": {
+        "importance": 0.33879832324173265,
+        "directional": -0.1763633786274073
+      },
+      "last-token, all 114": {
+        "importance": 0.31883922966323086,
+        "directional": -0.13778173791539258
+      },
+      "random k=20 (scaled)": {
+        "importance": 0.6421052631578947,
+        "directional": -0.4947368421052631
+      },
+      "ablation random k=20": {
+        "importance": 0.4992481203007519,
+        "directional": -0.7338345864661654
+      }
+    },
+    "mean_abs@bg1000": {
+      "all-token, all 114": {
+        "importance": 0.48005913205483897
+      },
+      "last-token, all 114": {
+        "importance": 0.42701848889248906
+      },
+      "random k=20 (scaled)": {
+        "importance": 0.7473684210526315
+      },
+      "ablation random k=20": {
+        "importance": 0.524812030075188
+      }
+    },
+    "signed_mean@bg3000": {
+      "all-token, all 114": {
+        "importance": 0.3413499119094389,
+        "directional": -0.10089305603369718
+      },
+      "last-token, all 114": {
+        "importance": 0.27393126911160165,
+        "directional": -0.12318503067981613
+      },
+      "random k=20 (scaled)": {
+        "importance": 0.7157894736842104,
+        "directional": -0.15789473684210525
+      },
+      "ablation random k=20": {
+        "importance": 0.48872180451127817,
+        "directional": -0.40751879699248117
+      }
+    },
+    "mean_abs@bg3000": {
+      "all-token, all 114": {
+        "importance": 0.47893319292845427
+      },
+      "last-token, all 114": {
+        "importance": 0.42687268382576293
+      },
+      "random k=20 (scaled)": {
+        "importance": 0.7473684210526315
+      },
+      "ablation random k=20": {
+        "importance": 0.524812030075188
+      }
+    }
+  },
+  "boot": {
+    "signed_mean@boot100": {
+      "all-token, all 114|importance": {
+        "mean": 0.3235596686984873,
+        "lo": 0.231915919078188,
+        "hi": 0.4309525931026103,
+        "frac_pos": 1.0
+      },
+      "all-token, all 114|directional": {
+        "mean": -0.03877442741135255,
+        "lo": -0.17788096636358117,
+        "hi": 0.11937850590308015,
+        "frac_pos": 0.275
+      },
+      "last-token, all 114|importance": {
+        "mean": 0.28163666187400016,
+        "lo": 0.1298363743140074,
+        "hi": 0.3924819262469371,
+        "frac_pos": 1.0
+      },
+      "last-token, all 114|directional": {
+        "mean": -0.04926631700451591,
+        "lo": -0.20920515987930582,
+        "hi": 0.11399181871570038,
+        "frac_pos": 0.35
+      },
+      "random k=20 (scaled)|importance": {
+        "mean": 0.5332330827067668,
+        "lo": 0.2973684210526316,
+        "hi": 0.7324812030075186,
+        "frac_pos": 0.975
+      },
+      "random k=20 (scaled)|directional": {
+        "mean": -0.03819548872180451,
+        "lo": -0.49560150375939843,
+        "hi": 0.376954887218045,
+        "frac_pos": 0.425
+      },
+      "ablation random k=20|importance": {
+        "mean": 0.350375939849624,
+        "lo": 0.006541353383458681,
+        "hi": 0.55796992481203,
+        "frac_pos": 0.975
+      },
+      "ablation random k=20|directional": {
+        "mean": -0.12003759398496236,
+        "lo": -0.6284962406015037,
+        "hi": 0.2760526315789473,
+        "frac_pos": 0.3
+      }
+    },
+    "mean_abs@boot100": {
+      "all-token, all 114|importance": {
+        "mean": 0.47607440108543775,
+        "lo": 0.4587252182013325,
+        "hi": 0.49642919341447117,
+        "frac_pos": 1.0
+      },
+      "last-token, all 114|importance": {
+        "mean": 0.42937708835382027,
+        "lo": 0.40981916121585227,
+        "hi": 0.4448694842145765,
+        "frac_pos": 1.0
+      },
+      "random k=20 (scaled)|importance": {
+        "mean": 0.7424436090225564,
+        "lo": 0.7033458646616543,
+        "hi": 0.7761278195488721,
+        "frac_pos": 1.0
+      },
+      "ablation random k=20|importance": {
+        "mean": 0.5360902255639097,
+        "lo": 0.5050375939849623,
+        "hi": 0.574548872180451,
+        "frac_pos": 1.0
+      }
+    }
+  }
+}

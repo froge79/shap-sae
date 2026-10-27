@@ -1,0 +1,85 @@
+{
+  "dir": "run3/outputs_meanabs/local_shap_faithfulness",
+  "blocks": {
+    "A:importance": {
+      "n": 100,
+      "mean_local": 0.2733242599905058,
+      "mean_global": -0.11461865651512408,
+      "mean_gap": 0.38794291650562984,
+      "median_gap": 0.39328132412242267,
+      "frac_local_wins": 0.97,
+      "wilcoxon_stat": 6.0,
+      "wilcoxon_p": 4.670683307897806e-18,
+      "gap_ci95": [
+        0.3445357375897789,
+        0.4300227356203976
+      ],
+      "crossed": {
+        "n_boot": 1000,
+        "n_features_resampled": 97,
+        "point_local": 0.2733242599905058,
+        "point_global": -0.11461865651512407,
+        "local_ci95": [
+          0.07808160112747298,
+          0.43590117684433544
+        ],
+        "global_ci95": [
+          -0.333423056478599,
+          0.09250788642172757
+        ],
+        "point_gap": 0.38794291650562984,
+        "ci95": [
+          0.10845108796350242,
+          0.6646990204935171
+        ],
+        "p_two_sided": 0.002,
+        "se_crossed": 0.14185176521234363,
+        "se_examples_only": 0.021823432391181646,
+        "se_inflation": 6.499975011706349
+      }
+    },
+    "B:importance": {
+      "n": 96,
+      "mean_local": 0.016581931319272842,
+      "mean_global": 0.22945247419734294,
+      "mean_gap": -0.21287054287807008,
+      "median_gap": -0.19448933419521652,
+      "frac_local_wins": 0.23958333333333334,
+      "wilcoxon_stat": 805.0,
+      "wilcoxon_p": 7.325087263366231e-08,
+      "gap_ci95": [
+        -0.28160999479415333,
+        -0.14473103327188408
+      ],
+      "crossed": {
+        "n_boot": 1000,
+        "n_features_resampled": 97,
+        "point_local": 0.016581931319272835,
+        "point_global": 0.22945247419734294,
+        "local_ci95": [
+          -0.12816917136635664,
+          0.17270614042011623
+        ],
+        "global_ci95": [
+          -0.07839772854059901,
+          0.4959585469886148
+        ],
+        "point_gap": -0.21287054287807006,
+        "ci95": [
+          -0.5335951683771297,
+          0.13759139453589952
+        ],
+        "p_two_sided": 0.29,
+        "se_crossed": 0.1713830380769087,
+        "se_examples_only": 0.03545044934866858,
+        "se_inflation": 4.834439089651352
+      }
+    }
+  },
+  "candidate_overlap": {
+    "n_examples": 100,
+    "n_distinct_features": 97,
+    "mean_candidates_per_example": 26.7,
+    "mean_pairwise_jaccard": 0.6554847064505919
+  }
+}

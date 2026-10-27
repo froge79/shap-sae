@@ -40,9 +40,11 @@ if str(_SRC) not in sys.path:
 
 from utils import (
     CANONICAL_SEED,
+    GLOBAL_SCORES,
     checkpoint_path,
     eval_sentences,
     load_eval_and_background,
+    load_global_shap_score,
     load_model,
     output_path,
     resolve_steering_alphas,
@@ -87,6 +89,7 @@ def save_local_artifacts(
     feature_indices: np.ndarray,
     local_shap: np.ndarray,
     global_phi_filtered: np.ndarray,
+    global_phi_directional_filtered: np.ndarray,
     cands_per_example: list[np.ndarray],
     union_local: np.ndarray,
     delta_signed: np.ndarray,
@@ -114,6 +117,7 @@ def save_local_artifacts(
     np.save(out_dir / "feature_indices.npy", feature_indices)
     np.save(out_dir / "local_shap.npy", local_shap)
     np.save(out_dir / "global_phi_filtered.npy", global_phi_filtered)
+    np.save(out_dir / "global_phi_directional_filtered.npy", global_phi_directional_filtered)
     np.save(out_dir / "union_local.npy", union_local)
     np.save(out_dir / f"delta_signed_{mode}.npy", delta_signed)
     save_ragged(out_dir / "cands_per_example.npy", cands_per_example)
@@ -313,11 +317,17 @@ def per_example_faithfulness(
                 rho_dir.append(float("nan"))
                 continue
             cols = np.asarray([col_of[int(c)] for c in cand], dtype=np.int64)
-            # local SHAP is per-example; every other method is one fixed vector
-            s = local_shap[e, cand] if scores is None else scores[cand]
+            # local SHAP is per-example; every other method is one fixed vector,
+            # or an (importance, directional) pair of vectors
+            if scores is None:
+                s_imp = s_dir = local_shap[e, cand]
+            elif isinstance(scores, tuple):
+                s_imp, s_dir = scores[0][cand], scores[1][cand]
+            else:
+                s_imp = s_dir = scores[cand]
             d = oriented[e, cols]
-            ri, _ = spearman_pair(s, d, importance=True)
-            rd, _ = spearman_pair(s, d, importance=False)
+            ri, _ = spearman_pair(s_imp, d, importance=True)
+            rd, _ = spearman_pair(s_dir, d, importance=False)
             rho_imp.append(ri)
             rho_dir.append(rd)
         out[name] = {
@@ -436,6 +446,10 @@ def parse_args() -> argparse.Namespace:
         "--alpha-mode", choices=("constant", "scaled"), default=ALPHA_MODE
     )
     p.add_argument("--out-dir", type=Path, default=OUT_DIR)
+    p.add_argument(
+        "--global-score", choices=GLOBAL_SCORES, default="signed",
+        help="Global SHAP baseline: mean signed phi (published) or mean |phi|",
+    )
     return p.parse_args()
 
 
@@ -447,6 +461,7 @@ def main(
     steering_alpha: float = STEERING_ALPHA,
     alpha_mode: str = ALPHA_MODE,
     out_dir: Path = OUT_DIR,
+    global_score: str = "signed",
 ) -> None:
     out_dir = Path(out_dir)
     feature_indices = np.load(output_path("3_shap", "shap_feature_indices.npy"))
@@ -467,7 +482,10 @@ def main(
     probe_f = probe_full[feature_indices]
     ig_f = ig_full[feature_indices]
     ga_f = ga_full[feature_indices]
-    shap_global_f = shap_global_full[feature_indices]
+    shap_signed_f = shap_global_full[feature_indices]
+    shap_global_f = load_global_shap_score("linear", feature_indices, global_score)
+    if global_score == "signed":
+        assert np.allclose(shap_global_f, shap_signed_f)
 
     # Sample N SHAP-split examples + background; compute local LinearSHAP.
     # Shared sampler => these rows are an ordered prefix of the rows the global
@@ -530,7 +548,9 @@ def main(
     )
 
     method_scores_f = {
-        "global_SHAP": shap_global_f,
+        # importance ranks by the chosen global score; direction always uses the
+        # signed Phi, which an unsigned mean |phi| cannot supply
+        "global_SHAP": (shap_global_f, shap_signed_f),
         "Probe weights": probe_f,
         "IG": ig_f,
         "GA": ga_f,
@@ -580,6 +600,7 @@ def main(
         feature_indices=feature_indices,
         local_shap=local_shap,
         global_phi_filtered=shap_global_f,
+        global_phi_directional_filtered=shap_signed_f,
         cands_per_example=cands_per_example,
         union_local=union_local,
         delta_signed=delta_signed,
@@ -617,4 +638,5 @@ if __name__ == "__main__":
         steering_alpha=_args.alpha,
         alpha_mode=_args.alpha_mode,
         out_dir=_args.out_dir,
+        global_score=_args.global_score,
     )

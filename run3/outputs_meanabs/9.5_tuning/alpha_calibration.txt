@@ -1,0 +1,21 @@
+Steering α calibration
+readout = probe
+median_positive_activation_scale = 0.987132
+median_decoder_norm = 0.999684
+pilot_features = [30907, 19167, 25515]
+n_pilot_examples = 200 (train split, seeded draw, seed=42)
+criteria: mean|ΔP| >= 0.02, sat_frac <= 0.25
+
+     alpha  mean_abs_dp mean_signed_dp   sat_frac
+  0.493566     0.049045      -0.030071   0.340000
+  0.987132     0.096145      -0.057052   0.383333
+  1.974264     0.179103      -0.098101   0.431667
+  3.948528     0.296929      -0.142212   0.565000
+
+recommended_alpha = 0.493566
+
+NOTE (manual override, 2026-10-25): the script's own pick was 3.948528, reached via
+its last-resort fallback because baseline saturation on the pilot rows (0.325)
+already exceeds the 0.25 cap, so no alpha could pass. The value above is the alpha
+actually used for run3 steps 10-27: smallest grid alpha with mean|dP| >= 0.02 and
+NEWLY saturated fraction <= 0.25 (0.028). See run3/outputs/9.5_tuning_diag/alpha_decision.txt.

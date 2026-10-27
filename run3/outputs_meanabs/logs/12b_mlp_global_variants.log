@@ -1,0 +1,65 @@
+done point bg=1000
+done point bg=3000
+done bootstrap size=100
+MLP arm global variants — pool n=114, bootstrap B=40 (sizes [100]); bg100 reproduces saved DeepSHAP (max err 0.0e+00)
+
+== importance faithfulness (Spearman rho vs causal effect) ==
+-- all-token, all 114
+   signed_mean@bg100      +0.347
+   mean_abs@bg100         +0.487
+   signed_mean@bg1000     +0.339
+   mean_abs@bg1000        +0.480
+   signed_mean@bg3000     +0.341
+   mean_abs@bg3000        +0.479
+   signed_mean@boot100    +0.324  [+0.232, +0.431]  frac>0 1.00
+   mean_abs@boot100       +0.476  [+0.459, +0.496]  frac>0 1.00
+-- last-token, all 114
+   signed_mean@bg100      +0.233
+   mean_abs@bg100         +0.452
+   signed_mean@bg1000     +0.319
+   mean_abs@bg1000        +0.427
+   signed_mean@bg3000     +0.274
+   mean_abs@bg3000        +0.427
+   signed_mean@boot100    +0.282  [+0.130, +0.392]  frac>0 1.00
+   mean_abs@boot100       +0.429  [+0.410, +0.445]  frac>0 1.00
+-- random k=20 (scaled)
+   signed_mean@bg100      +0.744
+   mean_abs@bg100         +0.729
+   signed_mean@bg1000     +0.642
+   mean_abs@bg1000        +0.747
+   signed_mean@bg3000     +0.716
+   mean_abs@bg3000        +0.747
+   signed_mean@boot100    +0.533  [+0.297, +0.732]  frac>0 0.97
+   mean_abs@boot100       +0.742  [+0.703, +0.776]  frac>0 1.00
+-- ablation random k=20
+   signed_mean@bg100      +0.568
+   mean_abs@bg100         +0.567
+   signed_mean@bg1000     +0.499
+   mean_abs@bg1000        +0.525
+   signed_mean@bg3000     +0.489
+   mean_abs@bg3000        +0.525
+   signed_mean@boot100    +0.350  [+0.007, +0.558]  frac>0 0.97
+   mean_abs@boot100       +0.536  [+0.505, +0.575]  frac>0 1.00
+
+== directional faithfulness (Spearman rho vs causal effect) ==
+-- all-token, all 114
+   signed_mean@bg100      -0.091
+   signed_mean@bg1000     -0.176
+   signed_mean@bg3000     -0.101
+   signed_mean@boot100    -0.039  [-0.178, +0.119]  frac>0 0.28
+-- last-token, all 114
+   signed_mean@bg100      -0.105
+   signed_mean@bg1000     -0.138
+   signed_mean@bg3000     -0.123
+   signed_mean@boot100    -0.049  [-0.209, +0.114]  frac>0 0.35
+-- random k=20 (scaled)
+   signed_mean@bg100      -0.147
+   signed_mean@bg1000     -0.495
+   signed_mean@bg3000     -0.158
+   signed_mean@boot100    -0.038  [-0.496, +0.377]  frac>0 0.42
+-- ablation random k=20
+   signed_mean@bg100      -0.408
+   signed_mean@bg1000     -0.734
+   signed_mean@bg3000     -0.408
+   signed_mean@boot100    -0.120  [-0.628, +0.276]  frac>0 0.30
+

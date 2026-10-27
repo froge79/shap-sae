@@ -44,7 +44,9 @@ GLOBAL_RUNS = {  # (arm, scope) -> directory under outputs
 LOCAL_RUNS = {  # source -> directory under outputs
     "linear": "9_local_steer",
     "mlp": "14_local_mlp_steer",
-    "lm-diag": "local_shap_faithfulness",
+    # local_shap_faithfulness (--target lm) re-runs the MLP local analysis on the same
+    # 100 sentences and reproduces it to <0.001 in every mean: a replication check,
+    # not an independent test, so it is not part of any family.
 }
 
 

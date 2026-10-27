@@ -40,6 +40,43 @@ def checkpoint_path(*parts: str) -> Path:
     return CHECKPOINTS_DIR.joinpath(*parts)
 
 
+GLOBAL_SCORES = ("signed", "meanabs")
+
+
+def load_global_shap_score(
+    arm: str, feature_indices: np.ndarray, kind: str = "signed"
+) -> np.ndarray:
+    """
+    Global SHAP score on the filtered axis, as float64.
+
+    kind="signed"   mean of signed phi, the published Phi (100-row background).
+    kind="meanabs"  mean of |phi| over the canonical eval rows against every
+                    train row (`7c_global_meanabs`, `12c_mlp_meanabs`). Unsigned in
+                    both arms, so it ranks importance only; any directional use
+                    keeps the signed Phi.
+    """
+    if kind not in GLOBAL_SCORES:
+        raise ValueError(f"kind must be one of {GLOBAL_SCORES}, got {kind!r}")
+    fi = np.asarray(feature_indices)
+    if arm == "linear":
+        if kind == "signed":
+            phi = np.load(output_path("7_shap_recompute", "phi_sentiment_layer7_signed.npy"))
+            return phi[fi].astype(np.float64)
+        d = output_path("7c_global_meanabs")
+        if not np.array_equal(fi, np.load(d / "feature_indices.npy")):
+            raise ValueError("feature_indices disagree with 7c_global_meanabs")
+        return np.load(d / "meanabs_linear.npy").astype(np.float64)
+    if arm == "mlp":
+        d = output_path("12_mlp_shap")
+        if not np.array_equal(fi, np.load(d / "shap_feature_indices.npy")):
+            raise ValueError("feature_indices disagree with 12_mlp_shap")
+        if kind == "signed":
+            phi = np.load(d / "phi_sentiment_layer7_signed.npy")
+            return phi[fi].astype(np.float64)
+        return np.load(output_path("7c_global_meanabs", "meanabs_mlp.npy")).astype(np.float64)
+    raise ValueError(f"arm must be 'linear' or 'mlp', got {arm!r}")
+
+
 def get_shap_feature_mask(
     probe, val_activations: np.ndarray, min_activation_freq: float = 0.05
 ):

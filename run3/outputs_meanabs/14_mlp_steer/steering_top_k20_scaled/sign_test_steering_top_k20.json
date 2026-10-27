@@ -1,0 +1,82 @@
+{
+  "source": "run3/outputs/14_mlp_steer/steering_top_k20_scaled/model_deltas_steering_top_k20.json",
+  "mode": "steering",
+  "selection": "top",
+  "k": 20,
+  "alpha_mode": "scaled",
+  "n_eval": 1000,
+  "methods": {
+    "SHAP": {
+      "n": 20,
+      "n_agree": 8,
+      "n_zero_delta": 0,
+      "agreement_rate": 0.4,
+      "binom_two_sided_p": 0.5034446716308594,
+      "binom_less_p": 0.2517223358154297,
+      "positive_phi": {
+        "n": 11,
+        "n_agree": 6,
+        "n_zero_delta": 0,
+        "agreement_rate": 0.5454545454545454,
+        "binom_two_sided_p": 1.0,
+        "binom_less_p": 0.7255859375
+      },
+      "negative_phi": {
+        "n": 9,
+        "n_agree": 2,
+        "n_zero_delta": 0,
+        "agreement_rate": 0.2222222222222222,
+        "binom_two_sided_p": 0.1796875,
+        "binom_less_p": 0.08984375
+      }
+    },
+    "IG": {
+      "n": 20,
+      "n_agree": 8,
+      "n_zero_delta": 0,
+      "agreement_rate": 0.4,
+      "binom_two_sided_p": 0.5034446716308594,
+      "binom_less_p": 0.2517223358154297,
+      "positive_phi": {
+        "n": 11,
+        "n_agree": 6,
+        "n_zero_delta": 0,
+        "agreement_rate": 0.5454545454545454,
+        "binom_two_sided_p": 1.0,
+        "binom_less_p": 0.7255859375
+      },
+      "negative_phi": {
+        "n": 9,
+        "n_agree": 2,
+        "n_zero_delta": 0,
+        "agreement_rate": 0.2222222222222222,
+        "binom_two_sided_p": 0.1796875,
+        "binom_less_p": 0.08984375
+      }
+    },
+    "GA": {
+      "n": 20,
+      "n_agree": 8,
+      "n_zero_delta": 0,
+      "agreement_rate": 0.4,
+      "binom_two_sided_p": 0.5034446716308594,
+      "binom_less_p": 0.2517223358154297,
+      "positive_phi": {
+        "n": 11,
+        "n_agree": 6,
+        "n_zero_delta": 0,
+        "agreement_rate": 0.5454545454545454,
+        "binom_two_sided_p": 1.0,
+        "binom_less_p": 0.7255859375
+      },
+      "negative_phi": {
+        "n": 9,
+        "n_agree": 2,
+        "n_zero_delta": 0,
+        "agreement_rate": 0.2222222222222222,
+        "binom_two_sided_p": 0.1796875,
+        "binom_less_p": 0.08984375
+      }
+    }
+  }
+}

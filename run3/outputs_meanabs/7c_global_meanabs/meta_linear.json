@@ -1,0 +1,5 @@
+{
+  "n_eval": 1000,
+  "n_background": 6696,
+  "closed_form_max_err": 1.6983092532285582e-07
+}

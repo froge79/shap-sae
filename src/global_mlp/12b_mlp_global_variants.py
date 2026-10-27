@@ -63,7 +63,9 @@ def scores(shap_values: np.ndarray) -> dict[str, np.ndarray]:
     }
 
 
-def main(n_boot: int, boot_sizes: list[int], large_sizes: list[int], seed: int, out_dir: Path):
+def main(
+    n_boot: int, boot_sizes: list[int], large_sizes: list[int], full: bool, seed: int, out_dir: Path
+):
     payload = joblib.load(checkpoint_path(f"mlp_probe_layer_{LAYER}.joblib"))
     probe = payload["probe"]
     fi = np.asarray(payload["feature_indices"])
@@ -104,7 +106,7 @@ def main(n_boot: int, boot_sizes: list[int], large_sizes: list[int], seed: int, 
             res["point"][f"{sn}@{tag}"] = run_rhos(s, sn == "signed_mean")
 
     add_point("bg100", sv100)
-    for n in large_sizes + [n_train]:
+    for n in large_sizes + ([n_train] if full else []):
         add_point("bgfull" if n == n_train else f"bg{n}", deepshap(x_train[:n]))
         print(f"done point bg={n}", flush=True)
 
@@ -157,8 +159,9 @@ if __name__ == "__main__":
     ap.add_argument("--n-boot", type=int, default=30)
     ap.add_argument("--boot-sizes", type=int, nargs="+", default=[100, 1000])
     ap.add_argument("--large-sizes", type=int, nargs="+", default=[1000])
+    ap.add_argument("--full", action="store_true", help="also run DeepSHAP against every train row (slow)")
     ap.add_argument("--seed", type=int, default=CANONICAL_SEED)
     ap.add_argument("--out-dir", type=Path, default=None)
     a = ap.parse_args()
-    main(a.n_boot, a.boot_sizes, a.large_sizes, a.seed,
+    main(a.n_boot, a.boot_sizes, a.large_sizes, a.full, a.seed,
          a.out_dir or output_path("12b_mlp_global_variants"))

@@ -1,0 +1,84 @@
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|██████████| 148/148 [00:00<00:00, 5595.48it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loaded pretrained model gpt2 into HookedTransformer
+Minimal-pair reanalysis  edit=remove  n=100
+======================================================================
+frac candidates 'moved' @rel0.10 = 0.53;  frac candidates active in edited = 0.45
+
+AUROC, moved = |dact| >= 0.05*max
+  local_SHAP      0.564 [0.533,0.596]
+  global_SHAP     0.490 [0.458,0.521]
+  Probe weights   0.397 [0.378,0.417]
+  act_edited      0.875 [0.862,0.886]
+  active_edited   0.873 [0.860,0.885]
+  oracle_dact     1.000 [1.000,1.000]
+
+AUROC, moved = |dact| >= 0.1*max
+  local_SHAP      0.553 [0.521,0.585]
+  global_SHAP     0.482 [0.451,0.511]
+  Probe weights   0.395 [0.374,0.414]
+  act_edited      0.851 [0.836,0.866]
+  active_edited   0.851 [0.837,0.865]
+  oracle_dact     1.000 [1.000,1.000]
+
+AUROC, moved = |dact| >= 0.25*max
+  local_SHAP      0.470 [0.440,0.500]
+  global_SHAP     0.415 [0.385,0.444]
+  Probe weights   0.389 [0.366,0.412]
+  act_edited      0.701 [0.672,0.727]
+  active_edited   0.723 [0.703,0.743]
+  oracle_dact     1.000 [1.000,1.000]
+
+AUROC, moved = |dact| >= 0.5*max
+  local_SHAP      0.404 [0.365,0.442]
+  global_SHAP     0.361 [0.329,0.392]
+  Probe weights   0.380 [0.355,0.407]
+  act_edited      0.566 [0.533,0.602]
+  active_edited   0.611 [0.588,0.635]
+  oracle_dact     1.000 [1.000,1.000]
+
+AUROC, moved = |dact| >= 0.1
+  local_SHAP      0.539 [0.506,0.568]
+  global_SHAP     0.470 [0.441,0.499]
+  Probe weights   0.393 [0.373,0.413]
+  act_edited      0.822 [0.803,0.840]
+  active_edited   0.825 [0.810,0.840]
+  oracle_dact     1.000 [1.000,1.000]
+
+AUROC, moved = |dact| >= 0.5
+  local_SHAP      0.380 [0.347,0.416]
+  global_SHAP     0.334 [0.304,0.366]
+  Probe weights   0.372 [0.342,0.400]
+  act_edited      0.548 [0.516,0.583]
+  active_edited   0.612 [0.589,0.634]
+  oracle_dact     1.000 [1.000,1.000]
+
+AUROC, moved = |dact| >= 1.0
+  local_SHAP      0.563 [0.481,0.642]
+  global_SHAP     0.533 [0.443,0.626]
+  Probe weights   0.467 [0.382,0.558]
+  act_edited      0.666 [0.565,0.754]
+  active_edited   0.636 [0.546,0.725]
+  oracle_dact     1.000 [1.000,1.000]
+
+AUROC, rel0.10, candidates active at edited last token only
+  local_SHAP      0.349 [0.290,0.406]
+  global_SHAP     0.383 [0.327,0.435]
+  Probe weights   0.387 [0.333,0.440]
+  act_edited      0.499 [0.427,0.571]
+  active_edited   0.500 [0.500,0.500]
+  oracle_dact     1.000 [1.000,1.000]
+
+Spearman(|score|, |dact|) per pair (threshold-free)
+  local_SHAP      0.043 [-0.010,0.093]
+  global_SHAP     -0.079 [-0.129,-0.027]
+  Probe weights   -0.190 [-0.224,-0.155]
+  act_edited      0.567 [0.540,0.594]
+  active_edited   0.615 [0.593,0.638]
+
+Readout
+  sign acc 0.760  Wilson95 [0.668,0.833]
+  null-edit |delta| quantiles {50: 0.14017105102539062, 75: 0.23217391967773438, 90: 0.36686782836914084, 95: 0.5268611907958977}
+  pairs with |delta| >= null p90 (0.367): 26, sign acc 0.846
+  sign acc by |delta| tertile: [0.696969696969697, 0.7647058823529411, 0.8181818181818182]
+  above-floor subset (committed per-pair): {'local_SHAP': {'auroc': 0.5437562333227224, 'rho': 0.13583634611719123}, 'global_SHAP': {'auroc': 0.45167600919803835, 'rho': -0.023457774583913533}, 'Probe weights': {'auroc': 0.40122435260355, 'rho': -0.15138630767846703}}

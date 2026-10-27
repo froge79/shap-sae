@@ -1,0 +1,5 @@
+{
+  "n_eval": 1000,
+  "n_background": 6696,
+  "bg100_max_err": 0.0
+}

@@ -1,0 +1,24 @@
+Local vs global faithfulness - formal tests
+==============================================================
+source: run3/outputs/7b_global_variants/local_rerun/local_shap_faithfulness_meanabs
+
+Paired Wilcoxon signed-rank on per-example (rho_local - rho_global).
+Positive gap = local SHAP ranks that example's effects better.
+Wilcoxon and the 95% CI here resample EXAMPLES ONLY and treat them as
+independent. They are not (shared features) - quote the crossed table below.
+
+block:kind               local  global     gap            95% CI  wilcoxon p  win frac
+----------------------------------------------------------------------------------------
+A:importance            +0.173  -0.158  +0.331   [+0.285,+0.376]    3.98e-17     0.930
+B:importance            -0.077  +0.212  -0.289   [-0.356,-0.224]    1.07e-11     0.125
+
+Crossed (pigeonhole) bootstrap over examples x features, B=1000:
+  100 examples share 97 distinct features (mean 26.4 candidates/example, mean pairwise Jaccard 0.66), so the
+  per-example gaps are correlated through the features. This resamples both.
+
+block:kind                 gap    crossed 95% CI  crossed p  SE inflation
+------------------------------------------------------------------------
+A:importance            +0.331   [+0.048,+0.628]      0.028         6.25x
+B:importance            -0.289   [-0.600,+0.085]      0.144         5.04x
+  Mildly conservative: it double-counts interaction variance, and a resampled
+  duplicate feature introduces rank ties.

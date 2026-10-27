@@ -39,7 +39,9 @@ if str(_SRC) not in sys.path:
 
 from utils import (
     CANONICAL_SEED,
+    GLOBAL_SCORES,
     checkpoint_path,
+    load_global_shap_score,
     load_eval_and_background,
     load_model,
     load_splits,
@@ -108,6 +110,10 @@ def main() -> None:
     ap.add_argument("--k-moved", type=int, default=15)
     ap.add_argument("--k-distractor", type=int, default=15)
     ap.add_argument("--out-dir", type=Path, default=output_path("24_minimal_pairs"))
+    ap.add_argument(
+        "--global-score", choices=GLOBAL_SCORES, default="signed",
+        help="Score for global_SHAP: signed-mean Phi (published) or mean |phi| (full train bg)",
+    )
     args = ap.parse_args()
 
     rng = np.random.default_rng(args.seed)
@@ -128,6 +134,12 @@ def main() -> None:
     probe.verbose = 0
     phi = np.load(output_path("7_shap_recompute", "phi_sentiment_layer7_signed.npy")).astype(np.float64)
     probe_w = np.asarray(probe.coef_[0], dtype=np.float64)
+    phi_global = phi
+    if args.global_score == "meanabs":
+        phi_global = np.zeros_like(phi)
+        phi_global[feature_indices] = np.abs(
+            load_global_shap_score("linear", feature_indices, "meanabs")
+        )
     _, background, _, _ = load_eval_and_background(layer=mp.LAYER)
     background_mean = background.mean(axis=0, keepdims=True)
 
@@ -168,7 +180,7 @@ def main() -> None:
                 active_e=(a_e[cand] > 0).astype(float),
                 scores={
                     "local_SHAP": np.abs(local[cand]),
-                    "global_SHAP": np.abs(phi[cand]),
+                    "global_SHAP": np.abs(phi_global[cand]),
                     "Probe weights": np.abs(probe_w[cand]),
                     "act_edited": np.abs(a_e[cand]),
                     "active_edited": (a_e[cand] > 0).astype(float),

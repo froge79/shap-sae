@@ -83,8 +83,10 @@ if str(_SRC) not in sys.path:
 
 from utils import (
     CANONICAL_SEED,
+    GLOBAL_SCORES,
     checkpoint_path,
     last_real_token_index,
+    load_global_shap_score,
     load_model,
     load_splits,
     output_path,
@@ -347,6 +349,11 @@ def parse_args() -> argparse.Namespace:
             "'is this feature active' no longer separates the classes"
         ),
     )
+    p.add_argument(
+        "--global-score", choices=GLOBAL_SCORES, default="signed",
+        help="Score used for the global_SHAP method: mean signed phi (published "
+        "Phi) or mean |phi| against the full train set. IG/GA are unchanged.",
+    )
     p.add_argument("--seed", type=int, default=CANONICAL_SEED)
     p.add_argument("--out-dir", type=Path, default=output_path("24_minimal_pairs"))
     return p.parse_args()
@@ -368,6 +375,14 @@ def main() -> None:
     phi = np.load(
         output_path("7_shap_recompute", "phi_sentiment_layer7_signed.npy")
     ).astype(np.float64)
+    # Distractor selection ("global") keeps using signed Phi; only the scored
+    # global_SHAP method switches. Only |score| is used downstream.
+    phi_global = phi
+    if args.global_score == "meanabs":
+        phi_global = np.zeros_like(phi)
+        phi_global[feature_indices] = np.abs(
+            load_global_shap_score("linear", feature_indices, "meanabs")
+        )
     ig = np.load(output_path("8_rankings_recompute", "ig_scores.npy")).astype(np.float64)
     ga = np.load(output_path("8_rankings_recompute", "ga_scores.npy")).astype(np.float64)
     probe_w = np.asarray(probe.coef_[0], dtype=np.float64)
@@ -477,7 +492,7 @@ def main() -> None:
 
         scores_by_method = {
             "local_SHAP": local_phi_full,
-            "global_SHAP": phi,
+            "global_SHAP": phi_global,
             "Probe weights": probe_w,
             "IG": ig,
             "GA": ga,
@@ -515,6 +530,7 @@ def main() -> None:
         "k_moved": args.k_moved,
         "k_distractor": args.k_distractor,
         "distractors": args.distractors,
+        "global_score": args.global_score,
         "moved_rel_threshold": MOVED_REL_THRESHOLD,
         "frac_last_token_changed": float(np.mean([r["last_token_changed"] for r in rows])),
         "readout_sign_accuracy": sign_acc,

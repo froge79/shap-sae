@@ -1,0 +1,9 @@
+# step 20  2026-10-25T11:00:24+00:00
+# SHAP_SAE_OUTPUTS=run3/outputs SHAP_SAE_CHECKPOINTS=run3/checkpoints
+# cmd: uv run python src/global_group/plot_group_steering.py --all --k 20
+Wrote 4 figure(s) → run3/outputs/group_steering/
+  run3/outputs/group_steering/effect_vs_cost_logistic_k20.png
+  run3/outputs/group_steering/effect_vs_cost_logistic_grid.png
+  run3/outputs/group_steering/effect_vs_cost_mlp_grid.png
+  run3/outputs/group_steering/effect_vs_cost_k20.png
+# exit=0  elapsed=10s  2026-10-25T11:00:34+00:00

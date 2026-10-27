@@ -6,14 +6,15 @@
     \toprule
     Arm & Method & $\rho_\text{imp}$ ($q$) & $\rho_\text{dir}$ ($q$) \\
     \midrule
-    Linear & SHAP/IG/GA & $+0.303$ ($q$=0.0021)* & $-0.108$ ($q$=0.254) \\
+    Linear & SHAP       & $+0.455$ ($q<$0.0001)* & $-0.108$ ($q$=0.254) \\
+    Linear & IG/GA      & $+0.303$ ($q$=0.0021)* & $-0.108$ ($q$=0.254) \\
     Linear & Probe      & $+0.270$ ($q$=0.0060)* & $+0.305$ ($q$=0.0021)* \\
     \midrule
-    MLP & SHAP           & $+0.233$ ($q$=0.0295)* & $-0.105$ ($q$=0.463) \\
+    MLP & SHAP           & $+0.425$ ($q<$0.0001)* & $-0.105$ ($q$=0.463) \\
     MLP & Probe saliency & $+0.032$ ($q$=0.859) & n/a \\
     MLP & IG             & $+0.322$ ($q$=0.0017)* & $-0.053$ ($q$=0.804) \\
     MLP & GA             & $+0.329$ ($q$=0.0017)* & $-0.014$ ($q$=0.884) \\
     \bottomrule
-    \multicolumn{4}{l}{\footnotesize *survives FDR 0.05. Linear arm: 5/8 tests survive (3/4 distinct); MLP arm: 3/7.}
+    \multicolumn{4}{l}{\footnotesize *survives FDR 0.05. SHAP importance is mean $|\phi|$ (full training background); direction is signed $\Phi$. Linear arm: 5/8 tests survive (4/5 distinct); MLP arm: 3/7.}
     \end{tabular}
     \end{table}

@@ -316,6 +316,13 @@ def load_per_example_inputs(in_dir: Path, mode: str) -> dict | None:
     return {
         "local_shap": local_shap.astype(np.float64),
         "global_phi": np.load(in_dir / "global_phi_filtered.npy").astype(np.float64),
+        # Importance ranks by `global_phi`; direction by the signed Phi when the
+        # run saved one (mean-|phi| runs), else by `global_phi` itself.
+        "global_phi_dir": np.load(
+            in_dir / "global_phi_directional_filtered.npy"
+            if (in_dir / "global_phi_directional_filtered.npy").exists()
+            else in_dir / "global_phi_filtered.npy"
+        ).astype(np.float64),
         "cands": cands,
         "deltas": deltas,
         "active": active,
@@ -353,7 +360,8 @@ def per_example_rhos(
             cand, d = np.repeat(cand, reps), np.repeat(d, reps)
         if len(cand) < 3:
             continue
-        sl, sg = inp["local_shap"][e, cand], inp["global_phi"][cand]
+        sl = inp["local_shap"][e, cand]
+        sg = inp["global_phi" if kind == "importance" else "global_phi_dir"][cand]
         if kind == "importance":
             sl, sg, d = np.abs(sl), np.abs(sg), np.abs(d)
         pair = (_rank_corr(sl, d), _rank_corr(sg, d))

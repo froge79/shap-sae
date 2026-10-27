@@ -1,6 +1,6 @@
 Local vs global faithfulness - formal tests
 ==============================================================
-source: run3/outputs/9_local_steer
+source: run3/outputs/7b_global_variants/local_rescored/9_local_steer__signed_bg100
 
 Paired Wilcoxon signed-rank on per-example (rho_local - rho_global).
 Positive gap = local SHAP ranks that example's effects better.

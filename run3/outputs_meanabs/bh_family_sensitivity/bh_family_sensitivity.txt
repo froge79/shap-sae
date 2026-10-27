@@ -1,0 +1,56 @@
+
+GLOBAL, raw (SHAP/IG/GA counted separately in linear arm)
+family definition                                   BH        BY
+PRIMARY: per run                                 16/30     16/30
+pooled over arms, per scope                      16/30     16/30
+pooled over scopes, per arm                      16/30     16/30
+pooled over all global runs                      16/30     16/30
+
+GLOBAL, deduplicated (identical (rho, p) counted once)
+family definition                                   BH        BY
+PRIMARY: per run                                 12/22     12/22
+pooled over arms, per scope                      12/22     12/22
+pooled over scopes, per arm                      12/22     12/22
+pooled over all global runs                      12/22     12/22
+
+PAPER-WIDE (deduplicated global + local crossed tests)
+family definition                                   BH        BY
+per run / per local source (primary)             13/30     13/30
+global pooled; local pooled                      13/30     13/30
+one family: every inferential test               13/30     13/30
+
+PER TEST (q under primary family vs one paper-wide family)
+test                                                   p  q_narrow q_wide_BH q_wide_BY  flag
+global|linear|all-token|SHAP:importance          1.8e-06  7.22e-06  9.03e-06  3.61e-05  
+global|linear|all-token|SHAP:directional             0.3     0.303     0.455         1  
+global|linear|all-token|Probe weights:importance    0.0018   0.00244   0.00499    0.0199  
+global|linear|all-token|Probe weights:directional   1.1e-05  2.15e-05  3.58e-05  0.000143  
+global|linear|last-token|SHAP:importance         3.6e-07  1.45e-06  2.71e-06  1.08e-05  
+global|linear|last-token|SHAP:directional           0.25     0.254     0.441         1  
+global|linear|last-token|Probe weights:importance    0.0037   0.00496   0.00859    0.0343  
+global|linear|last-token|Probe weights:directional   0.00097   0.00194   0.00291    0.0116  
+global|mlp|all-token|SHAP:importance             8.5e-08  1.98e-07  8.47e-07  3.38e-06  
+global|mlp|all-token|SHAP:directional               0.34     0.473     0.482         1  
+global|mlp|all-token|Probe saliency:importance       0.2     0.343     0.386         1  
+global|mlp|all-token|IG:importance               5.1e-08   1.8e-07  7.72e-07  3.08e-06  
+global|mlp|all-token|IG:directional                 0.54      0.63     0.705         1  
+global|mlp|all-token|GA:importance               1.5e-08  1.03e-07  4.43e-07  1.77e-06  
+global|mlp|all-token|GA:directional                 0.87     0.875     0.914         1  
+global|mlp|last-token|SHAP:importance            2.4e-06  6.38e-06  1.02e-05  4.07e-05  
+global|mlp|last-token|SHAP:directional              0.26     0.463     0.441         1  
+global|mlp|last-token|Probe saliency:importance      0.74     0.859     0.872         1  
+global|mlp|last-token|IG:importance              2.7e-06  6.38e-06  1.03e-05   4.1e-05  
+global|mlp|last-token|IG:directional                0.57     0.804     0.718         1  
+global|mlp|last-token|GA:importance              7.5e-07  5.25e-06   4.5e-06   1.8e-05  
+global|mlp|last-token|GA:directional                0.88     0.884     0.914         1  
+local|linear|A:importance                           0.21     0.412     0.386         1  
+local|linear|A:directional                          0.85     0.938     0.914         1  
+local|linear|B:importance                          0.036     0.144    0.0771     0.308  
+local|linear|B:directional                          0.94     0.938     0.938         1  
+local|mlp|A:importance                             0.002     0.008     0.005      0.02  
+local|mlp|A:directional                             0.53     0.709     0.705         1  
+local|mlp|B:importance                              0.29      0.58     0.455         1  
+local|mlp|B:directional                             0.76     0.756     0.872         1  
+
+Tests whose verdict depends on the family: 0
+Local p-values are crossed-bootstrap (B=1000, resolution 0.001); sign tests and minimal-pair summaries carry no inferential claim in the paper and are excluded.

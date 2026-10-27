@@ -1,0 +1,92 @@
+{
+  "n_pilot": 200,
+  "pilot_features": [
+    30907,
+    19167,
+    25515
+  ],
+  "median_scale": 0.9871320335013238,
+  "baseline_recon": {
+    "sat_frac": 0.325,
+    "frac_p_lt_0.02": 0.175,
+    "frac_p_gt_0.98": 0.15,
+    "probe_acc_on_pilot": 0.815,
+    "quantiles": {
+      "p5": 0.0009691672017901335,
+      "p25": 0.04664020618517553,
+      "p50": 0.3856967575414079,
+      "p75": 0.9092748116354683,
+      "p95": 0.999166606039942
+    }
+  },
+  "baseline_clean": {
+    "sat_frac": 0.475,
+    "probe_acc_on_pilot": 0.945
+  },
+  "grid": [
+    {
+      "multiplier": 0.03125,
+      "alpha": 0.03084787604691637,
+      "mean_abs_dp": 0.003080656314174078,
+      "mean_signed_dp": -0.001930095341618728,
+      "sat_frac_total": 0.33,
+      "sat_frac_new": 0.005
+    },
+    {
+      "multiplier": 0.0625,
+      "alpha": 0.06169575209383274,
+      "mean_abs_dp": 0.0061619818121702655,
+      "mean_signed_dp": -0.0038560578200078723,
+      "sat_frac_total": 0.33166666666666667,
+      "sat_frac_new": 0.006666666666666667
+    },
+    {
+      "multiplier": 0.125,
+      "alpha": 0.12339150418766548,
+      "mean_abs_dp": 0.012324431344653436,
+      "mean_signed_dp": -0.007693379110678889,
+      "sat_frac_total": 0.3333333333333333,
+      "sat_frac_new": 0.008333333333333333
+    },
+    {
+      "multiplier": 0.25,
+      "alpha": 0.24678300837533096,
+      "mean_abs_dp": 0.024632082072560815,
+      "mean_signed_dp": -0.015294075933826768,
+      "sat_frac_total": 0.34,
+      "sat_frac_new": 0.016666666666666666
+    },
+    {
+      "multiplier": 0.5,
+      "alpha": 0.4935660167506619,
+      "mean_abs_dp": 0.04904487157027604,
+      "mean_signed_dp": -0.03007094325305255,
+      "sat_frac_total": 0.34,
+      "sat_frac_new": 0.028333333333333332
+    },
+    {
+      "multiplier": 1.0,
+      "alpha": 0.9871320335013238,
+      "mean_abs_dp": 0.09614456802580967,
+      "mean_signed_dp": -0.05705199179355047,
+      "sat_frac_total": 0.38333333333333336,
+      "sat_frac_new": 0.085
+    },
+    {
+      "multiplier": 2.0,
+      "alpha": 1.9742640670026477,
+      "mean_abs_dp": 0.17910315036182492,
+      "mean_signed_dp": -0.09810101951005856,
+      "sat_frac_total": 0.43166666666666664,
+      "sat_frac_new": 0.18166666666666667
+    },
+    {
+      "multiplier": 4.0,
+      "alpha": 3.9485281340052953,
+      "mean_abs_dp": 0.2969294804502192,
+      "mean_signed_dp": -0.1422115102065752,
+      "sat_frac_total": 0.565,
+      "sat_frac_new": 0.36833333333333335
+    }
+  ]
+}

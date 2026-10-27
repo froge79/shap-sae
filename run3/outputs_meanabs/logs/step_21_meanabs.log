@@ -1,0 +1,122 @@
+Analysing run3/outputs_meanabs/9_local_steer ...
+Local vs global faithfulness - formal tests
+==============================================================
+source: run3/outputs_meanabs/9_local_steer
+
+Paired Wilcoxon signed-rank on per-example (rho_local - rho_global).
+Positive gap = local SHAP ranks that example's effects better.
+Wilcoxon and the 95% CI here resample EXAMPLES ONLY and treat them as
+independent. They are not (shared features) - quote the crossed table below.
+
+block:kind               local  global     gap            95% CI  wilcoxon p  win frac
+----------------------------------------------------------------------------------------
+A:importance            +0.181  +0.020  +0.161   [+0.120,+0.201]    4.08e-10     0.760
+A:directional           +0.157  +0.123  +0.034   [-0.013,+0.081]    1.94e-01     0.560
+B:importance            +0.019  +0.324  -0.305   [-0.368,-0.243]    1.03e-12     0.137
+B:directional           +0.188  +0.197  -0.009   [-0.076,+0.058]    9.96e-01     0.505
+
+Crossed (pigeonhole) bootstrap over examples x features, B=1000:
+  100 examples share 89 distinct features (mean 25.8 candidates/example, mean pairwise Jaccard 0.68), so the
+  per-example gaps are correlated through the features. This resamples both.
+
+block:kind                 gap    crossed 95% CI  crossed p  SE inflation
+------------------------------------------------------------------------
+A:importance            +0.161   [-0.105,+0.445]      0.206         6.55x
+A:directional           +0.034   [-0.356,+0.442]      0.852         8.67x
+B:importance            -0.305   [-0.573,-0.020]      0.036         4.43x
+B:directional           -0.009   [-0.514,+0.560]      0.938         8.35x
+  Mildly conservative: it double-counts interaction variance, and a resampled
+  duplicate feature introduces rank ties.
+
+Decomposition of the block [A] importance gap:
+  mean active fraction of candidates = 0.587
+  gap ~ frac_active            slope=-0.419  R2=0.105  p=9.84e-04
+  gap ~ n_active               slope=-0.014  R2=0.088  p=2.81e-03
+  gap ~ frac_active + n_cands  coefs=[-0.481, 0.018]  R2=0.122
+  A high R2 here means the local-vs-global margin is largely an activity effect,
+  not a ranking-quality effect.
+
+Continuous control (partial Spearman | activation magnitude):
+  mean partial rho local  = -0.002 (n=100)
+  mean partial rho global = -0.144 (n=100)
+  paired gap = +0.142  wilcoxon p=2.01e-08
+  (examples-only Wilcoxon - same shared-feature dependence as above, so this p
+  understates the uncertainty; descriptive only)
+
+Wrote -> run3/outputs_meanabs/9_local_steer/paired_tests.{json,txt}
+
+Analysing run3/outputs_meanabs/14_local_mlp_steer ...
+Local vs global faithfulness - formal tests
+==============================================================
+source: run3/outputs_meanabs/14_local_mlp_steer
+
+Paired Wilcoxon signed-rank on per-example (rho_local - rho_global).
+Positive gap = local SHAP ranks that example's effects better.
+Wilcoxon and the 95% CI here resample EXAMPLES ONLY and treat them as
+independent. They are not (shared features) - quote the crossed table below.
+
+block:kind               local  global     gap            95% CI  wilcoxon p  win frac
+----------------------------------------------------------------------------------------
+A:importance            +0.273  -0.115  +0.389   [+0.346,+0.431]    4.67e-18     0.970
+A:directional           +0.161  +0.062  +0.098   [+0.051,+0.146]    5.85e-04     0.610
+B:importance            +0.017  +0.229  -0.213   [-0.281,-0.145]    7.33e-08     0.240
+B:directional           +0.230  +0.142  +0.088   [+0.005,+0.165]    1.49e-02     0.635
+
+Crossed (pigeonhole) bootstrap over examples x features, B=1000:
+  100 examples share 97 distinct features (mean 26.7 candidates/example, mean pairwise Jaccard 0.66), so the
+  per-example gaps are correlated through the features. This resamples both.
+
+block:kind                 gap    crossed 95% CI  crossed p  SE inflation
+------------------------------------------------------------------------
+A:importance            +0.389   [+0.109,+0.665]      0.002         6.53x
+A:directional           +0.098   [-0.225,+0.370]      0.532         6.50x
+B:importance            -0.213   [-0.534,+0.138]      0.290         4.84x
+B:directional           +0.088   [-0.383,+0.565]      0.756         6.05x
+  Mildly conservative: it double-counts interaction variance, and a resampled
+  duplicate feature introduces rank ties.
+
+Decomposition of the block [A] importance gap:
+  mean active fraction of candidates = 0.522
+  gap ~ frac_active            slope=-0.413  R2=0.080  p=4.45e-03
+  gap ~ n_active               slope=-0.011  R2=0.045  p=3.50e-02
+  gap ~ frac_active + n_cands  coefs=[-0.475, 0.047]  R2=0.189
+  A high R2 here means the local-vs-global margin is largely an activity effect,
+  not a ranking-quality effect.
+
+Continuous control (partial Spearman | activation magnitude):
+  mean partial rho local  = +0.096 (n=100)
+  mean partial rho global = -0.117 (n=100)
+  paired gap = +0.212  wilcoxon p=2.87e-11
+  (examples-only Wilcoxon - same shared-feature dependence as above, so this p
+  understates the uncertainty; descriptive only)
+
+Wrote -> run3/outputs_meanabs/14_local_mlp_steer/paired_tests.{json,txt}
+
+Analysing run3/outputs_meanabs/local_shap_faithfulness ...
+Local vs global faithfulness - formal tests
+==============================================================
+source: run3/outputs_meanabs/local_shap_faithfulness
+
+Paired Wilcoxon signed-rank on per-example (rho_local - rho_global).
+Positive gap = local SHAP ranks that example's effects better.
+Wilcoxon and the 95% CI here resample EXAMPLES ONLY and treat them as
+independent. They are not (shared features) - quote the crossed table below.
+
+block:kind               local  global     gap            95% CI  wilcoxon p  win frac
+----------------------------------------------------------------------------------------
+A:importance            +0.273  -0.115  +0.388   [+0.345,+0.430]    4.67e-18     0.970
+B:importance            +0.017  +0.229  -0.213   [-0.282,-0.145]    7.33e-08     0.240
+
+Crossed (pigeonhole) bootstrap over examples x features, B=1000:
+  100 examples share 97 distinct features (mean 26.7 candidates/example, mean pairwise Jaccard 0.66), so the
+  per-example gaps are correlated through the features. This resamples both.
+
+block:kind                 gap    crossed 95% CI  crossed p  SE inflation
+------------------------------------------------------------------------
+A:importance            +0.388   [+0.108,+0.665]      0.002         6.50x
+B:importance            -0.213   [-0.534,+0.138]      0.290         4.83x
+  Mildly conservative: it double-counts interaction variance, and a resampled
+  duplicate feature introduces rank ties.
+
+Wrote -> run3/outputs_meanabs/local_shap_faithfulness/paired_tests.{json,txt}
+

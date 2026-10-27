@@ -1,0 +1,34 @@
+# step 6  2026-10-25T10:24:06+00:00
+# SHAP_SAE_OUTPUTS=run3/outputs SHAP_SAE_CHECKPOINTS=run3/checkpoints
+# cmd: uv run python src/global_mlp/11_mlp_probe.py
+Using 114 filtered features from run3/outputs/3_shap/shap_feature_indices.npy
+Layer 7 MLP probe results
+  Val accuracy:     0.8223
+  Val AUROC:        0.8989
+  Features:         114
+  Hidden dim:       32
+  Adam iterations:  45
+  Checkpoint:       run3/checkpoints/mlp_probe_layer_7.joblib
+  Top features →    run3/outputs/11_mlp_probe/top_features_layer_7.json
+  Top 20 inputs by ||W1[i,:]||₂ (global SAE index):
+     1. feature 18357  ||W1||₂=1.714662
+     2. feature  4890  ||W1||₂=1.175399
+     3. feature 24877  ||W1||₂=1.037578
+     4. feature  3398  ||W1||₂=0.995314
+     5. feature  3840  ||W1||₂=0.973295
+     6. feature 31846  ||W1||₂=0.944840
+     7. feature  6024  ||W1||₂=0.919937
+     8. feature 12019  ||W1||₂=0.907545
+     9. feature  9857  ||W1||₂=0.895424
+    10. feature  3611  ||W1||₂=0.891253
+    11. feature 32471  ||W1||₂=0.889331
+    12. feature 30961  ||W1||₂=0.882589
+    13. feature 11525  ||W1||₂=0.876145
+    14. feature 11148  ||W1||₂=0.858281
+    15. feature 30805  ||W1||₂=0.852001
+    16. feature 13322  ||W1||₂=0.836634
+    17. feature 21276  ||W1||₂=0.827181
+    18. feature 21459  ||W1||₂=0.809957
+    19. feature 29509  ||W1||₂=0.807895
+    20. feature 16640  ||W1||₂=0.807569
+# exit=0  elapsed=8s  2026-10-25T10:24:14+00:00

@@ -1,0 +1,29 @@
+# step 1  2026-10-25T10:19:04+00:00
+# SHAP_SAE_OUTPUTS=run3/outputs SHAP_SAE_CHECKPOINTS=run3/checkpoints
+# cmd: uv run python src/core/1_extract.py
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|██████████| 148/148 [00:00<00:00, 5606.50it/s]
+Loaded pretrained model gpt2 into HookedTransformer
+  0%|          | 0/210 [00:00<?, ?it/s]  0%|          | 0/210 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/ubuntu/shap-sae/src/core/1_extract.py", line 96, in <module>
+    main()
+    ~~~~^^
+  File "/home/ubuntu/shap-sae/src/core/1_extract.py", line 25, in main
+    save_split(model, saes, train_ds, "activations/probe_train")
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/shap-sae/src/core/1_extract.py", line 77, in save_split
+    acts_by_layer, labels = extract_split_activations(
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        model,
+        ^^^^^^
+    ...<3 lines>...
+        batch_size=32,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/ubuntu/shap-sae/src/core/1_extract.py", line 62, in extract_split_activations
+    sae_acts = cache[sae_cache_key(layer)]  # [B, T, F]
+                     ^^^^^^^^^^^^^
+NameError: name 'sae_cache_key' is not defined
+# exit=1  elapsed=104s  2026-10-25T10:20:48+00:00

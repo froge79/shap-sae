@@ -1,0 +1,54 @@
+Probe-vs-LM confound controls (linear arm, signed steering, n=114 features)
+eval positive fraction 0.515; train positive fraction 0.514
+steer run: steering scope=all n_eval=1000
+CAVEAT: intervention is all-token, the probe reads the last token only, so the
+closed-form P_j = w_j*alpha_j is the DIRECT last-token effect; it omits
+propagation through the LM, which is exactly the mismatch Table 3 measures.
+Features are the same pool for every row; CIs resample features (descriptive).
+
+Table 1. score vs LM effect D (the published test)
+  score                               D(steer)
+  phi_bg100            dir -0.097 / imp +0.377
+  phi_bgfull           dir -0.058 / imp +0.370
+  phi_classmatched     dir -0.058 / imp +0.370
+  wx                   dir +0.407 / imp +0.438
+  weight               dir +0.399 / imp +0.289
+  meanabs(imp only)      dir +nan / imp +0.430
+
+Table 2. score vs PROBE effect P=w*alpha (attribution error only, no LM)
+  score                               P(steer)
+  phi_bg100            dir -0.277 / imp +0.756
+  phi_bgfull           dir -0.367 / imp +0.781
+  phi_classmatched     dir -0.368 / imp +0.780
+  wx                   dir +0.953 / imp +0.810
+  weight               dir +0.987 / imp +0.952
+  meanabs(imp only)      dir +nan / imp +0.889
+
+Table 3. probe-LM mismatch: closed-form probe effect vs measured LM effect
+  P vs D (signed)    rho=+0.393  95% CI [+0.196, +0.563]
+  |P| vs mean|D|     rho=+0.377  95% CI [+0.199, +0.538]
+  -A vs D (signed)   rho=+0.407  95% CI [+0.210, +0.576]
+  Read: if P-vs-D is itself low, a score that EXACTLY reproduces the probe cannot
+  score higher against D, so the LM test cannot separate attribution error from
+  probe mismatch. Compare Table 1 rows against this ceiling, not against 1.0.
+  (weight == sign-only version of P up to alpha scaling; P adds the alpha_j scale.)
+
+Table 4. sign agreement of Phi with sign(w) over the 114 pool, and over top-20 |Phi| within the 114-feature pool
+  phi_bg100          all 0.465   pool top-20 |score| 0.250
+  phi_bgfull         all 0.430   pool top-20 |score| 0.150
+  phi_classmatched   all 0.430   pool top-20 |score| 0.150
+  wx                 all 1.000   pool top-20 |score| 1.000
+
+Table 5. 500 random 100-row backgrounds (mean [2.5%, 97.5%])
+  stratified (class-matched)   sign-agree 0.493 [0.399,0.596]   dir rho vs D -0.028 [-0.224,+0.153]
+  unstratified                 sign-agree 0.496 [0.395,0.605]   dir rho vs D -0.021 [-0.199,+0.182]
+
+Table 6. ABLATION, all k=114 (n=114 features; scope=all)
+  LM ablation effect vs closed-form probe ablation effect A_j = -mean(w*x):
+  A vs D_ablation     dir +0.346 [+0.127,+0.548]  imp +0.583
+  phi_bg100          vs D_abl  dir -0.133  imp +0.286
+  phi_bgfull         vs D_abl  dir -0.199  imp +0.380
+  phi_classmatched   vs D_abl  dir -0.199  imp +0.378
+  wx                 vs D_abl  dir +0.346  imp +0.583
+  weight             vs D_abl  dir +0.311  imp +0.065
+

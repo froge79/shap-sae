@@ -1,0 +1,59 @@
+Minimal-pair seed sweep (descriptive; seeds overlap)
+==============================================================================
+
+### distractors = random
+
+remove  (n_seeds=4)  sign acc mean 0.738 [0.64,0.80]
+  method            AUROC mean±sd    min    max  >0.5 |      rho mean±sd   >0
+  local_SHAP       0.542±0.012  0.527  0.554  4/4  |   0.246±0.068  4/4
+  global_SHAP      0.488±0.028  0.460  0.521  2/4  |   0.151±0.110  4/4
+  Probe weights    0.461±0.066  0.390  0.533  1/4  |  -0.067±0.139  2/4
+
+insert  (n_seeds=4)  sign acc mean 0.887 [0.88,0.90]
+  method            AUROC mean±sd    min    max  >0.5 |      rho mean±sd   >0
+  local_SHAP       0.658±0.004  0.654  0.664  4/4  |   0.330±0.024  4/4
+  global_SHAP      0.515±0.015  0.498  0.534  3/4  |   0.080±0.052  4/4
+  Probe weights    0.428±0.045  0.386  0.491  0/4  |  -0.096±0.134  1/4
+
+insert-interior  (n_seeds=4)  sign acc mean 0.802 [0.75,0.83]
+  method            AUROC mean±sd    min    max  >0.5 |      rho mean±sd   >0
+  local_SHAP       0.535±0.025  0.507  0.562  4/4  |   0.287±0.014  4/4
+  global_SHAP      0.466±0.009  0.456  0.477  0/4  |   0.150±0.029  4/4
+  Probe weights    0.453±0.043  0.403  0.502  1/4  |  -0.052±0.082  1/4
+
+substitute  (n_seeds=4)  sign acc mean 0.910 [0.90,0.93]
+  method            AUROC mean±sd    min    max  >0.5 |      rho mean±sd   >0
+  local_SHAP       0.566±0.026  0.540  0.601  4/4  |   0.330±0.017  4/4
+  global_SHAP      0.514±0.020  0.494  0.540  3/4  |   0.226±0.040  4/4
+  Probe weights    0.507±0.050  0.457  0.558  2/4  |   0.048±0.077  3/4
+
+### distractors = active
+
+remove  (n_seeds=4)  sign acc mean 0.738 [0.64,0.80]
+  method            AUROC mean±sd    min    max  >0.5 |      rho mean±sd   >0
+  local_SHAP       0.401±0.002  0.399  0.403  0/4  |   0.269±0.004  4/4
+  global_SHAP      0.429±0.003  0.425  0.433  0/4  |   0.324±0.005  4/4
+  Probe weights    0.505±0.006  0.498  0.512  3/4  |   0.068±0.012  4/4
+
+insert  (n_seeds=4)  sign acc mean 0.887 [0.88,0.90]
+  method            AUROC mean±sd    min    max  >0.5 |      rho mean±sd   >0
+  local_SHAP       0.458±0.026  0.426  0.484  0/4  |   0.279±0.006  4/4
+  global_SHAP      0.362±0.018  0.336  0.377  0/4  |   0.108±0.006  4/4
+  Probe weights    0.459±0.026  0.422  0.479  0/4  |   0.058±0.007  4/4
+
+insert-interior  (n_seeds=4)  sign acc mean 0.802 [0.75,0.83]
+  method            AUROC mean±sd    min    max  >0.5 |      rho mean±sd   >0
+  local_SHAP       0.387±0.010  0.377  0.400  0/4  |   0.361±0.011  4/4
+  global_SHAP      0.400±0.014  0.388  0.419  0/4  |   0.371±0.021  4/4
+  Probe weights    0.481±0.010  0.470  0.489  0/4  |   0.099±0.011  4/4
+
+substitute  (n_seeds=4)  sign acc mean 0.910 [0.90,0.93]
+  method            AUROC mean±sd    min    max  >0.5 |      rho mean±sd   >0
+  local_SHAP       0.410±0.010  0.400  0.420  0/4  |   0.313±0.012  4/4
+  global_SHAP      0.424±0.006  0.416  0.429  0/4  |   0.384±0.014  4/4
+  Probe weights    0.513±0.009  0.506  0.526  4/4  |   0.092±0.018  4/4
+
+### Same-seed contrasts (sentence pools differ, so not strictly paired), local_SHAP AUROC, distractors=random
+  insert - insert-interior: mean +0.123, sd 0.028, positive in 4/4 seeds
+  remove - insert-interior: mean +0.006, sd 0.017, positive in 2/4 seeds
+  insert - remove: mean +0.117, sd 0.013, positive in 4/4 seeds

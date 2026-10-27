@@ -1,0 +1,128 @@
+run3 verification (CLAUDE.md 'Verification after the run', items 1-10)
+outputs=run3/outputs  checkpoints=run3/checkpoints  n_eval=1000  mask size N=114
+
+1. Split discipline
+  [PASS] run3/outputs/12_mlp_shap/eval_indices_layer7.npy is a prefix of eval_idx  -- len=1000
+  [PASS] run3/outputs/13_mlp_ranking/eval_indices.npy is a prefix of eval_idx  -- len=1000
+  [PASS] run3/outputs/14_mlp_steer/ablation_random_k20_scaled/eval_indices_ablation_random_k20.npy is a prefix of eval_idx  -- len=1000
+  [PASS] run3/outputs/14_mlp_steer/steering_all_scaled/eval_indices_steering_all_k114.npy is a prefix of eval_idx  -- len=1000
+  [PASS] run3/outputs/14_mlp_steer/steering_random_k20_constant/eval_indices_steering_random_k20.npy is a prefix of eval_idx  -- len=1000
+  [PASS] run3/outputs/14_mlp_steer/steering_random_k20_scaled/eval_indices_steering_random_k20.npy is a prefix of eval_idx  -- len=1000
+  [PASS] run3/outputs/14_mlp_steer/steering_top-neg_k20_scaled/eval_indices_steering_topneg_k20.npy is a prefix of eval_idx  -- len=1000
+  [PASS] run3/outputs/14_mlp_steer/steering_top-pos_k20_scaled/eval_indices_steering_toppos_k20.npy is a prefix of eval_idx  -- len=1000
+  [PASS] run3/outputs/14_mlp_steer/steering_top_k20_scaled/eval_indices_steering_top_k20.npy is a prefix of eval_idx  -- len=1000
+  [PASS] run3/outputs/7_shap_recompute/eval_indices_layer7.npy is a prefix of eval_idx  -- len=1000
+  [PASS] run3/outputs/8_rankings_recompute/eval_indices.npy is a prefix of eval_idx  -- len=1000
+  [PASS] run3/outputs/9_steer/ablation_random_k20_scaled/eval_indices_ablation_random_k20.npy is a prefix of eval_idx  -- len=1000
+  [PASS] run3/outputs/9_steer/steering_all_scaled/eval_indices_steering_all_k114.npy is a prefix of eval_idx  -- len=1000
+  [PASS] run3/outputs/9_steer/steering_random_k20_constant/eval_indices_steering_random_k20.npy is a prefix of eval_idx  -- len=1000
+  [PASS] run3/outputs/9_steer/steering_random_k20_scaled/eval_indices_steering_random_k20.npy is a prefix of eval_idx  -- len=1000
+  [PASS] run3/outputs/9_steer/steering_top-neg_k20_scaled/eval_indices_steering_topneg_k20.npy is a prefix of eval_idx  -- len=1000
+  [PASS] run3/outputs/9_steer/steering_top-pos_k20_scaled/eval_indices_steering_toppos_k20.npy is a prefix of eval_idx  -- len=1000
+  [PASS] run3/outputs/9_steer/steering_top_k20_scaled/eval_indices_steering_top_k20.npy is a prefix of eval_idx  -- len=1000
+  [PASS] run3/outputs/14_local_mlp_steer/example_indices.npy is a prefix of eval_idx (local scripts)  -- len=100
+  [PASS] run3/outputs/9_local_steer/example_indices.npy is a prefix of eval_idx (local scripts)  -- len=100
+  [PASS] run3/outputs/local_shap_faithfulness/example_indices.npy is a prefix of eval_idx (local scripts)  -- len=100
+  [PASS] run3/outputs/12_mlp_shap/background_indices_layer7.npy == bg_idx  -- len=100
+  [PASS] run3/outputs/13_mlp_ranking/background_indices.npy == bg_idx  -- len=100
+  [PASS] run3/outputs/7_shap_recompute/background_indices_layer7.npy == bg_idx  -- len=100
+  [PASS] run3/outputs/8_rankings_recompute/background_indices.npy == bg_idx  -- len=100
+  (18 eval_indices files, 4 background_indices files)
+
+2. Rows agree
+  [PASS] 7_shap_recompute/eval_indices_layer7.npy == 8_rankings_recompute/eval_indices.npy
+  [PASS] 12_mlp_shap/eval_indices_layer7.npy == 13_mlp_ranking/eval_indices.npy
+
+3. Index spaces
+  [PASS] 3_shap and 12_mlp_shap masks both (114,) and equal  -- (114,) vs (114,)
+  [PASS] 11_mlp_probe feature_indices == mask
+  [PASS] 9.5_tuning pool_indices == mask
+  [PASS] 7_shap_recompute/explained_feature_indices == arange(32768)
+  [PASS] no shap_feature_indices.npy of shape (32768,)
+
+4. M1 identity (linear arm)
+  [PASS] correlation.txt identity verdict PASS
+  [PASS] IG vs SHAP rho = 1.000  -- IG vs SHAP:    ρ=1.000
+  [PASS] IG vs GA rho = 1.000  -- IG vs GA:      ρ=1.000
+  [PASS] SHAP vs GA rho = 1.000  -- SHAP vs GA:    ρ=1.000
+  max|IG - Phi| = 1.723e-07   (relative 1.745e-06) | max|GA - Phi| = 1.723e-07   (relative 1.745e-06)
+
+5. M1 in the MLP arm
+  [PASS] 13_mlp_ranking IG vs SHAP rho moved off ~0  -- rho=0.866
+    n_features=114  (Spearman on |score|)
+    Probe vs IG:   ρ=0.287,   p=0.0020
+    Probe vs SHAP: ρ=0.250, p=0.0072
+    IG vs SHAP:    ρ=0.866,    p=0.0000
+    Probe vs GA:   ρ=0.242,   p=0.0095
+    IG vs GA:      ρ=0.862,      p=0.0000
+    SHAP vs GA:    ρ=0.693,    p=0.0000
+
+6. Group steering
+  [PASS] 378 rows  -- 378 rows
+  [PASS] no {probe_type: mlp, method: probe} rows
+  [PASS] actdiff rows all carry arm_independent: true  -- 84 rows
+  [PASS] actdiff logistic and mlp copies numerically identical  -- 42 keys
+  counts: logistic/actdiff=42, logistic/ga=42, logistic/ig=42, logistic/probe=42, logistic/shap=42, mlp/actdiff=42, mlp/ga=42, mlp/ig=42, mlp/shap=42
+
+7. Steer bookkeeping
+  [PASS] run3/outputs/14_mlp_steer/ablation_random_k20_scaled  -- tags=['ablation_random_k20']
+  [PASS] run3/outputs/14_mlp_steer/steering_all_scaled  -- tags=['steering_all_k114']
+  [PASS] run3/outputs/14_mlp_steer/steering_random_k20_constant  -- tags=['steering_random_k20']
+  [PASS] run3/outputs/14_mlp_steer/steering_random_k20_scaled  -- tags=['steering_random_k20']
+  [PASS] run3/outputs/14_mlp_steer/steering_top-neg_k20_scaled  -- tags=['steering_topneg_k20']
+  [PASS] run3/outputs/14_mlp_steer/steering_top-pos_k20_scaled  -- tags=['steering_toppos_k20']
+  [PASS] run3/outputs/14_mlp_steer/steering_top_k20_scaled  -- tags=['steering_top_k20']
+  [PASS] run3/outputs/9_steer/ablation_random_k20_scaled  -- tags=['ablation_random_k20']
+  [PASS] run3/outputs/9_steer/steering_all_scaled  -- tags=['steering_all_k114']
+  [PASS] run3/outputs/9_steer/steering_random_k20_constant  -- tags=['steering_random_k20']
+  [PASS] run3/outputs/9_steer/steering_random_k20_scaled  -- tags=['steering_random_k20']
+  [PASS] run3/outputs/9_steer/steering_top-neg_k20_scaled  -- tags=['steering_topneg_k20']
+  [PASS] run3/outputs/9_steer/steering_top-pos_k20_scaled  -- tags=['steering_toppos_k20']
+  [PASS] run3/outputs/9_steer/steering_top_k20_scaled  -- tags=['steering_top_k20']
+
+8. Determinism (step 2 re-fit into a scratch checkpoint root)
+  [PASS] re-ran src/core/2_probes.py (scratch roots)
+  [PASS] re-ran src/core/3_shap_comp.py (scratch roots)
+  [PASS] probe coef_ bit-identical
+  [PASS] step-3 mask still (114,) and identical  -- (114,)
+
+9. Alpha sensitivity (scaled vs constant, steering random k20)
+  linear arm                       scaled rho (p)     constant rho (p)    gap
+    imp SHAP                   +0.555 (0.011)   +0.194 (0.412)   +0.361
+    imp Probe weights          +0.519 (0.019)   +0.226 (0.339)   +0.293
+    imp IG                     +0.555 (0.011)   +0.194 (0.412)   +0.361
+    imp GA                     +0.555 (0.011)   +0.194 (0.412)   +0.361
+    dir SHAP                   -0.077 (0.748)   +0.072 (0.762)   -0.149
+    dir Probe weights          +0.624 (0.003)   +0.567 (0.009)   +0.057
+    dir IG                     -0.077 (0.748)   +0.072 (0.762)   -0.149
+    dir GA                     -0.077 (0.748)   +0.072 (0.762)   -0.149
+    max |scaled - constant| = 0.361
+  mlp arm                       scaled rho (p)     constant rho (p)    gap
+    imp SHAP                   +0.744 (0.000)   +0.459 (0.042)   +0.285
+    imp Probe saliency         +0.400 (0.081)   +0.365 (0.113)   +0.035
+    imp IG                     +0.749 (0.000)   +0.469 (0.037)   +0.280
+    imp GA                     +0.752 (0.000)   +0.460 (0.041)   +0.292
+    dir SHAP                   -0.147 (0.535)   -0.011 (0.965)   -0.136
+    dir IG                     -0.146 (0.539)   +0.000 (1.000)   -0.146
+    dir GA                     -0.171 (0.470)   -0.032 (0.895)   -0.139
+    max |scaled - constant| = 0.292
+  (report only; both reported regardless per CLAUDE.md)
+
+10. Causal direction (positive Phi -> positive Delta under steering?)
+  linear steering_all_scaled              Phi>0: n= 55 mean=-0.0049 agree=0.49   Phi<0: n= 59 mean=+0.0120 agree=0.39
+  linear steering_random_k20_constant     Phi>0: n= 11 mean=+0.0353 agree=0.64   Phi<0: n=  9 mean=+0.0140 agree=0.44
+  linear steering_random_k20_scaled       Phi>0: n= 11 mean=+0.0307 agree=0.64   Phi<0: n=  9 mean=+0.0310 agree=0.44
+  linear steering_top-neg_k20_scaled      Phi>0: n=  0   Phi<0: n= 20 mean=+0.0189 agree=0.35
+  linear steering_top-pos_k20_scaled      Phi>0: n= 20 mean=+0.0006 agree=0.55   Phi<0: n=  0
+  linear steering_top_k20_scaled          Phi>0: n= 11 mean=+0.0245 agree=0.55   Phi<0: n=  9 mean=-0.0049 agree=0.33
+  mlp    steering_all_scaled              Phi>0: n= 54 mean=-0.0121 agree=0.48   Phi<0: n= 60 mean=+0.0182 agree=0.38
+  mlp    steering_random_k20_constant     Phi>0: n= 10 mean=+0.0259 agree=0.60   Phi<0: n= 10 mean=+0.0254 agree=0.40
+  mlp    steering_random_k20_scaled       Phi>0: n= 10 mean=+0.0207 agree=0.60   Phi<0: n= 10 mean=+0.0410 agree=0.40
+  mlp    steering_top-neg_k20_scaled      Phi>0: n=  0   Phi<0: n= 20 mean=+0.0166 agree=0.35
+  mlp    steering_top-pos_k20_scaled      Phi>0: n= 20 mean=+0.0001 agree=0.50   Phi<0: n=  0
+  mlp    steering_top_k20_scaled          Phi>0: n= 11 mean=+0.0173 agree=0.55   Phi<0: n=  9 mean=+0.0393 agree=0.22
+  9.5 pilot (alpha_calibration.txt): mean_signed_dp per alpha = 0.494:-0.030071, 0.987:-0.057052, 1.974:-0.098101, 3.949:-0.142212
+  9.5 pilot (alpha_calibration_logitdiff.txt): mean_signed_dp per alpha = 0.494:+0.042383, 0.987:+0.086367, 1.974:+0.177779, 3.949:+0.365933
+  (report only; a reappearing inversion is a finding, not a check failure)
+
+SUMMARY: ALL HARD CHECKS PASS

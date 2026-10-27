@@ -1,0 +1,8 @@
+Minimal-pair readout sign accuracy vs trailing whitespace (n=100, seed=42)
+
+  remove  as_built (orig no space, edited + space)   sign_acc = 0.400
+  remove  both stripped                              sign_acc = 0.760
+  remove  both + trailing space                      sign_acc = 0.720
+  insert  as_built (orig no space, edited + space)   sign_acc = 0.520
+  insert  both stripped                              sign_acc = 0.910
+  insert  both + trailing space                      sign_acc = 0.760

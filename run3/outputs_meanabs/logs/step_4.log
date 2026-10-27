@@ -1,0 +1,18 @@
+# step 4  2026-10-25T10:23:31+00:00
+# SHAP_SAE_OUTPUTS=run3/outputs SHAP_SAE_CHECKPOINTS=run3/checkpoints
+# cmd: uv run python src/global_linear/7_shap_recompute.py
+LinearSHAP on 1000 held-out rows / 100 background
+Top features by |mean signed SHAP|:
+  feature 30907:  Φ=+0.098734  sign_consistency=0.509
+  feature 19167:  Φ=-0.086212  sign_consistency=0.604
+  feature 25515:  Φ=+0.072471  sign_consistency=0.580
+  feature 10003:  Φ=-0.055054  sign_consistency=0.751
+  feature  4890:  Φ=+0.054276  sign_consistency=0.777
+  feature 16048:  Φ=+0.052286  sign_consistency=0.539
+  feature  6319:  Φ=-0.046011  sign_consistency=0.526
+  feature 24766:  Φ=+0.045377  sign_consistency=0.021
+  feature 24877:  Φ=+0.045035  sign_consistency=0.925
+  feature 18357:  Φ=-0.044944  sign_consistency=0.833
+
+Wrote outputs → run3/outputs/7_shap_recompute/
+# exit=0  elapsed=13s  2026-10-25T10:23:44+00:00

@@ -1,0 +1,50 @@
+SST simplicity check
+============================================================
+POPULATION: every number below is over the FULL held-out split (1436 rows), not the 1000-row canonical eval sample the attribution and steering scripts use. Correct for this question, but do not quote these alongside those as if they described the same rows.
+
+1) Active filtered features per example
+   n_filtered_features = 114
+   mean=24.33  median=26.0  std=5.66  p10=19.0  p90=29.0
+   frac(≥2 active)=0.997  frac(≥5 active)=0.975
+
+2) Co-activation among top-20 |Φ| features
+   mean active=8.61  median=9.0  frac(exactly 1)=0.014  frac(≥2)=0.962
+   mean pairwise Jaccard=0.223
+
+3) Lexical tracking (top-20 |Φ| features)
+     feat          Φ    r_any    r_pos    r_neg    ρ_lex  lex|on  lex|off
+    30907   +0.09873   +0.052   +0.058   +0.030   +0.032   0.382    0.382
+    19167   -0.08621   +0.028   +0.060   -0.013   +0.085   0.382    0.391
+    25515   +0.07247   +0.174   +0.153   +0.077   +0.082   0.428    0.286
+    10003   -0.05505   +0.025   +0.045   -0.014   +0.050   0.398    0.377
+     4890   +0.05428   -0.001   -0.044   +0.063   -0.091   0.388    0.381
+    16048   +0.05229   -0.095   -0.097   -0.023   -0.064   0.379    0.421
+     6319   -0.04601   -0.036   -0.002   -0.044   +0.026   0.381    0.405
+    24877   +0.04503   +0.063   +0.124   -0.045   +0.134   0.486    0.374
+    18357   -0.04494   +0.049   -0.126   +0.256   -0.260   0.418    0.374
+    21459   -0.04240   +0.245   +0.262   +0.068   +0.164   0.401    0.228
+    11525   +0.04067   +0.031   +0.017   +0.031   -0.002   0.427    0.372
+    29964   +0.03039   +0.010   +0.032   -0.005   +0.032   0.380    0.425
+    14826   +0.02796   -0.006   +0.047   -0.080   +0.086   0.387    0.381
+     3398   -0.02519   -0.017   -0.001   -0.038   +0.014   0.373    0.383
+     1216   -0.02463   +0.015   +0.099   -0.128   +0.172   0.406    0.377
+    27668   +0.02374   +0.026   -0.046   +0.082   -0.075   0.413    0.379
+     7480   +0.01722   +0.035   +0.041   -0.008   +0.030   0.433    0.378
+    11064   +0.01680   +0.000   -0.030   +0.035   -0.056   0.380    0.383
+    30098   -0.01669   +0.007   -0.029   +0.036   -0.040   0.396    0.381
+     2443   -0.01588   +0.045   +0.037   +0.038   +0.016   0.392    0.360
+   mean |r(activation, has_lexicon_word)| = 0.048
+
+4) Lexicon baseline vs SAE probe (full held-out split)
+   NB: this probe accuracy is measured on held-out, not on val. Nothing is fit here, but it is a second, differently-sourced number from the val accuracy 2_probes reports — do not quote the two interchangeably.
+   frac examples with ≥1 lexicon word = 0.382
+   lexicon BoW  acc=0.614  AUROC=0.689
+   lexicon vote acc=0.607  (when signal: 0.785)
+   SAE probe    acc=0.810  AUROC=0.887
+   agreement(lex BoW, SAE) = 0.611
+
+5) Reading
+   Top-ranked features often co-activate → interaction structure is at least possible.
+   Top features are only weakly tied to the sentiment lexicon → not a pure lexical shortcut (on this lexicon).
+   SAE probe beats lexicon BoW by +0.196 accuracy → some non-lexical signal remains (necessary but not sufficient for SHAP to help).
+

@@ -1,0 +1,43 @@
+Local vs global faithfulness - formal tests
+==============================================================
+source: run3/outputs/7b_global_variants/local_rescored/9_local_steer__absmean_bgfull
+
+Paired Wilcoxon signed-rank on per-example (rho_local - rho_global).
+Positive gap = local SHAP ranks that example's effects better.
+Wilcoxon and the 95% CI here resample EXAMPLES ONLY and treat them as
+independent. They are not (shared features) - quote the crossed table below.
+
+block:kind               local  global     gap            95% CI  wilcoxon p  win frac
+----------------------------------------------------------------------------------------
+A:importance            +0.351  +0.199  +0.151   [+0.122,+0.181]    4.12e-13     0.840
+A:directional           +0.140  +0.001  +0.138   [+0.102,+0.175]    1.70e-09     0.750
+B:importance            +0.015  +0.328  -0.313   [-0.376,-0.252]    4.31e-13     0.116
+B:directional           +0.187  -0.082  +0.269   [+0.214,+0.321]    8.84e-14     0.905
+
+Crossed (pigeonhole) bootstrap over examples x features, B=1000:
+  100 examples share 89 distinct features (mean 29.7 candidates/example, mean pairwise Jaccard 0.70), so the
+  per-example gaps are correlated through the features. This resamples both.
+
+block:kind                 gap    crossed 95% CI  crossed p  SE inflation
+------------------------------------------------------------------------
+A:importance            +0.151   [-0.051,+0.364]      0.134         6.77x
+A:directional           +0.138   [-0.111,+0.399]      0.304         7.47x
+B:importance            -0.313   [-0.591,-0.017]      0.044         4.72x
+B:directional           +0.269   [-0.131,+0.546]      0.170         6.22x
+  Mildly conservative: it double-counts interaction variance, and a resampled
+  duplicate feature introduces rank ties.
+
+Decomposition of the block [A] importance gap:
+  mean active fraction of candidates = 0.498
+  gap ~ frac_active            slope=-0.306  R2=0.073  p=6.57e-03
+  gap ~ n_active               slope=-0.010  R2=0.076  p=5.48e-03
+  gap ~ frac_active + n_cands  coefs=[-0.29, -0.005]  R2=0.074
+  A high R2 here means the local-vs-global margin is largely an activity effect,
+  not a ranking-quality effect.
+
+Continuous control (partial Spearman | activation magnitude):
+  mean partial rho local  = +0.038 (n=100)
+  mean partial rho global = -0.061 (n=100)
+  paired gap = +0.099  wilcoxon p=1.29e-06
+  (examples-only Wilcoxon - same shared-feature dependence as above, so this p
+  understates the uncertainty; descriptive only)

@@ -24,7 +24,7 @@ missing = sorted(e for e in expected if e not in tex)
 flips = j["family_sensitive_tests"]
 print("quoted counts:", sorted(expected))
 print("family-sensitive tests:", flips)
-if missing or len(flips) != 2:
+if missing or flips:
     print("DRIFT: not found in paper:", missing, "| n family-sensitive =", len(flips))
     sys.exit(1)
 print("OK")

@@ -70,9 +70,11 @@ if str(_SRC) not in sys.path:
 
 from utils import (
     CANONICAL_SEED,
+    GLOBAL_SCORES,
     checkpoint_path,
     eval_sentences,
     load_eval_and_background,
+    load_global_shap_score,
     load_model,
     output_path,
 )
@@ -273,6 +275,7 @@ def main(
     checkpoint: Path = CHECKPOINT,
     out_dir: Path = OUT_DIR,
     insample_phi: bool = False,
+    global_score: str = "signed",
 ) -> None:
     if target not in ("probe", "lm"):
         raise ValueError(f"target must be 'probe' or 'lm', got {target!r}")
@@ -300,7 +303,11 @@ def main(
         print("Global Φ: mean of these N local φ (IN-SAMPLE — diagnostic only)")
         global_phi_filt = local_shap.mean(axis=0)
     else:
-        global_phi_filt = load_global_phi(feature_indices)
+        global_phi_filt = (
+            load_global_phi(feature_indices)
+            if global_score == "signed"
+            else load_global_shap_score("mlp", feature_indices, global_score)
+        )
         print(f"Global Φ: loaded from {MLP_SHAP_DIR}/ (full canonical eval sample)")
     X_filt = np.asarray(shap_eval[:, feature_indices], dtype=np.float64)
 
@@ -515,6 +522,10 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Use mean of these N local φ as the global Φ (in-sample; diagnostic)",
     )
+    p.add_argument(
+        "--global-score", choices=GLOBAL_SCORES, default="signed",
+        help="Global baseline: mean signed phi (published) or mean |phi|",
+    )
     return p.parse_args()
 
 
@@ -527,4 +538,5 @@ if __name__ == "__main__":
         target=args.target,
         out_dir=args.out_dir,
         insample_phi=args.insample_phi,
+        global_score=args.global_score,
     )

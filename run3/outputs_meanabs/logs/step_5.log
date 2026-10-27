@@ -1,0 +1,25 @@
+# step 5  2026-10-25T10:23:44+00:00
+# SHAP_SAE_OUTPUTS=run3/outputs SHAP_SAE_CHECKPOINTS=run3/checkpoints
+# cmd: uv run python src/global_linear/8_feature_ranking.py
+IG/GA over 1000 held-out rows, baseline = mean of 100 train background rows
+  eval/background rows match run3/outputs/7_shap_recompute/
+Calculating IG:   0%|          | 0/1000 [00:00<?, ?it/s]Calculating IG: 100%|██████████| 1000/1000 [00:00<00:00, 30929.16it/s]
+Calculating gradients:   0%|          | 0/1000 [00:00<?, ?it/s]Calculating gradients: 100%|██████████| 1000/1000 [00:00<00:00, 31484.75it/s]
+
+Closed-form identity check (linear probe, margin target):
+  max|IG - Phi| = 1.723e-07   (relative 1.745e-06)
+  max|GA - Phi| = 1.723e-07   (relative 1.745e-06)
+  rtol          = 1.0e-05   (float32 accumulation floors this near 1e-7)
+  PASS - IG, GA and SHAP coincide analytically, as they must for a linear probe. The rank agreement below is an identity, not evidence.
+
+Rank agreement over the 615 features with a non-zero probe weight (of 32768):
+n_features=615
+Probe vs IG:   ρ=0.155,   p=0.0001
+Probe vs SHAP: ρ=0.155, p=0.0001
+IG vs SHAP:    ρ=1.000,    p=0.0000
+Probe vs GA:   ρ=0.155,   p=0.0001
+IG vs GA:      ρ=1.000,      p=0.0000
+SHAP vs GA:    ρ=1.000,    p=0.0000
+
+Wrote outputs → run3/outputs/8_rankings_recompute/
+# exit=0  elapsed=7s  2026-10-25T10:23:51+00:00

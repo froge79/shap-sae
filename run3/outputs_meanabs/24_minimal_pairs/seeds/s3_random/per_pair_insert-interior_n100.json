@@ -1,0 +1,3402 @@
+[
+  {
+    "word": "glorious",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 0.9444732666015625,
+    "logitdiff_edited": 0.9124679565429688,
+    "text_delta": -0.03200531005859375,
+    "sign_correct": false,
+    "n_candidates": 28,
+    "n_moved": 15,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.6042809810750353,
+        "auroc_moved": 0.8461538461538461
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.5103922129602789,
+        "auroc_moved": 0.7487179487179487
+      },
+      "Probe weights": {
+        "rho_recovery": -0.2047418619324901,
+        "auroc_moved": 0.5384615384615384
+      },
+      "IG": {
+        "rho_recovery": 0.28810104857643254,
+        "auroc_moved": 0.6615384615384615
+      },
+      "GA": {
+        "rho_recovery": 0.28810104857643254,
+        "auroc_moved": 0.6615384615384615
+      }
+    }
+  },
+  {
+    "word": "pointless",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 0.423065185546875,
+    "logitdiff_edited": -0.1179046630859375,
+    "text_delta": -0.5409698486328125,
+    "sign_correct": true,
+    "n_candidates": 30,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.4249782077185411,
+        "auroc_moved": 0.47767857142857145
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.32630996712053817,
+        "auroc_moved": 0.40625
+      },
+      "Probe weights": {
+        "rho_recovery": 0.13381741789234922,
+        "auroc_moved": 0.32142857142857145
+      },
+      "IG": {
+        "rho_recovery": 0.37398446789914436,
+        "auroc_moved": 0.39285714285714285
+      },
+      "GA": {
+        "rho_recovery": 0.37398446789914436,
+        "auroc_moved": 0.39285714285714285
+      }
+    }
+  },
+  {
+    "word": "delightful",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": -0.1104278564453125,
+    "logitdiff_edited": 0.5965423583984375,
+    "text_delta": 0.70697021484375,
+    "sign_correct": true,
+    "n_candidates": 28,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.1514625320361857,
+        "auroc_moved": 0.8020833333333334
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.01286936546712689,
+        "auroc_moved": 0.7135416666666666
+      },
+      "Probe weights": {
+        "rho_recovery": -0.39328677909881415,
+        "auroc_moved": 0.5885416666666666
+      },
+      "IG": {
+        "rho_recovery": -0.0884235375826193,
+        "auroc_moved": 0.5625
+      },
+      "GA": {
+        "rho_recovery": -0.0884235375826193,
+        "auroc_moved": 0.5625
+      }
+    }
+  },
+  {
+    "word": "boring",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": -0.6418075561523438,
+    "logitdiff_edited": -0.8299636840820312,
+    "text_delta": -0.1881561279296875,
+    "sign_correct": true,
+    "n_candidates": 28,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.3550419726919844,
+        "auroc_moved": 0.484375
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.2653707562267633,
+        "auroc_moved": 0.5260416666666666
+      },
+      "Probe weights": {
+        "rho_recovery": -0.1490171700189246,
+        "auroc_moved": 0.4375
+      },
+      "IG": {
+        "rho_recovery": 0.0812311641080604,
+        "auroc_moved": 0.375
+      },
+      "GA": {
+        "rho_recovery": 0.0812311641080604,
+        "auroc_moved": 0.375
+      }
+    }
+  },
+  {
+    "word": "inspiring",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 0.1556549072265625,
+    "logitdiff_edited": -0.1174468994140625,
+    "text_delta": -0.273101806640625,
+    "sign_correct": false,
+    "n_candidates": 29,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.4036891405605386,
+        "auroc_moved": 0.5817307692307693
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.21859846741815728,
+        "auroc_moved": 0.5240384615384616
+      },
+      "Probe weights": {
+        "rho_recovery": -0.04191925340466232,
+        "auroc_moved": 0.4807692307692308
+      },
+      "IG": {
+        "rho_recovery": 0.19580005704203035,
+        "auroc_moved": 0.5288461538461539
+      },
+      "GA": {
+        "rho_recovery": 0.19580005704203035,
+        "auroc_moved": 0.5288461538461539
+      }
+    }
+  },
+  {
+    "word": "forgettable",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 0.41863250732421875,
+    "logitdiff_edited": 0.26634979248046875,
+    "text_delta": -0.15228271484375,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": -0.1214920550164523,
+        "auroc_moved": 0.4519230769230769
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.21420967595006063,
+        "auroc_moved": 0.3557692307692308
+      },
+      "Probe weights": {
+        "rho_recovery": -0.2849956217368454,
+        "auroc_moved": 0.3076923076923077
+      },
+      "IG": {
+        "rho_recovery": -0.14794274119983494,
+        "auroc_moved": 0.3557692307692308
+      },
+      "GA": {
+        "rho_recovery": -0.14794274119983494,
+        "auroc_moved": 0.3557692307692308
+      }
+    }
+  },
+  {
+    "word": "refreshing",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": -0.27689361572265625,
+    "logitdiff_edited": 0.1805877685546875,
+    "text_delta": 0.45748138427734375,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.34761828349991586,
+        "auroc_moved": 0.6105769230769231
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.21629582084439208,
+        "auroc_moved": 0.5673076923076923
+      },
+      "Probe weights": {
+        "rho_recovery": -0.19839423898926728,
+        "auroc_moved": 0.5961538461538461
+      },
+      "IG": {
+        "rho_recovery": 0.21658037756328347,
+        "auroc_moved": 0.5576923076923077
+      },
+      "GA": {
+        "rho_recovery": 0.21658037756328347,
+        "auroc_moved": 0.5576923076923077
+      }
+    }
+  },
+  {
+    "word": "dull",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": -1.2815093994140625,
+    "logitdiff_edited": -1.1650390625,
+    "text_delta": 0.1164703369140625,
+    "sign_correct": false,
+    "n_candidates": 28,
+    "n_moved": 17,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.6793617693477393,
+        "auroc_moved": 0.5454545454545454
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.3167173832516677,
+        "auroc_moved": 0.40106951871657753
+      },
+      "Probe weights": {
+        "rho_recovery": -0.014283500373030993,
+        "auroc_moved": 0.3689839572192513
+      },
+      "IG": {
+        "rho_recovery": 0.29578748689151674,
+        "auroc_moved": 0.44385026737967914
+      },
+      "GA": {
+        "rho_recovery": 0.29578748689151674,
+        "auroc_moved": 0.44385026737967914
+      }
+    }
+  },
+  {
+    "word": "good",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 0.2489471435546875,
+    "logitdiff_edited": -0.074798583984375,
+    "text_delta": -0.3237457275390625,
+    "sign_correct": false,
+    "n_candidates": 29,
+    "n_moved": 20,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.1464265886976784,
+        "auroc_moved": 0.5777777777777777
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.029965763013197814,
+        "auroc_moved": 0.5833333333333334
+      },
+      "Probe weights": {
+        "rho_recovery": -0.18011797749493028,
+        "auroc_moved": 0.48333333333333334
+      },
+      "IG": {
+        "rho_recovery": -0.11450170412594989,
+        "auroc_moved": 0.5166666666666667
+      },
+      "GA": {
+        "rho_recovery": -0.11450170412594989,
+        "auroc_moved": 0.5166666666666667
+      }
+    }
+  },
+  {
+    "word": "awkward",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": -0.5900115966796875,
+    "logitdiff_edited": -0.4510040283203125,
+    "text_delta": 0.139007568359375,
+    "sign_correct": false,
+    "n_candidates": 29,
+    "n_moved": 15,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.4318386645515268,
+        "auroc_moved": 0.6
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.25940748904064115,
+        "auroc_moved": 0.5333333333333333
+      },
+      "Probe weights": {
+        "rho_recovery": -0.23049751864535784,
+        "auroc_moved": 0.5476190476190477
+      },
+      "IG": {
+        "rho_recovery": 0.16413449679361747,
+        "auroc_moved": 0.5523809523809524
+      },
+      "GA": {
+        "rho_recovery": 0.16413449679361747,
+        "auroc_moved": 0.5523809523809524
+      }
+    }
+  },
+  {
+    "word": "sensational",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 0.9039306640625,
+    "logitdiff_edited": 0.40563201904296875,
+    "text_delta": -0.49829864501953125,
+    "sign_correct": false,
+    "n_candidates": 29,
+    "n_moved": 17,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.37408953987704985,
+        "auroc_moved": 0.6372549019607843
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.039266136100569775,
+        "auroc_moved": 0.5098039215686274
+      },
+      "Probe weights": {
+        "rho_recovery": -0.41595755751659613,
+        "auroc_moved": 0.4362745098039216
+      },
+      "IG": {
+        "rho_recovery": -0.06525864741650678,
+        "auroc_moved": 0.4803921568627451
+      },
+      "GA": {
+        "rho_recovery": -0.06525864741650678,
+        "auroc_moved": 0.4803921568627451
+      }
+    }
+  },
+  {
+    "word": "worthless",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 1.01092529296875,
+    "logitdiff_edited": 0.5604400634765625,
+    "text_delta": -0.4504852294921875,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.3600375679010833,
+        "auroc_moved": 0.6730769230769231
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.08419816867701088,
+        "auroc_moved": 0.5336538461538461
+      },
+      "Probe weights": {
+        "rho_recovery": -0.3717350349597046,
+        "auroc_moved": 0.375
+      },
+      "IG": {
+        "rho_recovery": -0.1708948563495309,
+        "auroc_moved": 0.47596153846153844
+      },
+      "GA": {
+        "rho_recovery": -0.1708948563495309,
+        "auroc_moved": 0.47596153846153844
+      }
+    }
+  },
+  {
+    "word": "splendid",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": -0.1051483154296875,
+    "logitdiff_edited": 0.37691497802734375,
+    "text_delta": 0.48206329345703125,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 15,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.13312445916649437,
+        "auroc_moved": 0.3952380952380952
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.03264354554274192,
+        "auroc_moved": 0.38095238095238093
+      },
+      "Probe weights": {
+        "rho_recovery": -0.2725934024620618,
+        "auroc_moved": 0.4095238095238095
+      },
+      "IG": {
+        "rho_recovery": -0.019018144357818265,
+        "auroc_moved": 0.4
+      },
+      "GA": {
+        "rho_recovery": -0.019018144357818265,
+        "auroc_moved": 0.4
+      }
+    }
+  },
+  {
+    "word": "embarrassing",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": -0.5871658325195312,
+    "logitdiff_edited": -0.328216552734375,
+    "text_delta": 0.25894927978515625,
+    "sign_correct": false,
+    "n_candidates": 29,
+    "n_moved": 18,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.32594993740979933,
+        "auroc_moved": 0.6212121212121212
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.35909738867181273,
+        "auroc_moved": 0.601010101010101
+      },
+      "Probe weights": {
+        "rho_recovery": -0.16210183463969818,
+        "auroc_moved": 0.48484848484848486
+      },
+      "IG": {
+        "rho_recovery": 0.11964659223406293,
+        "auroc_moved": 0.3939393939393939
+      },
+      "GA": {
+        "rho_recovery": 0.11964659223406293,
+        "auroc_moved": 0.3939393939393939
+      }
+    }
+  },
+  {
+    "word": "awesome",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": -1.1831283569335938,
+    "logitdiff_edited": -0.9139938354492188,
+    "text_delta": 0.269134521484375,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.22313503755894898,
+        "auroc_moved": 0.5817307692307693
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.11406903265345374,
+        "auroc_moved": 0.46634615384615385
+      },
+      "Probe weights": {
+        "rho_recovery": -0.3685414632470541,
+        "auroc_moved": 0.3701923076923077
+      },
+      "IG": {
+        "rho_recovery": -0.1775199721203585,
+        "auroc_moved": 0.3942307692307692
+      },
+      "GA": {
+        "rho_recovery": -0.1775199721203585,
+        "auroc_moved": 0.3942307692307692
+      }
+    }
+  },
+  {
+    "word": "stupid",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 1.0783309936523438,
+    "logitdiff_edited": 0.8233261108398438,
+    "text_delta": -0.2550048828125,
+    "sign_correct": true,
+    "n_candidates": 27,
+    "n_moved": 15,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.2644089528904347,
+        "auroc_moved": 0.5333333333333333
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.08557235202635886,
+        "auroc_moved": 0.48333333333333334
+      },
+      "Probe weights": {
+        "rho_recovery": -0.12940393489941465,
+        "auroc_moved": 0.4222222222222222
+      },
+      "IG": {
+        "rho_recovery": 0.21695128838691985,
+        "auroc_moved": 0.5277777777777778
+      },
+      "GA": {
+        "rho_recovery": 0.21695128838691985,
+        "auroc_moved": 0.5277777777777778
+      }
+    }
+  },
+  {
+    "word": "favorite",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 0.5583038330078125,
+    "logitdiff_edited": 0.339447021484375,
+    "text_delta": -0.2188568115234375,
+    "sign_correct": false,
+    "n_candidates": 30,
+    "n_moved": 15,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.2758516947780883,
+        "auroc_moved": 0.6
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.16785869086496438,
+        "auroc_moved": 0.41333333333333333
+      },
+      "Probe weights": {
+        "rho_recovery": -0.18139443672110359,
+        "auroc_moved": 0.4
+      },
+      "IG": {
+        "rho_recovery": 0.0544417973082743,
+        "auroc_moved": 0.36
+      },
+      "GA": {
+        "rho_recovery": 0.0544417973082743,
+        "auroc_moved": 0.36
+      }
+    }
+  },
+  {
+    "word": "poorly",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 0.8492431640625,
+    "logitdiff_edited": -0.9255828857421875,
+    "text_delta": -1.7748260498046875,
+    "sign_correct": true,
+    "n_candidates": 27,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.2855020409636822,
+        "auroc_moved": 0.5625
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.17639969561491828,
+        "auroc_moved": 0.4375
+      },
+      "Probe weights": {
+        "rho_recovery": 0.02300514398211816,
+        "auroc_moved": 0.4090909090909091
+      },
+      "IG": {
+        "rho_recovery": 0.17189954808860514,
+        "auroc_moved": 0.48863636363636365
+      },
+      "GA": {
+        "rho_recovery": 0.17189954808860514,
+        "auroc_moved": 0.48863636363636365
+      }
+    }
+  },
+  {
+    "word": "glad",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 0.945037841796875,
+    "logitdiff_edited": 1.4615554809570312,
+    "text_delta": 0.5165176391601562,
+    "sign_correct": true,
+    "n_candidates": 30,
+    "n_moved": 19,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.2310530739837907,
+        "auroc_moved": 0.6267942583732058
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.06575241707399418,
+        "auroc_moved": 0.49282296650717705
+      },
+      "Probe weights": {
+        "rho_recovery": -0.20829262191971581,
+        "auroc_moved": 0.291866028708134
+      },
+      "IG": {
+        "rho_recovery": 0.00735691379848886,
+        "auroc_moved": 0.37320574162679426
+      },
+      "GA": {
+        "rho_recovery": 0.00735691379848886,
+        "auroc_moved": 0.37320574162679426
+      }
+    }
+  },
+  {
+    "word": "soggy",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 0.2922210693359375,
+    "logitdiff_edited": -0.00897979736328125,
+    "text_delta": -0.30120086669921875,
+    "sign_correct": true,
+    "n_candidates": 28,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.4977679541950509,
+        "auroc_moved": 0.5572916666666666
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.1945544259994071,
+        "auroc_moved": 0.4583333333333333
+      },
+      "Probe weights": {
+        "rho_recovery": -0.13910541037767934,
+        "auroc_moved": 0.375
+      },
+      "IG": {
+        "rho_recovery": 0.054762326222837776,
+        "auroc_moved": 0.3125
+      },
+      "GA": {
+        "rho_recovery": 0.054762326222837776,
+        "auroc_moved": 0.3125
+      }
+    }
+  },
+  {
+    "word": "perfect",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": -0.8742828369140625,
+    "logitdiff_edited": -0.216156005859375,
+    "text_delta": 0.6581268310546875,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 15,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.2405852239851816,
+        "auroc_moved": 0.22857142857142856
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.1025624084109164,
+        "auroc_moved": 0.1619047619047619
+      },
+      "Probe weights": {
+        "rho_recovery": -0.32375878625435717,
+        "auroc_moved": 0.26666666666666666
+      },
+      "IG": {
+        "rho_recovery": -0.007479575920067657,
+        "auroc_moved": 0.19047619047619047
+      },
+      "GA": {
+        "rho_recovery": -0.007479575920067657,
+        "auroc_moved": 0.19047619047619047
+      }
+    }
+  },
+  {
+    "word": "incompetent",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 1.3670120239257812,
+    "logitdiff_edited": 0.6482620239257812,
+    "text_delta": -0.71875,
+    "sign_correct": true,
+    "n_candidates": 28,
+    "n_moved": 17,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.3680135015677645,
+        "auroc_moved": 0.6096256684491979
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.1262151134142849,
+        "auroc_moved": 0.48663101604278075
+      },
+      "Probe weights": {
+        "rho_recovery": -0.18264221820580795,
+        "auroc_moved": 0.24064171122994651
+      },
+      "IG": {
+        "rho_recovery": 0.08464647654388774,
+        "auroc_moved": 0.2887700534759358
+      },
+      "GA": {
+        "rho_recovery": 0.08464647654388774,
+        "auroc_moved": 0.2887700534759358
+      }
+    }
+  },
+  {
+    "word": "magnificent",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": -1.2625885009765625,
+    "logitdiff_edited": -0.2904510498046875,
+    "text_delta": 0.972137451171875,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.1584084282328319,
+        "auroc_moved": 0.39903846153846156
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.20402604522393222,
+        "auroc_moved": 0.4230769230769231
+      },
+      "Probe weights": {
+        "rho_recovery": -0.03800427572154153,
+        "auroc_moved": 0.46153846153846156
+      },
+      "IG": {
+        "rho_recovery": 0.025002812974698377,
+        "auroc_moved": 0.41346153846153844
+      },
+      "GA": {
+        "rho_recovery": 0.025002812974698377,
+        "auroc_moved": 0.41346153846153844
+      }
+    }
+  },
+  {
+    "word": "bad",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 1.3489761352539062,
+    "logitdiff_edited": 0.8653030395507812,
+    "text_delta": -0.483673095703125,
+    "sign_correct": true,
+    "n_candidates": 28,
+    "n_moved": 15,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.3161460565933676,
+        "auroc_moved": 0.7025641025641025
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.04499889126693919,
+        "auroc_moved": 0.517948717948718
+      },
+      "Probe weights": {
+        "rho_recovery": -0.5070334951930966,
+        "auroc_moved": 0.38461538461538464
+      },
+      "IG": {
+        "rho_recovery": -0.17304897446863363,
+        "auroc_moved": 0.5025641025641026
+      },
+      "GA": {
+        "rho_recovery": -0.17304897446863363,
+        "auroc_moved": 0.5025641025641026
+      }
+    }
+  },
+  {
+    "word": "original",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 0.1617889404296875,
+    "logitdiff_edited": -0.10259246826171875,
+    "text_delta": -0.26438140869140625,
+    "sign_correct": false,
+    "n_candidates": 30,
+    "n_moved": 18,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.44412009298460314,
+        "auroc_moved": 0.7175925925925926
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.28521692099011203,
+        "auroc_moved": 0.5787037037037037
+      },
+      "Probe weights": {
+        "rho_recovery": -0.14339315148643356,
+        "auroc_moved": 0.3611111111111111
+      },
+      "IG": {
+        "rho_recovery": 0.3117552596993605,
+        "auroc_moved": 0.5138888888888888
+      },
+      "GA": {
+        "rho_recovery": 0.3117552596993605,
+        "auroc_moved": 0.5138888888888888
+      }
+    }
+  },
+  {
+    "word": "grim",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 1.1646499633789062,
+    "logitdiff_edited": 0.820465087890625,
+    "text_delta": -0.34418487548828125,
+    "sign_correct": true,
+    "n_candidates": 30,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.4412078324658798,
+        "auroc_moved": 0.5491071428571429
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.39236563698995214,
+        "auroc_moved": 0.4419642857142857
+      },
+      "Probe weights": {
+        "rho_recovery": 0.02112016276380601,
+        "auroc_moved": 0.39732142857142855
+      },
+      "IG": {
+        "rho_recovery": 0.27038450131685715,
+        "auroc_moved": 0.39732142857142855
+      },
+      "GA": {
+        "rho_recovery": 0.27038450131685715,
+        "auroc_moved": 0.39732142857142855
+      }
+    }
+  },
+  {
+    "word": "charming",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": -0.14131927490234375,
+    "logitdiff_edited": 0.6996994018554688,
+    "text_delta": 0.8410186767578125,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 17,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.270847103643612,
+        "auroc_moved": 0.47058823529411764
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.23451726191363798,
+        "auroc_moved": 0.39705882352941174
+      },
+      "Probe weights": {
+        "rho_recovery": -0.15091900459278698,
+        "auroc_moved": 0.3382352941176471
+      },
+      "IG": {
+        "rho_recovery": 0.10583228944610465,
+        "auroc_moved": 0.25
+      },
+      "GA": {
+        "rho_recovery": 0.10583228944610465,
+        "auroc_moved": 0.25
+      }
+    }
+  },
+  {
+    "word": "mediocre",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 1.60736083984375,
+    "logitdiff_edited": 0.25516510009765625,
+    "text_delta": -1.3521957397460938,
+    "sign_correct": true,
+    "n_candidates": 28,
+    "n_moved": 20,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.2918759369370954,
+        "auroc_moved": 0.7875
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.23130879587307362,
+        "auroc_moved": 0.68125
+      },
+      "Probe weights": {
+        "rho_recovery": -0.08075618808536236,
+        "auroc_moved": 0.35
+      },
+      "IG": {
+        "rho_recovery": 0.22265634714964194,
+        "auroc_moved": 0.46875
+      },
+      "GA": {
+        "rho_recovery": 0.22265634714964194,
+        "auroc_moved": 0.46875
+      }
+    }
+  },
+  {
+    "word": "glad",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": -1.5933990478515625,
+    "logitdiff_edited": -1.3773574829101562,
+    "text_delta": 0.21604156494140625,
+    "sign_correct": true,
+    "n_candidates": 27,
+    "n_moved": 17,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.4158460680700983,
+        "auroc_moved": 0.5529411764705883
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.2494436399081505,
+        "auroc_moved": 0.47058823529411764
+      },
+      "Probe weights": {
+        "rho_recovery": -0.09395201179490213,
+        "auroc_moved": 0.31176470588235294
+      },
+      "IG": {
+        "rho_recovery": 0.042502100573884295,
+        "auroc_moved": 0.4764705882352941
+      },
+      "GA": {
+        "rho_recovery": 0.042502100573884295,
+        "auroc_moved": 0.4764705882352941
+      }
+    }
+  },
+  {
+    "word": "worse",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 0.3405609130859375,
+    "logitdiff_edited": -0.460479736328125,
+    "text_delta": -0.8010406494140625,
+    "sign_correct": true,
+    "n_candidates": 30,
+    "n_moved": 17,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.2442111870073367,
+        "auroc_moved": 0.5656108597285068
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.1782347776142256,
+        "auroc_moved": 0.5384615384615384
+      },
+      "Probe weights": {
+        "rho_recovery": -0.06073894039916883,
+        "auroc_moved": 0.4434389140271493
+      },
+      "IG": {
+        "rho_recovery": 0.21959463067391805,
+        "auroc_moved": 0.4072398190045249
+      },
+      "GA": {
+        "rho_recovery": 0.21959463067391805,
+        "auroc_moved": 0.4072398190045249
+      }
+    }
+  },
+  {
+    "word": "excellent",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 0.4223175048828125,
+    "logitdiff_edited": 0.7057876586914062,
+    "text_delta": 0.28347015380859375,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 15,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.20756783936185566,
+        "auroc_moved": 0.44761904761904764
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.054609653362607743,
+        "auroc_moved": 0.4380952380952381
+      },
+      "Probe weights": {
+        "rho_recovery": -0.13667523123173653,
+        "auroc_moved": 0.35714285714285715
+      },
+      "IG": {
+        "rho_recovery": -0.007919499379782863,
+        "auroc_moved": 0.36666666666666664
+      },
+      "GA": {
+        "rho_recovery": -0.007919499379782863,
+        "auroc_moved": 0.36666666666666664
+      }
+    }
+  },
+  {
+    "word": "mediocre",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 0.04862213134765625,
+    "logitdiff_edited": -0.38556671142578125,
+    "text_delta": -0.4341888427734375,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.4111586416110314,
+        "auroc_moved": 0.6298076923076923
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.2677312084909042,
+        "auroc_moved": 0.4182692307692308
+      },
+      "Probe weights": {
+        "rho_recovery": 0.09392035256487635,
+        "auroc_moved": 0.42788461538461536
+      },
+      "IG": {
+        "rho_recovery": 0.19686130396366738,
+        "auroc_moved": 0.38461538461538464
+      },
+      "GA": {
+        "rho_recovery": 0.19686130396366738,
+        "auroc_moved": 0.38461538461538464
+      }
+    }
+  },
+  {
+    "word": "smart",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": -0.26033782958984375,
+    "logitdiff_edited": -0.0367889404296875,
+    "text_delta": 0.22354888916015625,
+    "sign_correct": true,
+    "n_candidates": 27,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.3159943900294261,
+        "auroc_moved": 0.6193181818181818
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.32941241083746964,
+        "auroc_moved": 0.6136363636363636
+      },
+      "Probe weights": {
+        "rho_recovery": -0.21425468302222836,
+        "auroc_moved": 0.4318181818181818
+      },
+      "IG": {
+        "rho_recovery": 0.09421841303481404,
+        "auroc_moved": 0.5056818181818182
+      },
+      "GA": {
+        "rho_recovery": 0.09421841303481404,
+        "auroc_moved": 0.5056818181818182
+      }
+    }
+  },
+  {
+    "word": "frustrating",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 0.5329360961914062,
+    "logitdiff_edited": 0.3385467529296875,
+    "text_delta": -0.19438934326171875,
+    "sign_correct": true,
+    "n_candidates": 28,
+    "n_moved": 15,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.4354486880473341,
+        "auroc_moved": 0.6410256410256411
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.31070855256605906,
+        "auroc_moved": 0.558974358974359
+      },
+      "Probe weights": {
+        "rho_recovery": -0.16191162173989485,
+        "auroc_moved": 0.5794871794871795
+      },
+      "IG": {
+        "rho_recovery": 0.21806758913911897,
+        "auroc_moved": 0.5333333333333333
+      },
+      "GA": {
+        "rho_recovery": 0.21806758913911897,
+        "auroc_moved": 0.5333333333333333
+      }
+    }
+  },
+  {
+    "word": "remarkable",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": -0.453399658203125,
+    "logitdiff_edited": 0.0542144775390625,
+    "text_delta": 0.5076141357421875,
+    "sign_correct": true,
+    "n_candidates": 28,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.15752510654012314,
+        "auroc_moved": 0.6822916666666666
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.21906717325293112,
+        "auroc_moved": 0.671875
+      },
+      "Probe weights": {
+        "rho_recovery": -0.28286766443226413,
+        "auroc_moved": 0.3385416666666667
+      },
+      "IG": {
+        "rho_recovery": 0.21850256713629984,
+        "auroc_moved": 0.7083333333333334
+      },
+      "GA": {
+        "rho_recovery": 0.21850256713629984,
+        "auroc_moved": 0.7083333333333334
+      }
+    }
+  },
+  {
+    "word": "horrible",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": -0.379669189453125,
+    "logitdiff_edited": -0.7623748779296875,
+    "text_delta": -0.3827056884765625,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.2822508612129594,
+        "auroc_moved": 0.49038461538461536
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.1372015212224069,
+        "auroc_moved": 0.4182692307692308
+      },
+      "Probe weights": {
+        "rho_recovery": -0.3112489825054487,
+        "auroc_moved": 0.5384615384615384
+      },
+      "IG": {
+        "rho_recovery": -0.018626348476041592,
+        "auroc_moved": 0.38461538461538464
+      },
+      "GA": {
+        "rho_recovery": -0.018626348476041592,
+        "auroc_moved": 0.38461538461538464
+      }
+    }
+  },
+  {
+    "word": "good",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 0.10333251953125,
+    "logitdiff_edited": -0.28223419189453125,
+    "text_delta": -0.38556671142578125,
+    "sign_correct": false,
+    "n_candidates": 29,
+    "n_moved": 17,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.14805750170389967,
+        "auroc_moved": 0.44607843137254904
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.015220864661148562,
+        "auroc_moved": 0.39705882352941174
+      },
+      "Probe weights": {
+        "rho_recovery": -0.2030532195682048,
+        "auroc_moved": 0.37254901960784315
+      },
+      "IG": {
+        "rho_recovery": -0.19477659377058776,
+        "auroc_moved": 0.35784313725490197
+      },
+      "GA": {
+        "rho_recovery": -0.19477659377058776,
+        "auroc_moved": 0.35784313725490197
+      }
+    }
+  },
+  {
+    "word": "lame",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 0.39107513427734375,
+    "logitdiff_edited": -0.0941314697265625,
+    "text_delta": -0.48520660400390625,
+    "sign_correct": true,
+    "n_candidates": 28,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.07739054722593458,
+        "auroc_moved": 0.46875
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.07739054722593458,
+        "auroc_moved": 0.421875
+      },
+      "Probe weights": {
+        "rho_recovery": -0.1756033450980156,
+        "auroc_moved": 0.5260416666666666
+      },
+      "IG": {
+        "rho_recovery": 0.005041244356880831,
+        "auroc_moved": 0.5572916666666666
+      },
+      "GA": {
+        "rho_recovery": 0.005041244356880831,
+        "auroc_moved": 0.5572916666666666
+      }
+    }
+  },
+  {
+    "word": "touching",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": -0.009033203125,
+    "logitdiff_edited": 0.40575408935546875,
+    "text_delta": 0.41478729248046875,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 15,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.1996694649915118,
+        "auroc_moved": 0.49523809523809526
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.023845041094786846,
+        "auroc_moved": 0.4095238095238095
+      },
+      "Probe weights": {
+        "rho_recovery": -0.19083617354324983,
+        "auroc_moved": 0.5190476190476191
+      },
+      "IG": {
+        "rho_recovery": -0.27893451667211994,
+        "auroc_moved": 0.40476190476190477
+      },
+      "GA": {
+        "rho_recovery": -0.27893451667211994,
+        "auroc_moved": 0.40476190476190477
+      }
+    }
+  },
+  {
+    "word": "lackluster",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 1.0785140991210938,
+    "logitdiff_edited": -0.00286102294921875,
+    "text_delta": -1.0813751220703125,
+    "sign_correct": true,
+    "n_candidates": 28,
+    "n_moved": 19,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.4776151695334288,
+        "auroc_moved": 0.8538011695906432
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.17016482489415644,
+        "auroc_moved": 0.7076023391812866
+      },
+      "Probe weights": {
+        "rho_recovery": -0.18631606251122887,
+        "auroc_moved": 0.6140350877192983
+      },
+      "IG": {
+        "rho_recovery": 0.08075618808536236,
+        "auroc_moved": 0.6081871345029239
+      },
+      "GA": {
+        "rho_recovery": 0.08075618808536236,
+        "auroc_moved": 0.6081871345029239
+      }
+    }
+  },
+  {
+    "word": "enjoyable",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 0.26116943359375,
+    "logitdiff_edited": 0.331451416015625,
+    "text_delta": 0.070281982421875,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 15,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.5668021033696297,
+        "auroc_moved": 0.5952380952380952
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.44017071298320665,
+        "auroc_moved": 0.6238095238095238
+      },
+      "Probe weights": {
+        "rho_recovery": 0.022793650269556154,
+        "auroc_moved": 0.44761904761904764
+      },
+      "IG": {
+        "rho_recovery": 0.24921057628048057,
+        "auroc_moved": 0.6142857142857143
+      },
+      "GA": {
+        "rho_recovery": 0.24921057628048057,
+        "auroc_moved": 0.6142857142857143
+      }
+    }
+  },
+  {
+    "word": "boring",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 0.8852386474609375,
+    "logitdiff_edited": 0.5441665649414062,
+    "text_delta": -0.34107208251953125,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 17,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.5942693108568157,
+        "auroc_moved": 0.6127450980392157
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.35964659113329145,
+        "auroc_moved": 0.46568627450980393
+      },
+      "Probe weights": {
+        "rho_recovery": 0.08638306539613493,
+        "auroc_moved": 0.47058823529411764
+      },
+      "IG": {
+        "rho_recovery": 0.24592178929962166,
+        "auroc_moved": 0.4264705882352941
+      },
+      "GA": {
+        "rho_recovery": 0.24592178929962166,
+        "auroc_moved": 0.4264705882352941
+      }
+    }
+  },
+  {
+    "word": "awesome",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 0.33506011962890625,
+    "logitdiff_edited": 0.48206329345703125,
+    "text_delta": 0.147003173828125,
+    "sign_correct": true,
+    "n_candidates": 28,
+    "n_moved": 15,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": -0.17407464569292977,
+        "auroc_moved": 0.1641025641025641
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.2772844440682986,
+        "auroc_moved": 0.10256410256410256
+      },
+      "Probe weights": {
+        "rho_recovery": -0.3268175059668735,
+        "auroc_moved": 0.13846153846153847
+      },
+      "IG": {
+        "rho_recovery": -0.18503427594618774,
+        "auroc_moved": 0.12307692307692308
+      },
+      "GA": {
+        "rho_recovery": -0.18503427594618774,
+        "auroc_moved": 0.12307692307692308
+      }
+    }
+  },
+  {
+    "word": "offensive",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": -0.614227294921875,
+    "logitdiff_edited": -0.8701858520507812,
+    "text_delta": -0.25595855712890625,
+    "sign_correct": true,
+    "n_candidates": 28,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.20930009692968218,
+        "auroc_moved": 0.7239583333333334
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.12918225567173264,
+        "auroc_moved": 0.5416666666666666
+      },
+      "Probe weights": {
+        "rho_recovery": -0.5527509978261637,
+        "auroc_moved": 0.359375
+      },
+      "IG": {
+        "rho_recovery": -0.35773547724479804,
+        "auroc_moved": 0.3802083333333333
+      },
+      "GA": {
+        "rho_recovery": -0.35773547724479804,
+        "auroc_moved": 0.3802083333333333
+      }
+    }
+  },
+  {
+    "word": "honest",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 2.20367431640625,
+    "logitdiff_edited": 2.1910400390625,
+    "text_delta": -0.01263427734375,
+    "sign_correct": false,
+    "n_candidates": 30,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.4041886313120559,
+        "auroc_moved": 0.6026785714285714
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.3737197592225723,
+        "auroc_moved": 0.4642857142857143
+      },
+      "Probe weights": {
+        "rho_recovery": 0.1008270252574591,
+        "auroc_moved": 0.5758928571428571
+      },
+      "IG": {
+        "rho_recovery": 0.4104420886659773,
+        "auroc_moved": 0.49107142857142855
+      },
+      "GA": {
+        "rho_recovery": 0.4104420886659773,
+        "auroc_moved": 0.49107142857142855
+      }
+    }
+  },
+  {
+    "word": "messy",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 1.3992919921875,
+    "logitdiff_edited": 0.7672958374023438,
+    "text_delta": -0.6319961547851562,
+    "sign_correct": true,
+    "n_candidates": 28,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.20418897106348172,
+        "auroc_moved": 0.5572916666666666
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.0031769146841560095,
+        "auroc_moved": 0.4947916666666667
+      },
+      "Probe weights": {
+        "rho_recovery": -0.3158576021621693,
+        "auroc_moved": 0.453125
+      },
+      "IG": {
+        "rho_recovery": -0.12778531302085935,
+        "auroc_moved": 0.390625
+      },
+      "GA": {
+        "rho_recovery": -0.12778531302085935,
+        "auroc_moved": 0.390625
+      }
+    }
+  },
+  {
+    "word": "refreshing",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": -0.27756500244140625,
+    "logitdiff_edited": 0.42423248291015625,
+    "text_delta": 0.7017974853515625,
+    "sign_correct": true,
+    "n_candidates": 30,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.2979373924031587,
+        "auroc_moved": 0.5133928571428571
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.036980519431773794,
+        "auroc_moved": 0.39732142857142855
+      },
+      "Probe weights": {
+        "rho_recovery": -0.2743728133511492,
+        "auroc_moved": 0.35714285714285715
+      },
+      "IG": {
+        "rho_recovery": -0.00023232244991629907,
+        "auroc_moved": 0.35714285714285715
+      },
+      "GA": {
+        "rho_recovery": -0.00023232244991629907,
+        "auroc_moved": 0.35714285714285715
+      }
+    }
+  },
+  {
+    "word": "muddy",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": -0.401885986328125,
+    "logitdiff_edited": -0.6491546630859375,
+    "text_delta": -0.2472686767578125,
+    "sign_correct": true,
+    "n_candidates": 30,
+    "n_moved": 18,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.4133372812351999,
+        "auroc_moved": 0.6018518518518519
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.04702050072419487,
+        "auroc_moved": 0.4537037037037037
+      },
+      "Probe weights": {
+        "rho_recovery": -0.32828536612506226,
+        "auroc_moved": 0.375
+      },
+      "IG": {
+        "rho_recovery": -0.06418163337725936,
+        "auroc_moved": 0.42592592592592593
+      },
+      "GA": {
+        "rho_recovery": -0.06418163337725936,
+        "auroc_moved": 0.42592592592592593
+      }
+    }
+  },
+  {
+    "word": "warm",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 0.949249267578125,
+    "logitdiff_edited": 0.9907073974609375,
+    "text_delta": 0.0414581298828125,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 18,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.07824519637628474,
+        "auroc_moved": 0.6818181818181818
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.12629932019580367,
+        "auroc_moved": 0.5707070707070707
+      },
+      "Probe weights": {
+        "rho_recovery": -0.5426685993533077,
+        "auroc_moved": 0.5404040404040404
+      },
+      "IG": {
+        "rho_recovery": -0.09731823352628828,
+        "auroc_moved": 0.6616161616161617
+      },
+      "GA": {
+        "rho_recovery": -0.09731823352628828,
+        "auroc_moved": 0.6616161616161617
+      }
+    }
+  },
+  {
+    "word": "stale",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 1.5882797241210938,
+    "logitdiff_edited": 0.7786026000976562,
+    "text_delta": -0.8096771240234375,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.5267444020590477,
+        "auroc_moved": 0.4519230769230769
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.34718973828542915,
+        "auroc_moved": 0.35096153846153844
+      },
+      "Probe weights": {
+        "rho_recovery": 0.042321245653063604,
+        "auroc_moved": 0.3269230769230769
+      },
+      "IG": {
+        "rho_recovery": 0.1396347685918446,
+        "auroc_moved": 0.3557692307692308
+      },
+      "GA": {
+        "rho_recovery": 0.1396347685918446,
+        "auroc_moved": 0.3557692307692308
+      }
+    }
+  },
+  {
+    "word": "marvelous",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 0.1663055419921875,
+    "logitdiff_edited": 0.39659881591796875,
+    "text_delta": 0.23029327392578125,
+    "sign_correct": true,
+    "n_candidates": 26,
+    "n_moved": 17,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.18658270262059076,
+        "auroc_moved": 0.6535947712418301
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.03695599423886097,
+        "auroc_moved": 0.5424836601307189
+      },
+      "Probe weights": {
+        "rho_recovery": -0.2539239372050552,
+        "auroc_moved": 0.5228758169934641
+      },
+      "IG": {
+        "rho_recovery": -0.10697221184383177,
+        "auroc_moved": 0.42483660130718953
+      },
+      "GA": {
+        "rho_recovery": -0.10697221184383177,
+        "auroc_moved": 0.42483660130718953
+      }
+    }
+  },
+  {
+    "word": "grim",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 0.2061614990234375,
+    "logitdiff_edited": -0.06493377685546875,
+    "text_delta": -0.27109527587890625,
+    "sign_correct": true,
+    "n_candidates": 27,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.5458262829745693,
+        "auroc_moved": 0.4943181818181818
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.43939949347781754,
+        "auroc_moved": 0.5909090909090909
+      },
+      "Probe weights": {
+        "rho_recovery": 0.2052596063764934,
+        "auroc_moved": 0.5227272727272727
+      },
+      "IG": {
+        "rho_recovery": 0.3688452926704866,
+        "auroc_moved": 0.5625
+      },
+      "GA": {
+        "rho_recovery": 0.3688452926704866,
+        "auroc_moved": 0.5625
+      }
+    }
+  },
+  {
+    "word": "enjoyable",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": -0.9786376953125,
+    "logitdiff_edited": -0.44728851318359375,
+    "text_delta": 0.5313491821289062,
+    "sign_correct": true,
+    "n_candidates": 30,
+    "n_moved": 18,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.29599310441435445,
+        "auroc_moved": 0.47685185185185186
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.1914959551456731,
+        "auroc_moved": 0.3611111111111111
+      },
+      "Probe weights": {
+        "rho_recovery": 0.02680680591386261,
+        "auroc_moved": 0.3472222222222222
+      },
+      "IG": {
+        "rho_recovery": 0.25700102917418743,
+        "auroc_moved": 0.37037037037037035
+      },
+      "GA": {
+        "rho_recovery": 0.25700102917418743,
+        "auroc_moved": 0.37037037037037035
+      }
+    }
+  },
+  {
+    "word": "offensive",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": -0.7224349975585938,
+    "logitdiff_edited": -0.996917724609375,
+    "text_delta": -0.27448272705078125,
+    "sign_correct": true,
+    "n_candidates": 28,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.16300298882135833,
+        "auroc_moved": 0.6875
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.1838245384883202,
+        "auroc_moved": 0.4791666666666667
+      },
+      "Probe weights": {
+        "rho_recovery": -0.5615869395889135,
+        "auroc_moved": 0.296875
+      },
+      "IG": {
+        "rho_recovery": -0.11005676252536968,
+        "auroc_moved": 0.265625
+      },
+      "GA": {
+        "rho_recovery": -0.11005676252536968,
+        "auroc_moved": 0.265625
+      }
+    }
+  },
+  {
+    "word": "perfect",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 0.40313720703125,
+    "logitdiff_edited": 0.6416473388671875,
+    "text_delta": 0.2385101318359375,
+    "sign_correct": true,
+    "n_candidates": 28,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.36085751388127835,
+        "auroc_moved": 0.4427083333333333
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.24516731424824395,
+        "auroc_moved": 0.3697916666666667
+      },
+      "Probe weights": {
+        "rho_recovery": -0.057776654533794755,
+        "auroc_moved": 0.2708333333333333
+      },
+      "IG": {
+        "rho_recovery": 0.06909373119505352,
+        "auroc_moved": 0.3125
+      },
+      "GA": {
+        "rho_recovery": 0.06909373119505352,
+        "auroc_moved": 0.3125
+      }
+    }
+  },
+  {
+    "word": "contrived",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 2.3265533447265625,
+    "logitdiff_edited": 1.5400543212890625,
+    "text_delta": -0.7864990234375,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 15,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.4968472027264949,
+        "auroc_moved": 0.6095238095238096
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.4034229423847609,
+        "auroc_moved": 0.5761904761904761
+      },
+      "Probe weights": {
+        "rho_recovery": 0.05995306632573388,
+        "auroc_moved": 0.5571428571428572
+      },
+      "IG": {
+        "rho_recovery": 0.32682379519161125,
+        "auroc_moved": 0.6047619047619047
+      },
+      "GA": {
+        "rho_recovery": 0.32682379519161125,
+        "auroc_moved": 0.6047619047619047
+      }
+    }
+  },
+  {
+    "word": "awesome",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 0.5546340942382812,
+    "logitdiff_edited": 1.2085647583007812,
+    "text_delta": 0.6539306640625,
+    "sign_correct": true,
+    "n_candidates": 30,
+    "n_moved": 17,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.03713918300530111,
+        "auroc_moved": 0.25339366515837103
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.11690118677507531,
+        "auroc_moved": 0.17647058823529413
+      },
+      "Probe weights": {
+        "rho_recovery": -0.09354864018426205,
+        "auroc_moved": 0.21266968325791855
+      },
+      "IG": {
+        "rho_recovery": 0.02264861814987397,
+        "auroc_moved": 0.20361990950226244
+      },
+      "GA": {
+        "rho_recovery": 0.02264861814987397,
+        "auroc_moved": 0.20361990950226244
+      }
+    }
+  },
+  {
+    "word": "bad",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": -1.219879150390625,
+    "logitdiff_edited": -1.2780609130859375,
+    "text_delta": -0.0581817626953125,
+    "sign_correct": true,
+    "n_candidates": 27,
+    "n_moved": 17,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.4352090634958258,
+        "auroc_moved": 0.711764705882353
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.31733994213237293,
+        "auroc_moved": 0.6176470588235294
+      },
+      "Probe weights": {
+        "rho_recovery": 0.018130943107347378,
+        "auroc_moved": 0.4588235294117647
+      },
+      "IG": {
+        "rho_recovery": 0.15799821850688425,
+        "auroc_moved": 0.4764705882352941
+      },
+      "GA": {
+        "rho_recovery": 0.15799821850688425,
+        "auroc_moved": 0.4764705882352941
+      }
+    }
+  },
+  {
+    "word": "sweet",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 0.9241256713867188,
+    "logitdiff_edited": 1.3068389892578125,
+    "text_delta": 0.38271331787109375,
+    "sign_correct": true,
+    "n_candidates": 28,
+    "n_moved": 15,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.5788230147097364,
+        "auroc_moved": 0.7948717948717948
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.33059699109383023,
+        "auroc_moved": 0.7282051282051282
+      },
+      "Probe weights": {
+        "rho_recovery": -0.002782802955335271,
+        "auroc_moved": 0.6153846153846154
+      },
+      "IG": {
+        "rho_recovery": 0.15973288963624457,
+        "auroc_moved": 0.5743589743589743
+      },
+      "GA": {
+        "rho_recovery": 0.15973288963624457,
+        "auroc_moved": 0.5743589743589743
+      }
+    }
+  },
+  {
+    "word": "failed",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": -0.169189453125,
+    "logitdiff_edited": -0.19268035888671875,
+    "text_delta": -0.02349090576171875,
+    "sign_correct": true,
+    "n_candidates": 30,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.4460231249845371,
+        "auroc_moved": 0.6651785714285714
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.3313654469885121,
+        "auroc_moved": 0.5758928571428571
+      },
+      "Probe weights": {
+        "rho_recovery": 0.025920155077978867,
+        "auroc_moved": 0.5133928571428571
+      },
+      "IG": {
+        "rho_recovery": 0.2594393503676601,
+        "auroc_moved": 0.53125
+      },
+      "GA": {
+        "rho_recovery": 0.2594393503676601,
+        "auroc_moved": 0.53125
+      }
+    }
+  },
+  {
+    "word": "great",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": -0.318206787109375,
+    "logitdiff_edited": -0.1381072998046875,
+    "text_delta": 0.1800994873046875,
+    "sign_correct": true,
+    "n_candidates": 30,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": -0.048005249234973645,
+        "auroc_moved": 0.3705357142857143
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.07969803513767469,
+        "auroc_moved": 0.33035714285714285
+      },
+      "Probe weights": {
+        "rho_recovery": -0.19734507725092093,
+        "auroc_moved": 0.3482142857142857
+      },
+      "IG": {
+        "rho_recovery": -0.055431426127589674,
+        "auroc_moved": 0.3169642857142857
+      },
+      "GA": {
+        "rho_recovery": -0.055431426127589674,
+        "auroc_moved": 0.3169642857142857
+      }
+    }
+  },
+  {
+    "word": "ridiculous",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": -0.28038787841796875,
+    "logitdiff_edited": -0.42671966552734375,
+    "text_delta": -0.146331787109375,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 19,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": -0.03688196529237203,
+        "auroc_moved": 0.45789473684210524
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.2706446373972623,
+        "auroc_moved": 0.3
+      },
+      "Probe weights": {
+        "rho_recovery": -0.23792634411062033,
+        "auroc_moved": 0.28421052631578947
+      },
+      "IG": {
+        "rho_recovery": -0.22037010506281027,
+        "auroc_moved": 0.3
+      },
+      "GA": {
+        "rho_recovery": -0.22037010506281027,
+        "auroc_moved": 0.3
+      }
+    }
+  },
+  {
+    "word": "elegant",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 0.0507049560546875,
+    "logitdiff_edited": 0.5306396484375,
+    "text_delta": 0.4799346923828125,
+    "sign_correct": true,
+    "n_candidates": 26,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.3917430605401285,
+        "auroc_moved": 0.60625
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.16225178999982934,
+        "auroc_moved": 0.40625
+      },
+      "Probe weights": {
+        "rho_recovery": -0.5133441294000669,
+        "auroc_moved": 0.35
+      },
+      "IG": {
+        "rho_recovery": -0.10413030382848332,
+        "auroc_moved": 0.3
+      },
+      "GA": {
+        "rho_recovery": -0.10413030382848332,
+        "auroc_moved": 0.3
+      }
+    }
+  },
+  {
+    "word": "ugly",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": -0.404327392578125,
+    "logitdiff_edited": -0.8330459594726562,
+    "text_delta": -0.42871856689453125,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 20,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.20782535949330846,
+        "auroc_moved": 0.4166666666666667
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.024041494028788895,
+        "auroc_moved": 0.3333333333333333
+      },
+      "Probe weights": {
+        "rho_recovery": -0.35644373193927914,
+        "auroc_moved": 0.29444444444444445
+      },
+      "IG": {
+        "rho_recovery": -0.09827435232305014,
+        "auroc_moved": 0.32222222222222224
+      },
+      "GA": {
+        "rho_recovery": -0.09827435232305014,
+        "auroc_moved": 0.32222222222222224
+      }
+    }
+  },
+  {
+    "word": "entertaining",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": -0.15926361083984375,
+    "logitdiff_edited": 0.1626434326171875,
+    "text_delta": 0.32190704345703125,
+    "sign_correct": true,
+    "n_candidates": 28,
+    "n_moved": 18,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.12288940498710248,
+        "auroc_moved": 0.6944444444444444
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.05396575302536243,
+        "auroc_moved": 0.5722222222222222
+      },
+      "Probe weights": {
+        "rho_recovery": -0.42636015093720053,
+        "auroc_moved": 0.3611111111111111
+      },
+      "IG": {
+        "rho_recovery": -0.11101452986666731,
+        "auroc_moved": 0.45555555555555555
+      },
+      "GA": {
+        "rho_recovery": -0.11101452986666731,
+        "auroc_moved": 0.45555555555555555
+      }
+    }
+  },
+  {
+    "word": "dreadful",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": -0.6737747192382812,
+    "logitdiff_edited": -1.2793731689453125,
+    "text_delta": -0.6055984497070312,
+    "sign_correct": true,
+    "n_candidates": 28,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.45441794747266845,
+        "auroc_moved": 0.5260416666666666
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.10060751850265008,
+        "auroc_moved": 0.4895833333333333
+      },
+      "Probe weights": {
+        "rho_recovery": -0.19216486184235143,
+        "auroc_moved": 0.5
+      },
+      "IG": {
+        "rho_recovery": 0.06668734931515392,
+        "auroc_moved": 0.4635416666666667
+      },
+      "GA": {
+        "rho_recovery": 0.06668734931515392,
+        "auroc_moved": 0.4635416666666667
+      }
+    }
+  },
+  {
+    "word": "sweet",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 1.9251708984375,
+    "logitdiff_edited": 1.5625381469726562,
+    "text_delta": -0.36263275146484375,
+    "sign_correct": false,
+    "n_candidates": 29,
+    "n_moved": 18,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.5679263316224978,
+        "auroc_moved": 0.5656565656565656
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.493897023804001,
+        "auroc_moved": 0.5505050505050505
+      },
+      "Probe weights": {
+        "rho_recovery": -0.03913257226863943,
+        "auroc_moved": 0.398989898989899
+      },
+      "IG": {
+        "rho_recovery": 0.32904430485039066,
+        "auroc_moved": 0.45454545454545453
+      },
+      "GA": {
+        "rho_recovery": 0.32904430485039066,
+        "auroc_moved": 0.45454545454545453
+      }
+    }
+  },
+  {
+    "word": "failed",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": -0.129730224609375,
+    "logitdiff_edited": -0.39913177490234375,
+    "text_delta": -0.26940155029296875,
+    "sign_correct": true,
+    "n_candidates": 28,
+    "n_moved": 17,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.31426067966296495,
+        "auroc_moved": 0.7433155080213903
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.303081445999065,
+        "auroc_moved": 0.4385026737967914
+      },
+      "Probe weights": {
+        "rho_recovery": -0.5359821473303137,
+        "auroc_moved": 0.29411764705882354
+      },
+      "IG": {
+        "rho_recovery": -0.1633410252003158,
+        "auroc_moved": 0.45454545454545453
+      },
+      "GA": {
+        "rho_recovery": -0.1633410252003158,
+        "auroc_moved": 0.45454545454545453
+      }
+    }
+  },
+  {
+    "word": "uplifting",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 0.34177398681640625,
+    "logitdiff_edited": 0.36675262451171875,
+    "text_delta": 0.0249786376953125,
+    "sign_correct": true,
+    "n_candidates": 30,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.42708447031435043,
+        "auroc_moved": 0.4017857142857143
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.26563172835736476,
+        "auroc_moved": 0.34375
+      },
+      "Probe weights": {
+        "rho_recovery": -0.13844543904749815,
+        "auroc_moved": 0.47767857142857145
+      },
+      "IG": {
+        "rho_recovery": 0.015983931683991794,
+        "auroc_moved": 0.33482142857142855
+      },
+      "GA": {
+        "rho_recovery": 0.015983931683991794,
+        "auroc_moved": 0.33482142857142855
+      }
+    }
+  },
+  {
+    "word": "unoriginal",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 1.234405517578125,
+    "logitdiff_edited": 0.04201507568359375,
+    "text_delta": -1.1923904418945312,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 17,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.3247600866748999,
+        "auroc_moved": 0.47058823529411764
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.3423376732081551,
+        "auroc_moved": 0.49019607843137253
+      },
+      "Probe weights": {
+        "rho_recovery": 0.09484768997538537,
+        "auroc_moved": 0.553921568627451
+      },
+      "IG": {
+        "rho_recovery": 0.2396597880628041,
+        "auroc_moved": 0.4950980392156863
+      },
+      "GA": {
+        "rho_recovery": 0.2396597880628041,
+        "auroc_moved": 0.4950980392156863
+      }
+    }
+  },
+  {
+    "word": "extraordinary",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": -0.8351211547851562,
+    "logitdiff_edited": -0.3179779052734375,
+    "text_delta": 0.5171432495117188,
+    "sign_correct": true,
+    "n_candidates": 27,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": -0.1240381691488315,
+        "auroc_moved": 0.5681818181818182
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.09339925884115202,
+        "auroc_moved": 0.5454545454545454
+      },
+      "Probe weights": {
+        "rho_recovery": -0.39265870334251896,
+        "auroc_moved": 0.375
+      },
+      "IG": {
+        "rho_recovery": -0.030103285593498525,
+        "auroc_moved": 0.4602272727272727
+      },
+      "GA": {
+        "rho_recovery": -0.030103285593498525,
+        "auroc_moved": 0.4602272727272727
+      }
+    }
+  },
+  {
+    "word": "embarrassing",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": -0.6406707763671875,
+    "logitdiff_edited": -0.74041748046875,
+    "text_delta": -0.0997467041015625,
+    "sign_correct": true,
+    "n_candidates": 27,
+    "n_moved": 18,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.21678120617094568,
+        "auroc_moved": 0.6604938271604939
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.10393619473949452,
+        "auroc_moved": 0.5802469135802469
+      },
+      "Probe weights": {
+        "rho_recovery": -0.2549731839886487,
+        "auroc_moved": 0.42592592592592593
+      },
+      "IG": {
+        "rho_recovery": -0.08224941418988667,
+        "auroc_moved": 0.4567901234567901
+      },
+      "GA": {
+        "rho_recovery": -0.08224941418988667,
+        "auroc_moved": 0.4567901234567901
+      }
+    }
+  },
+  {
+    "word": "worthwhile",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": -0.41680145263671875,
+    "logitdiff_edited": -0.2696533203125,
+    "text_delta": 0.14714813232421875,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 15,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.25610484848543513,
+        "auroc_moved": 0.5523809523809524
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.27322962378336346,
+        "auroc_moved": 0.5285714285714286
+      },
+      "Probe weights": {
+        "rho_recovery": -0.0028101449412132745,
+        "auroc_moved": 0.5476190476190477
+      },
+      "IG": {
+        "rho_recovery": 0.38396798605850463,
+        "auroc_moved": 0.5523809523809524
+      },
+      "GA": {
+        "rho_recovery": 0.38396798605850463,
+        "auroc_moved": 0.5523809523809524
+      }
+    }
+  },
+  {
+    "word": "exhausting",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 0.5687789916992188,
+    "logitdiff_edited": 0.080810546875,
+    "text_delta": -0.48796844482421875,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 17,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.5067386716082679,
+        "auroc_moved": 0.5833333333333334
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.39877905655614965,
+        "auroc_moved": 0.5098039215686274
+      },
+      "Probe weights": {
+        "rho_recovery": 0.09604337942873138,
+        "auroc_moved": 0.44607843137254904
+      },
+      "IG": {
+        "rho_recovery": 0.23907572406184208,
+        "auroc_moved": 0.4068627450980392
+      },
+      "GA": {
+        "rho_recovery": 0.23907572406184208,
+        "auroc_moved": 0.4068627450980392
+      }
+    }
+  },
+  {
+    "word": "thrilling",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 0.4695281982421875,
+    "logitdiff_edited": 1.04229736328125,
+    "text_delta": 0.5727691650390625,
+    "sign_correct": true,
+    "n_candidates": 27,
+    "n_moved": 18,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.4599182744270034,
+        "auroc_moved": 0.7716049382716049
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.12865067882597275,
+        "auroc_moved": 0.5679012345679012
+      },
+      "Probe weights": {
+        "rho_recovery": -0.12452243377676937,
+        "auroc_moved": 0.3765432098765432
+      },
+      "IG": {
+        "rho_recovery": -0.03855770792072554,
+        "auroc_moved": 0.29012345679012347
+      },
+      "GA": {
+        "rho_recovery": -0.03855770792072554,
+        "auroc_moved": 0.29012345679012347
+      }
+    }
+  },
+  {
+    "word": "worst",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": -0.82550048828125,
+    "logitdiff_edited": -1.1264877319335938,
+    "text_delta": -0.30098724365234375,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 15,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.33969689580415807,
+        "auroc_moved": 0.4714285714285714
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.24380648077235365,
+        "auroc_moved": 0.41904761904761906
+      },
+      "Probe weights": {
+        "rho_recovery": -0.022804886972368116,
+        "auroc_moved": 0.4095238095238095
+      },
+      "IG": {
+        "rho_recovery": 0.1773713431184187,
+        "auroc_moved": 0.3476190476190476
+      },
+      "GA": {
+        "rho_recovery": 0.1773713431184187,
+        "auroc_moved": 0.3476190476190476
+      }
+    }
+  },
+  {
+    "word": "happy",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 1.1472930908203125,
+    "logitdiff_edited": 1.3393096923828125,
+    "text_delta": 0.1920166015625,
+    "sign_correct": true,
+    "n_candidates": 30,
+    "n_moved": 18,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.43112230061468954,
+        "auroc_moved": 0.5879629629629629
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.2343490291514489,
+        "auroc_moved": 0.5138888888888888
+      },
+      "Probe weights": {
+        "rho_recovery": -0.1817250079149221,
+        "auroc_moved": 0.2638888888888889
+      },
+      "IG": {
+        "rho_recovery": 0.10598576239693022,
+        "auroc_moved": 0.5092592592592593
+      },
+      "GA": {
+        "rho_recovery": 0.10598576239693022,
+        "auroc_moved": 0.5092592592592593
+      }
+    }
+  },
+  {
+    "word": "flawed",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 1.5170135498046875,
+    "logitdiff_edited": 0.9791183471679688,
+    "text_delta": -0.5378952026367188,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 15,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": -0.2926298540754208,
+        "auroc_moved": 0.14761904761904762
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.366969395101762,
+        "auroc_moved": 0.11904761904761904
+      },
+      "Probe weights": {
+        "rho_recovery": -0.22020429342515557,
+        "auroc_moved": 0.28095238095238095
+      },
+      "IG": {
+        "rho_recovery": -0.10135571449709264,
+        "auroc_moved": 0.28095238095238095
+      },
+      "GA": {
+        "rho_recovery": -0.10135571449709264,
+        "auroc_moved": 0.28095238095238095
+      }
+    }
+  },
+  {
+    "word": "best",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 0.4196624755859375,
+    "logitdiff_edited": 0.9001693725585938,
+    "text_delta": 0.48050689697265625,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 15,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": -0.17527300604550738,
+        "auroc_moved": 0.1523809523809524
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.2393904475541674,
+        "auroc_moved": 0.13333333333333333
+      },
+      "Probe weights": {
+        "rho_recovery": -0.2976539665430846,
+        "auroc_moved": 0.16666666666666666
+      },
+      "IG": {
+        "rho_recovery": -0.221035630710698,
+        "auroc_moved": 0.14285714285714285
+      },
+      "GA": {
+        "rho_recovery": -0.221035630710698,
+        "auroc_moved": 0.14285714285714285
+      }
+    }
+  },
+  {
+    "word": "pointless",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 0.0716552734375,
+    "logitdiff_edited": -0.5716705322265625,
+    "text_delta": -0.6433258056640625,
+    "sign_correct": true,
+    "n_candidates": 27,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.31777688251819053,
+        "auroc_moved": 0.5625
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.017510154751002337,
+        "auroc_moved": 0.3806818181818182
+      },
+      "Probe weights": {
+        "rho_recovery": -0.035295973155539444,
+        "auroc_moved": 0.36363636363636365
+      },
+      "IG": {
+        "rho_recovery": 0.05990600948417244,
+        "auroc_moved": 0.3806818181818182
+      },
+      "GA": {
+        "rho_recovery": 0.05990600948417244,
+        "auroc_moved": 0.3806818181818182
+      }
+    }
+  },
+  {
+    "word": "entertaining",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": -0.087188720703125,
+    "logitdiff_edited": -0.00087738037109375,
+    "text_delta": 0.08631134033203125,
+    "sign_correct": true,
+    "n_candidates": 28,
+    "n_moved": 15,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.4903894650441773,
+        "auroc_moved": 0.6
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.44751541467174355,
+        "auroc_moved": 0.5025641025641026
+      },
+      "Probe weights": {
+        "rho_recovery": 0.016524078725331612,
+        "auroc_moved": 0.4153846153846154
+      },
+      "IG": {
+        "rho_recovery": 0.35064655193415556,
+        "auroc_moved": 0.5230769230769231
+      },
+      "GA": {
+        "rho_recovery": 0.35064655193415556,
+        "auroc_moved": 0.5230769230769231
+      }
+    }
+  },
+  {
+    "word": "pathetic",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": -0.7837982177734375,
+    "logitdiff_edited": -1.130218505859375,
+    "text_delta": -0.3464202880859375,
+    "sign_correct": true,
+    "n_candidates": 30,
+    "n_moved": 17,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.1036420460988798,
+        "auroc_moved": 0.6108597285067874
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.12087469034334912,
+        "auroc_moved": 0.5520361990950227
+      },
+      "Probe weights": {
+        "rho_recovery": -0.4568519492889779,
+        "auroc_moved": 0.334841628959276
+      },
+      "IG": {
+        "rho_recovery": -0.13949114445172345,
+        "auroc_moved": 0.4660633484162896
+      },
+      "GA": {
+        "rho_recovery": -0.13949114445172345,
+        "auroc_moved": 0.4660633484162896
+      }
+    }
+  },
+  {
+    "word": "joy",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 0.6083602905273438,
+    "logitdiff_edited": 0.55609130859375,
+    "text_delta": -0.05226898193359375,
+    "sign_correct": false,
+    "n_candidates": 30,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": -0.0988425284921714,
+        "auroc_moved": 0.3080357142857143
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.3377119723482523,
+        "auroc_moved": 0.15178571428571427
+      },
+      "Probe weights": {
+        "rho_recovery": -0.3708633024641832,
+        "auroc_moved": 0.17857142857142858
+      },
+      "IG": {
+        "rho_recovery": -0.48178903991495936,
+        "auroc_moved": 0.09821428571428571
+      },
+      "GA": {
+        "rho_recovery": -0.48178903991495936,
+        "auroc_moved": 0.09821428571428571
+      }
+    }
+  },
+  {
+    "word": "worse",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": -0.44394683837890625,
+    "logitdiff_edited": -0.6564102172851562,
+    "text_delta": -0.21246337890625,
+    "sign_correct": true,
+    "n_candidates": 28,
+    "n_moved": 15,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.16945833211200625,
+        "auroc_moved": 0.5692307692307692
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.09262133793819673,
+        "auroc_moved": 0.5025641025641026
+      },
+      "Probe weights": {
+        "rho_recovery": -0.20643079241245016,
+        "auroc_moved": 0.31794871794871793
+      },
+      "IG": {
+        "rho_recovery": 0.09994343840141678,
+        "auroc_moved": 0.4205128205128205
+      },
+      "GA": {
+        "rho_recovery": 0.09994343840141678,
+        "auroc_moved": 0.4205128205128205
+      }
+    }
+  },
+  {
+    "word": "fantastic",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": -0.6766357421875,
+    "logitdiff_edited": -0.15164947509765625,
+    "text_delta": 0.5249862670898438,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 18,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.13214925282491302,
+        "auroc_moved": 0.46464646464646464
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.010124337918037692,
+        "auroc_moved": 0.29292929292929293
+      },
+      "Probe weights": {
+        "rho_recovery": -0.3307006488232974,
+        "auroc_moved": 0.17676767676767677
+      },
+      "IG": {
+        "rho_recovery": 0.0010616393220651602,
+        "auroc_moved": 0.21717171717171718
+      },
+      "GA": {
+        "rho_recovery": 0.0010616393220651602,
+        "auroc_moved": 0.21717171717171718
+      }
+    }
+  },
+  {
+    "word": "tired",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": -0.01787567138671875,
+    "logitdiff_edited": -0.25390625,
+    "text_delta": -0.23603057861328125,
+    "sign_correct": true,
+    "n_candidates": 28,
+    "n_moved": 15,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.31985632458399776,
+        "auroc_moved": 0.5333333333333333
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.285309458986471,
+        "auroc_moved": 0.5128205128205128
+      },
+      "Probe weights": {
+        "rho_recovery": -0.08596325505359956,
+        "auroc_moved": 0.37948717948717947
+      },
+      "IG": {
+        "rho_recovery": 0.21981607434121134,
+        "auroc_moved": 0.49743589743589745
+      },
+      "GA": {
+        "rho_recovery": 0.21981607434121134,
+        "auroc_moved": 0.49743589743589745
+      }
+    }
+  },
+  {
+    "word": "exceptional",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 2.8355789184570312,
+    "logitdiff_edited": 2.6081771850585938,
+    "text_delta": -0.2274017333984375,
+    "sign_correct": false,
+    "n_candidates": 26,
+    "n_moved": 15,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.08536166399659303,
+        "auroc_moved": 0.509090909090909
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.04934408425119513,
+        "auroc_moved": 0.37575757575757573
+      },
+      "Probe weights": {
+        "rho_recovery": -0.03743266167165848,
+        "auroc_moved": 0.3575757575757576
+      },
+      "IG": {
+        "rho_recovery": 0.1475710700517305,
+        "auroc_moved": 0.3151515151515151
+      },
+      "GA": {
+        "rho_recovery": 0.1475710700517305,
+        "auroc_moved": 0.3151515151515151
+      }
+    }
+  },
+  {
+    "word": "pretentious",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": -0.2929229736328125,
+    "logitdiff_edited": -0.6115951538085938,
+    "text_delta": -0.31867218017578125,
+    "sign_correct": true,
+    "n_candidates": 28,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.45063782493495963,
+        "auroc_moved": 0.6614583333333334
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.1865015948740724,
+        "auroc_moved": 0.578125
+      },
+      "Probe weights": {
+        "rho_recovery": -0.1469205423096236,
+        "auroc_moved": 0.4166666666666667
+      },
+      "IG": {
+        "rho_recovery": 0.11420544179533494,
+        "auroc_moved": 0.40625
+      },
+      "GA": {
+        "rho_recovery": 0.11420544179533494,
+        "auroc_moved": 0.40625
+      }
+    }
+  },
+  {
+    "word": "funny",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 0.8929901123046875,
+    "logitdiff_edited": 0.5771713256835938,
+    "text_delta": -0.31581878662109375,
+    "sign_correct": false,
+    "n_candidates": 28,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.039760732926555895,
+        "auroc_moved": 0.6041666666666666
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.20305290326615183,
+        "auroc_moved": 0.4635416666666667
+      },
+      "Probe weights": {
+        "rho_recovery": -0.6015447773916626,
+        "auroc_moved": 0.3541666666666667
+      },
+      "IG": {
+        "rho_recovery": -0.3840422028128314,
+        "auroc_moved": 0.375
+      },
+      "GA": {
+        "rho_recovery": -0.3840422028128314,
+        "auroc_moved": 0.375
+      }
+    }
+  },
+  {
+    "word": "poor",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 1.1746597290039062,
+    "logitdiff_edited": 0.8128738403320312,
+    "text_delta": -0.361785888671875,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 15,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": -0.40010598834128247,
+        "auroc_moved": 0.19523809523809524
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.4716481187069423,
+        "auroc_moved": 0.1523809523809524
+      },
+      "Probe weights": {
+        "rho_recovery": 0.006650355913010779,
+        "auroc_moved": 0.5047619047619047
+      },
+      "IG": {
+        "rho_recovery": -0.006906138832741962,
+        "auroc_moved": 0.3904761904761905
+      },
+      "GA": {
+        "rho_recovery": -0.006906138832741962,
+        "auroc_moved": 0.3904761904761905
+      }
+    }
+  },
+  {
+    "word": "touching",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": -0.6137542724609375,
+    "logitdiff_edited": -0.506439208984375,
+    "text_delta": 0.1073150634765625,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 18,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.6333183057491346,
+        "auroc_moved": 0.5959595959595959
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.568256661619994,
+        "auroc_moved": 0.601010101010101
+      },
+      "Probe weights": {
+        "rho_recovery": 0.049564671327960615,
+        "auroc_moved": 0.4444444444444444
+      },
+      "IG": {
+        "rho_recovery": 0.27776867890044593,
+        "auroc_moved": 0.5707070707070707
+      },
+      "GA": {
+        "rho_recovery": 0.27776867890044593,
+        "auroc_moved": 0.5707070707070707
+      }
+    }
+  },
+  {
+    "word": "loud",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": -0.41085052490234375,
+    "logitdiff_edited": -0.7074508666992188,
+    "text_delta": -0.296600341796875,
+    "sign_correct": true,
+    "n_candidates": 26,
+    "n_moved": 15,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.27925468580550744,
+        "auroc_moved": 0.5757575757575758
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.16286806708184903,
+        "auroc_moved": 0.5333333333333333
+      },
+      "Probe weights": {
+        "rho_recovery": -0.23931701406195288,
+        "auroc_moved": 0.32727272727272727
+      },
+      "IG": {
+        "rho_recovery": 0.14578242535987665,
+        "auroc_moved": 0.5151515151515151
+      },
+      "GA": {
+        "rho_recovery": 0.14578242535987665,
+        "auroc_moved": 0.5151515151515151
+      }
+    }
+  },
+  {
+    "word": "beautiful",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": -0.5522232055664062,
+    "logitdiff_edited": 0.10689544677734375,
+    "text_delta": 0.65911865234375,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 15,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.21044240946677614,
+        "auroc_moved": 0.3
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.04143846672897909,
+        "auroc_moved": 0.19523809523809524
+      },
+      "Probe weights": {
+        "rho_recovery": -0.283155374116847,
+        "auroc_moved": 0.30952380952380953
+      },
+      "IG": {
+        "rho_recovery": -0.1324953448697699,
+        "auroc_moved": 0.28095238095238095
+      },
+      "GA": {
+        "rho_recovery": -0.1324953448697699,
+        "auroc_moved": 0.28095238095238095
+      }
+    }
+  },
+  {
+    "word": "disappointing",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 0.0885162353515625,
+    "logitdiff_edited": -0.08298492431640625,
+    "text_delta": -0.17150115966796875,
+    "sign_correct": true,
+    "n_candidates": 30,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.3949164174570153,
+        "auroc_moved": 0.6919642857142857
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.4209191445323743,
+        "auroc_moved": 0.7232142857142857
+      },
+      "Probe weights": {
+        "rho_recovery": -0.05129182385495745,
+        "auroc_moved": 0.5
+      },
+      "IG": {
+        "rho_recovery": 0.3409397703300113,
+        "auroc_moved": 0.6160714285714286
+      },
+      "GA": {
+        "rho_recovery": 0.3409397703300113,
+        "auroc_moved": 0.6160714285714286
+      }
+    }
+  },
+  {
+    "word": "vivid",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": -0.02838134765625,
+    "logitdiff_edited": 0.49550628662109375,
+    "text_delta": 0.5238876342773438,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 18,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.522827098622663,
+        "auroc_moved": 0.4696969696969697
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.2992995709506549,
+        "auroc_moved": 0.42424242424242425
+      },
+      "Probe weights": {
+        "rho_recovery": -0.2068813999255213,
+        "auroc_moved": 0.40404040404040403
+      },
+      "IG": {
+        "rho_recovery": 0.1550260098658606,
+        "auroc_moved": 0.3434343434343434
+      },
+      "GA": {
+        "rho_recovery": 0.1550260098658606,
+        "auroc_moved": 0.3434343434343434
+      }
+    }
+  },
+  {
+    "word": "rotten",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 0.6834869384765625,
+    "logitdiff_edited": -0.06783294677734375,
+    "text_delta": -0.7513198852539062,
+    "sign_correct": true,
+    "n_candidates": 30,
+    "n_moved": 17,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.4710773270710004,
+        "auroc_moved": 0.583710407239819
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.24732154766385514,
+        "auroc_moved": 0.5067873303167421
+      },
+      "Probe weights": {
+        "rho_recovery": -0.07443127100373749,
+        "auroc_moved": 0.416289592760181
+      },
+      "IG": {
+        "rho_recovery": 0.05112691139234365,
+        "auroc_moved": 0.3891402714932127
+      },
+      "GA": {
+        "rho_recovery": 0.05112691139234365,
+        "auroc_moved": 0.3891402714932127
+      }
+    }
+  },
+  {
+    "word": "joyful",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 0.7397232055664062,
+    "logitdiff_edited": 1.1077957153320312,
+    "text_delta": 0.368072509765625,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 18,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.35831339387753075,
+        "auroc_moved": 0.5808080808080808
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.3188083357042356,
+        "auroc_moved": 0.5454545454545454
+      },
+      "Probe weights": {
+        "rho_recovery": 0.052312122889429394,
+        "auroc_moved": 0.4292929292929293
+      },
+      "IG": {
+        "rho_recovery": 0.12851680190624243,
+        "auroc_moved": 0.4444444444444444
+      },
+      "GA": {
+        "rho_recovery": 0.12851680190624243,
+        "auroc_moved": 0.4444444444444444
+      }
+    }
+  },
+  {
+    "word": "confusing",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": -0.5453414916992188,
+    "logitdiff_edited": -0.1616363525390625,
+    "text_delta": 0.38370513916015625,
+    "sign_correct": false,
+    "n_candidates": 27,
+    "n_moved": 18,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.03423775141265939,
+        "auroc_moved": 0.4074074074074074
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.1090018208239768,
+        "auroc_moved": 0.2962962962962963
+      },
+      "Probe weights": {
+        "rho_recovery": -0.3535888588620514,
+        "auroc_moved": 0.2716049382716049
+      },
+      "IG": {
+        "rho_recovery": -0.19020879275361324,
+        "auroc_moved": 0.3148148148148148
+      },
+      "GA": {
+        "rho_recovery": -0.19020879275361324,
+        "auroc_moved": 0.3148148148148148
+      }
+    }
+  },
+  {
+    "word": "smart",
+    "polarity": 1,
+    "expected_sign": 1,
+    "logitdiff_original": 0.3921356201171875,
+    "logitdiff_edited": 0.03549957275390625,
+    "text_delta": -0.35663604736328125,
+    "sign_correct": false,
+    "n_candidates": 30,
+    "n_moved": 17,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.33196762791207945,
+        "auroc_moved": 0.7013574660633484
+      },
+      "global_SHAP": {
+        "rho_recovery": 0.18646043151371308,
+        "auroc_moved": 0.6153846153846154
+      },
+      "Probe weights": {
+        "rho_recovery": -0.19242359393441777,
+        "auroc_moved": 0.4796380090497738
+      },
+      "IG": {
+        "rho_recovery": 0.11568881928008287,
+        "auroc_moved": 0.6425339366515838
+      },
+      "GA": {
+        "rho_recovery": 0.11568881928008287,
+        "auroc_moved": 0.6425339366515838
+      }
+    }
+  },
+  {
+    "word": "wrong",
+    "polarity": -1,
+    "expected_sign": -1,
+    "logitdiff_original": 0.06415557861328125,
+    "logitdiff_edited": 0.06098175048828125,
+    "text_delta": -0.003173828125,
+    "sign_correct": true,
+    "n_candidates": 29,
+    "n_moved": 16,
+    "last_token_changed": false,
+    "methods": {
+      "local_SHAP": {
+        "rho_recovery": 0.1325736338321338,
+        "auroc_moved": 0.4423076923076923
+      },
+      "global_SHAP": {
+        "rho_recovery": -0.07441028588566434,
+        "auroc_moved": 0.3269230769230769
+      },
+      "Probe weights": {
+        "rho_recovery": -0.004646687936996308,
+        "auroc_moved": 0.5240384615384616
+      },
+      "IG": {
+        "rho_recovery": 0.0015488959789987692,
+        "auroc_moved": 0.40865384615384615
+      },
+      "GA": {
+        "rho_recovery": 0.0015488959789987692,
+        "auroc_moved": 0.40865384615384615
+      }
+    }
+  }
+]

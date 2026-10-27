@@ -1,0 +1,36 @@
+Linear (logistic) arm - multi-seed faithfulness sweep
+mode=steering  selection=random  k=20  seeds=0-9  n_eval=1000
+alpha: scaled alpha = +0.4936 x scale_i / 0.9110 (range +0.358 .. +3.059)
+union features intervened on: 98
+NOTE: SHAP/IG/GA importance = mean |attribution| (SHAP and IG/GA baseline: full train set, 6696 rows); directional = signed mean (100-row background). Probe scores unchanged.
+Pooled Benjamini-Hochberg over all 39 per-seed tests (distinct tests, 10 seeds): 8 survive at FDR 0.05 (the tests overlap - shared features - so this count is descriptive).
+
+test                          mean rho     std     min     max  frac>0  ref rho   ref p
+----------------------------------------------------------------------------------------
+SHAP:importance                 +0.355   0.282  -0.260  +0.636    0.90   +0.636   0.100
+SHAP:directional                -0.047   0.160  -0.356  +0.141    0.50   -0.077   0.700
+Probe weights:importance        +0.236   0.268  -0.260  +0.582    0.80   +0.519   0.200
+Probe weights:directional       +0.422   0.162  +0.162  +0.624    1.00   +0.624   0.100
+IG:importance                   +0.355   0.282  -0.260  +0.636    0.90   +0.636   0.100
+IG:directional                  -0.047   0.160  -0.356  +0.141    0.50   -0.077   0.700
+GA:importance                   +0.355   0.282  -0.260  +0.636    0.90   +0.636   0.100
+GA:directional                  -0.047   0.160  -0.356  +0.141    0.50   -0.077   0.700
+
+DESCRIPTIVE ONLY. Seeds are overlapping draws from one feature pool and share
+per-feature deltas, so they are not independent replicates and no test across
+seeds is reported. For inference use the --selection all run (n = pool size).
+'ref p' is the fraction of draws with |rho| at least as large as the reference
+seed's - a small value means the headline run was an unusually extreme draw.
+
+Per-seed rho:
+   seed SHAP:importanc SHAP:direction Probe weights: Probe weights:  IG:importance IG:directional  GA:importance GA:directional
+      0         +0.636         -0.077         +0.519         +0.624         +0.636         -0.077         +0.636         -0.077
+      1         +0.621         +0.141         +0.406         +0.417         +0.621         +0.141         +0.621         +0.141
+      2         +0.450         +0.062         +0.465         +0.510         +0.450         +0.062         +0.450         +0.062
+      3         +0.561         +0.113         +0.400         +0.516         +0.561         +0.113         +0.561         +0.113
+      4         +0.189         +0.099         -0.078         +0.245         +0.189         +0.099         +0.189         +0.099
+      5         +0.586         -0.152         +0.582         +0.182         +0.586         -0.152         +0.586         -0.152
+      6         +0.036         -0.275         +0.012         +0.576         +0.036         -0.275         +0.036         -0.275
+      7         +0.236         -0.026         +0.132         +0.162         +0.236         -0.026         +0.236         -0.026
+      8         +0.499         -0.356         +0.185         +0.580         +0.499         -0.356         +0.499         -0.356
+      9         -0.260         +0.003         -0.260         +0.405         -0.260         +0.003         -0.260         +0.003

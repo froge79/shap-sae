@@ -1,0 +1,333 @@
+# step 15  2026-10-25T23:21:43+00:00
+# SHAP_SAE_OUTPUTS=run3/outputs SHAP_SAE_CHECKPOINTS=run3/checkpoints
+# cmd: uv run python src/local/9_local_steer.py --mode ablation --k-local 20 --k-global 20 --n-examples 100 --alpha 0.493566
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Computing local LinearSHAP on 100 examples × 114 features…
+  local_shap shape=(100, 114)
+Per-example candidates: top-20 |φ(x)| ∪ top-20 |Φ|  (mean |cand|=29.7, union=89)
+Loading model + SAE…
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|██████████| 148/148 [00:00<00:00, 5976.46it/s]
+Loaded pretrained model gpt2 into HookedTransformer
+Logit-diff readout: ' wonderful'(7932) - ' awful'(12659); N=100, mode=ablation
+Baselines:   0%|          | 0/4 [00:00<?, ?it/s]Baselines:  25%|██▌       | 1/4 [00:00<00:01,  2.36it/s]Baselines:  75%|███████▌  | 3/4 [00:00<00:00,  6.40it/s]                                                        Ablating features:   0%|          | 0/89 [00:00<?, ?it/s]
+feature 19:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 19:  50%|█████     | 2/4 [00:00<00:00, 19.92it/s][A
+                                                         [AAblating features:   1%|          | 1/89 [00:00<00:15,  5.82it/s]
+feature 1092:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 1092:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                           [AAblating features:   2%|▏         | 2/89 [00:00<00:14,  5.82it/s]
+feature 1216:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 1216:  50%|█████     | 2/4 [00:00<00:00, 19.96it/s][A
+                                                           [AAblating features:   3%|▎         | 3/89 [00:00<00:14,  5.82it/s]
+feature 2184:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 2184:  50%|█████     | 2/4 [00:00<00:00, 19.96it/s][A
+                                                           [AAblating features:   4%|▍         | 4/89 [00:00<00:14,  5.81it/s]
+feature 2347:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 2347:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                           [AAblating features:   6%|▌         | 5/89 [00:00<00:14,  5.81it/s]
+feature 2418:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 2418:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                           [AAblating features:   7%|▋         | 6/89 [00:01<00:14,  5.81it/s]
+feature 2443:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 2443:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                           [AAblating features:   8%|▊         | 7/89 [00:01<00:14,  5.81it/s]
+feature 2562:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 2562:  50%|█████     | 2/4 [00:00<00:00, 19.92it/s][A
+                                                           [AAblating features:   9%|▉         | 8/89 [00:01<00:13,  5.81it/s]
+feature 3006:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 3006:  50%|█████     | 2/4 [00:00<00:00, 19.97it/s][A
+                                                           [AAblating features:  10%|█         | 9/89 [00:01<00:13,  5.82it/s]
+feature 3325:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 3325:  50%|█████     | 2/4 [00:00<00:00, 19.98it/s][A
+                                                           [AAblating features:  11%|█         | 10/89 [00:01<00:13,  5.82it/s]
+feature 3351:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 3351:  50%|█████     | 2/4 [00:00<00:00, 19.97it/s][A
+                                                           [AAblating features:  12%|█▏        | 11/89 [00:01<00:13,  5.82it/s]
+feature 3398:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 3398:  50%|█████     | 2/4 [00:00<00:00, 19.97it/s][A
+                                                           [AAblating features:  13%|█▎        | 12/89 [00:02<00:13,  5.83it/s]
+feature 3611:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 3611:  50%|█████     | 2/4 [00:00<00:00, 19.97it/s][A
+                                                           [AAblating features:  15%|█▍        | 13/89 [00:02<00:13,  5.83it/s]
+feature 3840:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 3840:  50%|█████     | 2/4 [00:00<00:00, 19.97it/s][A
+                                                           [AAblating features:  16%|█▌        | 14/89 [00:02<00:12,  5.83it/s]
+feature 4044:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 4044:  50%|█████     | 2/4 [00:00<00:00, 19.97it/s][A
+                                                           [AAblating features:  17%|█▋        | 15/89 [00:02<00:12,  5.82it/s]
+feature 4231:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 4231:  50%|█████     | 2/4 [00:00<00:00, 19.98it/s][A
+                                                           [AAblating features:  18%|█▊        | 16/89 [00:02<00:12,  5.82it/s]
+feature 4890:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 4890:  50%|█████     | 2/4 [00:00<00:00, 19.97it/s][A
+                                                           [AAblating features:  19%|█▉        | 17/89 [00:02<00:12,  5.83it/s]
+feature 5607:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 5607:  50%|█████     | 2/4 [00:00<00:00, 19.98it/s][A
+                                                           [AAblating features:  20%|██        | 18/89 [00:03<00:12,  5.83it/s]
+feature 5700:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 5700:  50%|█████     | 2/4 [00:00<00:00, 19.97it/s][A
+                                                           [AAblating features:  21%|██▏       | 19/89 [00:03<00:12,  5.83it/s]
+feature 6024:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 6024:  50%|█████     | 2/4 [00:00<00:00, 19.98it/s][A
+                                                           [AAblating features:  22%|██▏       | 20/89 [00:03<00:11,  5.83it/s]
+feature 6319:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 6319:  50%|█████     | 2/4 [00:00<00:00, 19.97it/s][A
+                                                           [AAblating features:  24%|██▎       | 21/89 [00:03<00:11,  5.83it/s]
+feature 6394:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 6394:  50%|█████     | 2/4 [00:00<00:00, 19.97it/s][A
+                                                           [AAblating features:  25%|██▍       | 22/89 [00:03<00:11,  5.83it/s]
+feature 7041:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 7041:  50%|█████     | 2/4 [00:00<00:00, 19.98it/s][A
+                                                           [AAblating features:  26%|██▌       | 23/89 [00:03<00:11,  5.82it/s]
+feature 7480:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 7480:  50%|█████     | 2/4 [00:00<00:00, 19.97it/s][A
+                                                           [AAblating features:  27%|██▋       | 24/89 [00:04<00:11,  5.82it/s]
+feature 8881:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 8881:  50%|█████     | 2/4 [00:00<00:00, 19.97it/s][A
+                                                           [AAblating features:  28%|██▊       | 25/89 [00:04<00:10,  5.82it/s]
+feature 9363:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 9363:  50%|█████     | 2/4 [00:00<00:00, 19.97it/s][A
+                                                           [AAblating features:  29%|██▉       | 26/89 [00:04<00:10,  5.82it/s]
+feature 9857:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 9857:  50%|█████     | 2/4 [00:00<00:00, 19.97it/s][A
+                                                           [AAblating features:  30%|███       | 27/89 [00:04<00:10,  5.83it/s]
+feature 10003:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 10003:  50%|█████     | 2/4 [00:00<00:00, 19.97it/s][A
+                                                            [AAblating features:  31%|███▏      | 28/89 [00:04<00:10,  5.83it/s]
+feature 10648:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 10648:  50%|█████     | 2/4 [00:00<00:00, 19.96it/s][A
+                                                            [AAblating features:  33%|███▎      | 29/89 [00:04<00:10,  5.83it/s]
+feature 10865:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 10865:  50%|█████     | 2/4 [00:00<00:00, 19.98it/s][A
+                                                            [AAblating features:  34%|███▎      | 30/89 [00:05<00:10,  5.83it/s]
+feature 11064:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 11064:  50%|█████     | 2/4 [00:00<00:00, 19.96it/s][A
+                                                            [AAblating features:  35%|███▍      | 31/89 [00:05<00:09,  5.83it/s]
+feature 11148:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 11148:  50%|█████     | 2/4 [00:00<00:00, 19.96it/s][A
+                                                            [AAblating features:  36%|███▌      | 32/89 [00:05<00:09,  5.82it/s]
+feature 11525:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 11525:  50%|█████     | 2/4 [00:00<00:00, 19.96it/s][A
+                                                            [AAblating features:  37%|███▋      | 33/89 [00:05<00:09,  5.82it/s]
+feature 12019:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 12019:  50%|█████     | 2/4 [00:00<00:00, 19.96it/s][A
+                                                            [AAblating features:  38%|███▊      | 34/89 [00:05<00:09,  5.82it/s]
+feature 12215:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 12215:  50%|█████     | 2/4 [00:00<00:00, 19.98it/s][A
+                                                            [AAblating features:  39%|███▉      | 35/89 [00:06<00:09,  5.82it/s]
+feature 13093:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 13093:  50%|█████     | 2/4 [00:00<00:00, 19.97it/s][A
+                                                            [AAblating features:  40%|████      | 36/89 [00:06<00:09,  5.82it/s]
+feature 13322:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 13322:  50%|█████     | 2/4 [00:00<00:00, 19.97it/s][A
+                                                            [AAblating features:  42%|████▏     | 37/89 [00:06<00:08,  5.82it/s]
+feature 13858:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 13858:  50%|█████     | 2/4 [00:00<00:00, 19.97it/s][A
+                                                            [AAblating features:  43%|████▎     | 38/89 [00:06<00:08,  5.82it/s]
+feature 14207:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 14207:  50%|█████     | 2/4 [00:00<00:00, 19.98it/s][A
+                                                            [AAblating features:  44%|████▍     | 39/89 [00:06<00:08,  5.82it/s]
+feature 14573:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 14573:  50%|█████     | 2/4 [00:00<00:00, 19.97it/s][A
+                                                            [AAblating features:  45%|████▍     | 40/89 [00:06<00:08,  5.83it/s]
+feature 14826:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 14826:  50%|█████     | 2/4 [00:00<00:00, 19.98it/s][A
+                                                            [AAblating features:  46%|████▌     | 41/89 [00:07<00:08,  5.83it/s]
+feature 16048:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 16048:  50%|█████     | 2/4 [00:00<00:00, 19.97it/s][A
+                                                            [AAblating features:  47%|████▋     | 42/89 [00:07<00:08,  5.82it/s]
+feature 16543:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 16543:  50%|█████     | 2/4 [00:00<00:00, 19.96it/s][A
+                                                            [AAblating features:  48%|████▊     | 43/89 [00:07<00:07,  5.82it/s]
+feature 16575:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 16575:  50%|█████     | 2/4 [00:00<00:00, 19.96it/s][A
+                                                            [AAblating features:  49%|████▉     | 44/89 [00:07<00:07,  5.82it/s]
+feature 16640:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 16640:  50%|█████     | 2/4 [00:00<00:00, 19.96it/s][A
+                                                            [AAblating features:  51%|█████     | 45/89 [00:07<00:07,  5.82it/s]
+feature 17705:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 17705:  50%|█████     | 2/4 [00:00<00:00, 19.97it/s][A
+                                                            [AAblating features:  52%|█████▏    | 46/89 [00:07<00:07,  5.82it/s]
+feature 18165:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 18165:  50%|█████     | 2/4 [00:00<00:00, 19.96it/s][A
+                                                            [AAblating features:  53%|█████▎    | 47/89 [00:08<00:07,  5.82it/s]
+feature 18357:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 18357:  50%|█████     | 2/4 [00:00<00:00, 19.89it/s][A
+                                                            [AAblating features:  54%|█████▍    | 48/89 [00:08<00:07,  5.82it/s]
+feature 18582:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 18582:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                            [AAblating features:  55%|█████▌    | 49/89 [00:08<00:06,  5.82it/s]
+feature 18859:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 18859:  50%|█████     | 2/4 [00:00<00:00, 19.97it/s][A
+                                                            [AAblating features:  56%|█████▌    | 50/89 [00:08<00:06,  5.82it/s]
+feature 18941:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 18941:  50%|█████     | 2/4 [00:00<00:00, 19.96it/s][A
+                                                            [AAblating features:  57%|█████▋    | 51/89 [00:08<00:06,  5.82it/s]
+feature 19167:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 19167:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                            [AAblating features:  58%|█████▊    | 52/89 [00:08<00:06,  5.82it/s]
+feature 19278:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 19278:  50%|█████     | 2/4 [00:00<00:00, 19.94it/s][A
+                                                            [AAblating features:  60%|█████▉    | 53/89 [00:09<00:06,  5.82it/s]
+feature 20477:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 20477:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                            [AAblating features:  61%|██████    | 54/89 [00:09<00:06,  5.82it/s]
+feature 20622:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 20622:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                            [AAblating features:  62%|██████▏   | 55/89 [00:09<00:05,  5.82it/s]
+feature 21276:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 21276:  50%|█████     | 2/4 [00:00<00:00, 19.94it/s][A
+                                                            [AAblating features:  63%|██████▎   | 56/89 [00:09<00:05,  5.82it/s]
+feature 21459:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 21459:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                            [AAblating features:  64%|██████▍   | 57/89 [00:09<00:05,  5.82it/s]
+feature 21531:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 21531:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                            [AAblating features:  65%|██████▌   | 58/89 [00:09<00:05,  5.82it/s]
+feature 22113:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 22113:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                            [AAblating features:  66%|██████▋   | 59/89 [00:10<00:05,  5.82it/s]
+feature 22914:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 22914:  50%|█████     | 2/4 [00:00<00:00, 19.94it/s][A
+                                                            [AAblating features:  67%|██████▋   | 60/89 [00:10<00:04,  5.81it/s]
+feature 22921:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 22921:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                            [AAblating features:  69%|██████▊   | 61/89 [00:10<00:04,  5.81it/s]
+feature 23612:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 23612:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                            [AAblating features:  70%|██████▉   | 62/89 [00:10<00:04,  5.81it/s]
+feature 24082:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 24082:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                            [AAblating features:  71%|███████   | 63/89 [00:10<00:04,  5.81it/s]
+feature 24145:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 24145:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                            [AAblating features:  72%|███████▏  | 64/89 [00:10<00:04,  5.81it/s]
+feature 24566:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 24566:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                            [AAblating features:  73%|███████▎  | 65/89 [00:11<00:04,  5.81it/s]
+feature 24877:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 24877:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                            [AAblating features:  74%|███████▍  | 66/89 [00:11<00:03,  5.81it/s]
+feature 25209:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 25209:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                            [AAblating features:  75%|███████▌  | 67/89 [00:11<00:03,  5.81it/s]
+feature 25515:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 25515:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                            [AAblating features:  76%|███████▋  | 68/89 [00:11<00:03,  5.81it/s]
+feature 25555:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 25555:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                            [AAblating features:  78%|███████▊  | 69/89 [00:11<00:03,  5.81it/s]
+feature 27668:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 27668:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                            [AAblating features:  79%|███████▊  | 70/89 [00:12<00:03,  5.82it/s]
+feature 29025:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 29025:  50%|█████     | 2/4 [00:00<00:00, 19.96it/s][A
+                                                            [AAblating features:  80%|███████▉  | 71/89 [00:12<00:03,  5.82it/s]
+feature 29509:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 29509:  50%|█████     | 2/4 [00:00<00:00, 19.97it/s][A
+                                                            [AAblating features:  81%|████████  | 72/89 [00:12<00:02,  5.82it/s]
+feature 29930:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 29930:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                            [AAblating features:  82%|████████▏ | 73/89 [00:12<00:02,  5.82it/s]
+feature 29964:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 29964:  50%|█████     | 2/4 [00:00<00:00, 19.96it/s][A
+                                                            [AAblating features:  83%|████████▎ | 74/89 [00:12<00:02,  5.82it/s]
+feature 30098:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 30098:  50%|█████     | 2/4 [00:00<00:00, 19.96it/s][A
+                                                            [AAblating features:  84%|████████▍ | 75/89 [00:12<00:02,  5.82it/s]
+feature 30340:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 30340:  50%|█████     | 2/4 [00:00<00:00, 19.96it/s][A
+                                                            [AAblating features:  85%|████████▌ | 76/89 [00:13<00:02,  5.82it/s]
+feature 30805:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 30805:  50%|█████     | 2/4 [00:00<00:00, 19.96it/s][A
+                                                            [AAblating features:  87%|████████▋ | 77/89 [00:13<00:02,  5.83it/s]
+feature 30907:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 30907:  50%|█████     | 2/4 [00:00<00:00, 19.96it/s][A
+                                                            [AAblating features:  88%|████████▊ | 78/89 [00:13<00:01,  5.82it/s]
+feature 30944:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 30944:  50%|█████     | 2/4 [00:00<00:00, 19.96it/s][A
+                                                            [AAblating features:  89%|████████▉ | 79/89 [00:13<00:01,  5.82it/s]
+feature 30961:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 30961:  50%|█████     | 2/4 [00:00<00:00, 19.96it/s][A
+                                                            [AAblating features:  90%|████████▉ | 80/89 [00:13<00:01,  5.82it/s]
+feature 31007:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 31007:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                            [AAblating features:  91%|█████████ | 81/89 [00:13<00:01,  5.82it/s]
+feature 31230:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 31230:  50%|█████     | 2/4 [00:00<00:00, 19.94it/s][A
+                                                            [AAblating features:  92%|█████████▏| 82/89 [00:14<00:01,  5.82it/s]
+feature 31252:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 31252:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                            [AAblating features:  93%|█████████▎| 83/89 [00:14<00:01,  5.82it/s]
+feature 31723:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 31723:  50%|█████     | 2/4 [00:00<00:00, 19.96it/s][A
+                                                            [AAblating features:  94%|█████████▍| 84/89 [00:14<00:00,  5.82it/s]
+feature 31846:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 31846:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                            [AAblating features:  96%|█████████▌| 85/89 [00:14<00:00,  5.82it/s]
+feature 32109:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 32109:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                            [AAblating features:  97%|█████████▋| 86/89 [00:14<00:00,  5.82it/s]
+feature 32347:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 32347:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                            [AAblating features:  98%|█████████▊| 87/89 [00:14<00:00,  5.82it/s]
+feature 32434:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 32434:  50%|█████     | 2/4 [00:00<00:00, 19.96it/s][A
+                                                            [AAblating features:  99%|█████████▉| 88/89 [00:15<00:00,  5.82it/s]
+feature 32471:   0%|          | 0/4 [00:00<?, ?it/s][A
+feature 32471:  50%|█████     | 2/4 [00:00<00:00, 19.95it/s][A
+                                                            [AAblating features: 100%|██████████| 89/89 [00:15<00:00,  5.81it/s]Ablating features: 100%|██████████| 89/89 [00:15<00:00,  5.82it/s]
+Active-candidate control: mean 14.9 of 29.7 candidates fire per example
+
+Local steering faithfulness (linear probe)
+==================================================
+mode=ablation  candidates=top-20 local ∪ top-20 global  N=100  n_union=89
+
+[A] All candidates — mean Spearman ρ across examples (± std)
+Importance (|attr| vs |Δ|):
+  local_SHAP      ρ=+0.351 ± 0.148  (n=100)
+  global_SHAP     ρ=+0.057 ± 0.148  (n=100)
+  Probe weights   ρ=-0.421 ± 0.136  (n=100)
+  IG              ρ=+0.057 ± 0.148  (n=100)
+  GA              ρ=+0.057 ± 0.148  (n=100)
+Directional (attr vs −Δ; positive = faithful):
+  local_SHAP      ρ=+0.140 ± 0.182  (n=100)
+  global_SHAP     ρ=+0.132 ± 0.117  (n=100)
+  Probe weights   ρ=+0.106 ± 0.108  (n=100)
+  IG              ρ=+0.132 ± 0.117  (n=100)
+  GA              ρ=+0.132 ± 0.117  (n=100)
+Fraction examples with ρ_local_SHAP > ρ_global_SHAP (importance): 0.970
+
+[B] Active candidates only (control)
+    Inactive features move the logit by ~0 under ablation, and local |φ(x)|
+    tracks activity while global |Φ| does not — so part of any local win in
+    [A] is just 'local knows which features are on here'. [B] removes that
+    advantage; a local win that survives here is about ranking, not activity.
+Importance (|attr| vs |Δ|):
+  local_SHAP      ρ=+0.015 ± 0.256  (n=95)
+  global_SHAP     ρ=+0.320 ± 0.257  (n=95)
+  Probe weights   ρ=-0.126 ± 0.234  (n=95)
+  IG              ρ=+0.320 ± 0.257  (n=95)
+  GA              ρ=+0.320 ± 0.257  (n=95)
+Directional (attr vs −Δ; positive = faithful):
+  local_SHAP      ρ=+0.187 ± 0.240  (n=95)
+  global_SHAP     ρ=+0.213 ± 0.197  (n=95)
+  Probe weights   ρ=+0.059 ± 0.207  (n=95)
+  IG              ρ=+0.213 ± 0.197  (n=95)
+  GA              ρ=+0.213 ± 0.197  (n=95)
+Fraction examples with ρ_local_SHAP > ρ_global_SHAP (importance): 0.168
+
+Top union features by mean_|Δ| (display only):
+  feature 30907: |Δ̄|=0.5108  Δ̄=-0.5078
+  feature 31723: |Δ̄|=0.2471  Δ̄=+0.2471
+  feature 6319: |Δ̄|=0.2183  Δ̄=+0.2178
+  feature 29964: |Δ̄|=0.2009  Δ̄=+0.2001
+  feature 29025: |Δ̄|=0.1346  Δ̄=-0.0126
+  feature 16048: |Δ̄|=0.1006  Δ̄=-0.1006
+  feature 19167: |Δ̄|=0.0865  Δ̄=-0.0415
+  feature 2443: |Δ̄|=0.0696  Δ̄=+0.0696
+  feature 31846: |Δ̄|=0.0647  Δ̄=-0.0647
+  feature 18357: |Δ̄|=0.0523  Δ̄=+0.0521
+
+Wrote outputs → run3/outputs/9_local_steer/
+# exit=0  elapsed=31s  2026-10-25T23:22:14+00:00

@@ -1,0 +1,26 @@
+Linear (logistic) arm - faithfulness
+mode=steering  selection=all  k=114  seed=0  n_eval=1000  intervene_scope=last
+alpha: scaled alpha = +0.4936 x scale_i / 0.9110 (range +0.358 .. +3.059)
+NOTE: intervene_scope='last' edits only the last real token, not every position - effect sizes are not comparable to the default 'all' scope runs.
+NOTE: SHAP/IG/GA importance = mean |attribution| (SHAP and IG/GA baseline: full train set, 6696 rows); directional = signed mean (100-row background). Probe scores unchanged.
+Importance faithfulness  (Spearman rho of |attribution| vs |delta|):
+  SHAP            rho=+0.455  p=0.0000
+  Probe weights   rho=+0.270  p=0.0037
+  IG              rho=+0.455  p=0.0000
+  GA              rho=+0.455  p=0.0000
+Directional faithfulness (Spearman rho of attribution vs delta; positive = faithful under mode=steering):
+  SHAP            rho=-0.108  p=0.2541
+  Probe weights   rho=+0.305  p=0.0010
+  IG              rho=-0.108  p=0.2541
+  GA              rho=-0.108  p=0.2541
+
+Benjamini-Hochberg FDR correction (family = 8 tests in this run, alpha=0.05):
+  SHAP:importance               p=0.0000  q=0.0000 *
+  SHAP:directional              p=0.2541  q=0.2541  
+  Probe weights:importance      p=0.0037  q=0.0060 *
+  Probe weights:directional     p=0.0010  q=0.0019 *
+  IG:importance                 p=0.0000  q=0.0000 *
+  IG:directional                p=0.2541  q=0.2541  
+  GA:importance                 p=0.0000  q=0.0000 *
+  GA:directional                p=0.2541  q=0.2541  
+  5 of 8 survive FDR correction.

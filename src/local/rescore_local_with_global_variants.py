@@ -22,6 +22,10 @@ The sign(w) factor lets one file serve both kinds: |score| is exactly mean|phi|
 
 MLP arm: mean|phi| from the saved DeepSHAP values (bg100, importance only).
 
+NOTE: local_shap_faithfulness is the MLP DeepSHAP diagnostic, so it is not rescored
+here (an earlier version wrongly applied the linear variants to it); it is rerun
+properly via `--global-score meanabs`.
+
 Output: 7b_global_variants/local_rescored/<source>__<variant>/paired_tests.{json,txt}
 and 7b_global_variants/local_rescored/summary.txt
 """
@@ -89,11 +93,31 @@ def mlp_variants() -> dict[str, np.ndarray]:
     return {"signed_bg100": sv.mean(0), "absmean_bg100": np.abs(sv).mean(0)}
 
 
+def _refresh_global_rhos(d: Path) -> None:
+    """
+    Overwrite the saved global-method rho arrays in scratch dir `d` from the
+    swapped Phi. `analyze_dir` takes its point estimates from these arrays and
+    then insists the crossed bootstrap reproduces them, so stale ones abort it.
+    """
+    inp = _ana.load_per_example_inputs(d, "ablation")
+    assert inp is not None, f"{d}: raw per-example inputs missing"
+    packed = d / "rhos.npz"
+    if packed.exists():
+        with np.load(packed) as z:
+            rhos = {k: z[k] for k in z.files}
+        for block, prefix in (("A", ""), ("B", "active_")):
+            for kind in inp["kinds"]:
+                rhos[f"{prefix}{kind}_global_SHAP"] = _ana.per_example_rhos(inp, block, kind)[:, 1]
+        np.savez(packed, **rhos)
+    else:  # local_shap_faithfulness layout: importance only
+        np.save(d / "rho_global.npy", _ana.per_example_rhos(inp, "A", "importance")[:, 1])
+        np.save(d / "active_rho_global.npy", _ana.per_example_rhos(inp, "B", "importance")[:, 1])
+
+
 def main() -> None:
     root = output_path("7b_global_variants", "local_rescored")
     jobs = {
         "9_local_steer": linear_variants(),
-        "local_shap_faithfulness": linear_variants(),
         "14_local_mlp_steer": mlp_variants(),
     }
     lines = ["Local vs global — rescored on the ORIGINAL candidate sets (see script docstring)", ""]
@@ -106,6 +130,7 @@ def main() -> None:
             old = np.load(dst / "global_phi_filtered.npy")
             assert old.shape == score.shape
             np.save(dst / "global_phi_filtered.npy", score)
+            _refresh_global_rhos(dst)
             res = _ana.analyze_dir(dst, "ablation")
             (dst / "paired_tests.json").write_text(json.dumps(res, indent=2))
             (dst / "paired_tests.txt").write_text(_ana.render(res))

@@ -1,0 +1,8 @@
+# step 3  2026-10-25T10:22:53+00:00
+# SHAP_SAE_OUTPUTS=run3/outputs SHAP_SAE_CHECKPOINTS=run3/checkpoints
+# cmd: uv run python src/core/3_shap_comp.py
+Non-zero probe weights: 615
+After frequency filter: 114
+
+Wrote 114 filtered feature indices -> run3/outputs/3_shap/shap_feature_indices.npy
+# exit=0  elapsed=6s  2026-10-25T10:22:59+00:00

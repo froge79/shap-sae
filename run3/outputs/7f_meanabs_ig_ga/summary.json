@@ -1,0 +1,110 @@
+{
+  "linear|all-token": {
+    "SHAP mean|phi| (full)": {
+      "rho": 0.42995079078998,
+      "p": 1.8054006750436325e-06,
+      "q_bh_within_methods": 1.8054006750436325e-06
+    },
+    "IG mean|.| (bg100)": {
+      "rho": 0.4367631275186813,
+      "p": 1.1843699034731871e-06,
+      "q_bh_within_methods": null
+    },
+    "IG mean|.| (full)": {
+      "rho": 0.42995079078998,
+      "p": 1.8054006750436325e-06,
+      "q_bh_within_methods": 1.8054006750436325e-06
+    },
+    "GA mean|.| (bg100)": {
+      "rho": 0.4367631275186813,
+      "p": 1.1843699034731871e-06,
+      "q_bh_within_methods": null
+    },
+    "GA mean|.| (full)": {
+      "rho": 0.42995079078998,
+      "p": 1.8054006750436325e-06,
+      "q_bh_within_methods": null
+    }
+  },
+  "linear|last-token": {
+    "SHAP mean|phi| (full)": {
+      "rho": 0.45518316761507466,
+      "p": 3.614575112400366e-07,
+      "q_bh_within_methods": 3.614575112400366e-07
+    },
+    "IG mean|.| (bg100)": {
+      "rho": 0.46070755958769577,
+      "p": 2.4973910040407244e-07,
+      "q_bh_within_methods": null
+    },
+    "IG mean|.| (full)": {
+      "rho": 0.45518316761507466,
+      "p": 3.614575112400366e-07,
+      "q_bh_within_methods": 3.614575112400366e-07
+    },
+    "GA mean|.| (bg100)": {
+      "rho": 0.46070755958769577,
+      "p": 2.4973910040407244e-07,
+      "q_bh_within_methods": null
+    },
+    "GA mean|.| (full)": {
+      "rho": 0.45518316761507466,
+      "p": 3.614575112400366e-07,
+      "q_bh_within_methods": null
+    }
+  },
+  "mlp|all-token": {
+    "SHAP mean|phi| (full)": {
+      "rho": 0.4763249022903546,
+      "p": 8.471703125987651e-08,
+      "q_bh_within_methods": 8.471703125987651e-08
+    },
+    "IG mean|.| (bg100)": {
+      "rho": 0.48803790931734886,
+      "p": 3.6321734447393274e-08,
+      "q_bh_within_methods": null
+    },
+    "IG mean|.| (full)": {
+      "rho": 0.48326684352281246,
+      "p": 5.148095610172888e-08,
+      "q_bh_within_methods": 7.722143415259332e-08
+    },
+    "GA mean|.| (bg100)": {
+      "rho": 0.5092201454000527,
+      "p": 7.227288387172348e-09,
+      "q_bh_within_methods": null
+    },
+    "GA mean|.| (full)": {
+      "rho": 0.5000263259148255,
+      "p": 1.4763054725333108e-08,
+      "q_bh_within_methods": 4.4289164175999325e-08
+    }
+  },
+  "mlp|last-token": {
+    "SHAP mean|phi| (full)": {
+      "rho": 0.4254308337214719,
+      "p": 2.37613667898232e-06,
+      "q_bh_within_methods": 2.7338425506923363e-06
+    },
+    "IG mean|.| (bg100)": {
+      "rho": 0.4438184726919261,
+      "p": 7.579317137356416e-07,
+      "q_bh_within_methods": null
+    },
+    "IG mean|.| (full)": {
+      "rho": 0.42309795265385475,
+      "p": 2.7338425506923363e-06,
+      "q_bh_within_methods": 2.7338425506923363e-06
+    },
+    "GA mean|.| (bg100)": {
+      "rho": 0.4597679269354611,
+      "p": 2.660709286061202e-07,
+      "q_bh_within_methods": null
+    },
+    "GA mean|.| (full)": {
+      "rho": 0.4439966788845913,
+      "p": 7.493365327042464e-07,
+      "q_bh_within_methods": 2.248009598112739e-06
+    }
+  }
+}

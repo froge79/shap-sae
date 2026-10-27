@@ -1,0 +1,54 @@
+Local vs global — rescored on the ORIGINAL candidate sets (see script docstring)
+
+[9_local_steer  global=signed_bg100]
+  A:importance     local +0.351  global +0.057  gap +0.294  crossed CI [-0.020,+0.605]  p=0.064
+  A:directional    local +0.140  global +0.132  gap +0.008  crossed CI [-0.343,+0.365]  p=0.952
+  B:importance     local +0.015  global +0.320  gap -0.305  crossed CI [-0.589,+0.059]  p=0.104
+  B:directional    local +0.187  global +0.213  gap -0.026  crossed CI [-0.523,+0.544]  p=0.896
+
+[9_local_steer  global=absmean_bg100]
+  A:importance     local +0.351  global +0.207  gap +0.144  crossed CI [-0.046,+0.354]  p=0.132
+  A:directional    local +0.140  global -0.013  gap +0.153  crossed CI [-0.100,+0.417]  p=0.264
+  B:importance     local +0.015  global +0.320  gap -0.305  crossed CI [-0.586,-0.015]  p=0.040
+  B:directional    local +0.187  global -0.093  gap +0.280  crossed CI [-0.129,+0.553]  p=0.152
+
+[9_local_steer  global=signed_bgfull]
+  A:importance     local +0.351  global +0.040  gap +0.311  crossed CI [+0.057,+0.538]  p=0.012
+  A:directional    local +0.140  global -0.052  gap +0.192  crossed CI [-0.169,+0.484]  p=0.252
+  B:importance     local +0.015  global +0.164  gap -0.149  crossed CI [-0.451,+0.182]  p=0.356
+  B:directional    local +0.187  global -0.011  gap +0.199  crossed CI [-0.356,+0.673]  p=0.492
+
+[9_local_steer  global=absmean_bgfull]
+  A:importance     local +0.351  global +0.199  gap +0.151  crossed CI [-0.051,+0.364]  p=0.134
+  A:directional    local +0.140  global +0.001  gap +0.138  crossed CI [-0.111,+0.399]  p=0.304
+  B:importance     local +0.015  global +0.328  gap -0.313  crossed CI [-0.591,-0.017]  p=0.044
+  B:directional    local +0.187  global -0.082  gap +0.269  crossed CI [-0.131,+0.546]  p=0.170
+
+[local_shap_faithfulness  global=signed_bg100]
+  A:importance     local +0.246  global +0.058  gap +0.188  crossed CI [-0.203,+0.605]  p=0.372
+  B:importance     local -0.155  global +0.332  gap -0.488  crossed CI [-0.817,+0.026]  p=0.062
+
+[local_shap_faithfulness  global=absmean_bg100]
+  A:importance     local +0.246  global +0.178  gap +0.068  crossed CI [-0.212,+0.380]  p=0.696
+  B:importance     local -0.155  global +0.328  gap -0.484  crossed CI [-0.794,-0.032]  p=0.040
+
+[local_shap_faithfulness  global=signed_bgfull]
+  A:importance     local +0.246  global +0.017  gap +0.229  crossed CI [-0.088,+0.554]  p=0.198
+  B:importance     local -0.155  global +0.191  gap -0.346  crossed CI [-0.710,+0.167]  p=0.166
+
+[local_shap_faithfulness  global=absmean_bgfull]
+  A:importance     local +0.246  global +0.173  gap +0.073  crossed CI [-0.213,+0.398]  p=0.650
+  B:importance     local -0.155  global +0.338  gap -0.493  crossed CI [-0.796,-0.037]  p=0.034
+
+[14_local_mlp_steer  global=signed_bg100]
+  A:importance     local +0.246  global -0.151  gap +0.396  crossed CI [+0.054,+0.688]  p=0.024
+  A:directional    local +0.152  global +0.056  gap +0.096  crossed CI [-0.225,+0.372]  p=0.540
+  B:importance     local -0.156  global +0.154  gap -0.310  crossed CI [-0.717,+0.176]  p=0.216
+  B:directional    local +0.222  global +0.137  gap +0.085  crossed CI [-0.393,+0.598]  p=0.834
+
+[14_local_mlp_steer  global=absmean_bg100]
+  A:importance     local +0.246  global +0.024  gap +0.222  crossed CI [-0.001,+0.465]  p=0.054
+  A:directional    local +0.152  global +0.055  gap +0.097  crossed CI [-0.214,+0.362]  p=0.502
+  B:importance     local -0.156  global +0.202  gap -0.358  crossed CI [-0.661,+0.040]  p=0.092
+  B:directional    local +0.222  global +0.116  gap +0.106  crossed CI [-0.302,+0.508]  p=0.706
+

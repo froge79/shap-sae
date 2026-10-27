@@ -1,0 +1,115 @@
+{
+  "mode": "ablation",
+  "k_local": 20,
+  "k_global": 20,
+  "n_examples": 100,
+  "n_union": 89,
+  "mean_n_cands": 25.77,
+  "mean_n_active_cands": 15.21,
+  "steering_alpha": 0.493566,
+  "alpha_mode": null,
+  "alpha_desc": "n/a (ablation zeroes the feature)",
+  "seed": 42,
+  "local_SHAP:importance_rho": {
+    "mean": 0.18098412768811614,
+    "std": 0.1912672413594203,
+    "n_finite": 100
+  },
+  "local_SHAP:directional_rho": {
+    "mean": 0.15664484502766782,
+    "std": 0.18679025716475917,
+    "n_finite": 100
+  },
+  "global_SHAP:importance_rho": {
+    "mean": 0.020107653222948527,
+    "std": 0.1996234897321043,
+    "n_finite": 100
+  },
+  "global_SHAP:directional_rho": {
+    "mean": 0.12257401930046173,
+    "std": 0.130426111541743,
+    "n_finite": 100
+  },
+  "Probe weights:importance_rho": {
+    "mean": -0.40551022913630286,
+    "std": 0.1597069233113128,
+    "n_finite": 100
+  },
+  "Probe weights:directional_rho": {
+    "mean": 0.11167951457392183,
+    "std": 0.1208529320707917,
+    "n_finite": 100
+  },
+  "IG:importance_rho": {
+    "mean": 0.09838310464257358,
+    "std": 0.1690076992996576,
+    "n_finite": 100
+  },
+  "IG:directional_rho": {
+    "mean": 0.12257401930046173,
+    "std": 0.130426111541743,
+    "n_finite": 100
+  },
+  "GA:importance_rho": {
+    "mean": 0.09838310464257358,
+    "std": 0.1690076992996576,
+    "n_finite": 100
+  },
+  "GA:directional_rho": {
+    "mean": 0.12257401930046173,
+    "std": 0.130426111541743,
+    "n_finite": 100
+  },
+  "frac_local_gt_global_importance": 0.76,
+  "active:local_SHAP:importance_rho": {
+    "mean": 0.01891206738212662,
+    "std": 0.25910586495146093,
+    "n_finite": 95
+  },
+  "active:local_SHAP:directional_rho": {
+    "mean": 0.18837680569389872,
+    "std": 0.24241944839859905,
+    "n_finite": 95
+  },
+  "active:global_SHAP:importance_rho": {
+    "mean": 0.32440918661870816,
+    "std": 0.23265730502498322,
+    "n_finite": 95
+  },
+  "active:global_SHAP:directional_rho": {
+    "mean": 0.19690224473261791,
+    "std": 0.198420838119116,
+    "n_finite": 95
+  },
+  "active:Probe weights:importance_rho": {
+    "mean": -0.12510580636364452,
+    "std": 0.2349597334315159,
+    "n_finite": 95
+  },
+  "active:Probe weights:directional_rho": {
+    "mean": 0.07397464899990563,
+    "std": 0.20935327218013342,
+    "n_finite": 95
+  },
+  "active:IG:importance_rho": {
+    "mean": 0.3219682311553263,
+    "std": 0.2536634516423015,
+    "n_finite": 95
+  },
+  "active:IG:directional_rho": {
+    "mean": 0.19690224473261791,
+    "std": 0.198420838119116,
+    "n_finite": 95
+  },
+  "active:GA:importance_rho": {
+    "mean": 0.3219682311553263,
+    "std": 0.2536634516423015,
+    "n_finite": 95
+  },
+  "active:GA:directional_rho": {
+    "mean": 0.19690224473261791,
+    "std": 0.198420838119116,
+    "n_finite": 95
+  },
+  "active:frac_local_gt_global_importance": 0.1368421052631579
+}

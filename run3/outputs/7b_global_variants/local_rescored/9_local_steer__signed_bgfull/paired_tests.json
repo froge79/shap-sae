@@ -1,0 +1,213 @@
+{
+  "dir": "run3/outputs/7b_global_variants/local_rescored/9_local_steer__signed_bgfull",
+  "blocks": {
+    "A:importance": {
+      "n": 100,
+      "mean_local": 0.3509003919546807,
+      "mean_global": 0.03966476804679724,
+      "mean_gap": 0.3112356239078835,
+      "median_gap": 0.3176803805912696,
+      "frac_local_wins": 0.98,
+      "wilcoxon_stat": 5.0,
+      "wilcoxon_p": 4.531861061109546e-18,
+      "gap_ci95": [
+        0.28314640060866764,
+        0.339827396612385
+      ],
+      "crossed": {
+        "n_boot": 1000,
+        "n_features_resampled": 89,
+        "point_local": 0.3509003919546807,
+        "point_global": 0.03966476804679724,
+        "local_ci95": [
+          0.11286158400024596,
+          0.512178773995315
+        ],
+        "global_ci95": [
+          -0.2206897513394849,
+          0.3006057452983183
+        ],
+        "point_gap": 0.3112356239078835,
+        "ci95": [
+          0.05721552837711508,
+          0.5384163831137031
+        ],
+        "p_two_sided": 0.012,
+        "se_crossed": 0.12521631145251372,
+        "se_examples_only": 0.014359192322647091,
+        "se_inflation": 8.720289319826474
+      }
+    },
+    "A:directional": {
+      "n": 100,
+      "mean_local": 0.1399562370563738,
+      "mean_global": -0.051968049037841045,
+      "mean_gap": 0.1919242860942148,
+      "median_gap": 0.18356546495528228,
+      "frac_local_wins": 0.79,
+      "wilcoxon_stat": 580.0,
+      "wilcoxon_p": 2.269503677346155e-11,
+      "gap_ci95": [
+        0.14944632048144765,
+        0.23543016182761703
+      ],
+      "crossed": {
+        "n_boot": 1000,
+        "n_features_resampled": 89,
+        "point_local": 0.1399562370563738,
+        "point_global": -0.051968049037841045,
+        "local_ci95": [
+          0.02032983686603027,
+          0.26363665107518236
+        ],
+        "global_ci95": [
+          -0.28307454485694894,
+          0.2286464515048241
+        ],
+        "point_gap": 0.1919242860942148,
+        "ci95": [
+          -0.16945499109184714,
+          0.48352004134541454
+        ],
+        "p_two_sided": 0.252,
+        "se_crossed": 0.1651402316468993,
+        "se_examples_only": 0.021065913494557394,
+        "se_inflation": 7.839215312906562
+      }
+    },
+    "B:importance": {
+      "n": 95,
+      "mean_local": 0.014785469141954973,
+      "mean_global": 0.16420016660496256,
+      "mean_gap": -0.14941469746300756,
+      "median_gap": -0.15714285714285717,
+      "frac_local_wins": 0.29473684210526313,
+      "wilcoxon_stat": 1081.5,
+      "wilcoxon_p": 8.640472228018613e-06,
+      "gap_ci95": [
+        -0.21095962030537838,
+        -0.08987036228248682
+      ],
+      "crossed": {
+        "n_boot": 1000,
+        "n_features_resampled": 89,
+        "point_local": 0.014785469141954973,
+        "point_global": 0.16420016660496256,
+        "local_ci95": [
+          -0.24281443849889697,
+          0.2418200982995326
+        ],
+        "global_ci95": [
+          -0.19597869061333828,
+          0.5172102857315669
+        ],
+        "point_gap": -0.14941469746300756,
+        "ci95": [
+          -0.45103202494731864,
+          0.18206140735028084
+        ],
+        "p_two_sided": 0.356,
+        "se_crossed": 0.1637715048804291,
+        "se_examples_only": 0.03056771032119946,
+        "se_inflation": 5.357663467742611
+      }
+    },
+    "B:directional": {
+      "n": 95,
+      "mean_local": 0.18723504267173813,
+      "mean_global": -0.01145432564285424,
+      "mean_gap": 0.19868936831459239,
+      "median_gap": 0.21071428571428566,
+      "frac_local_wins": 0.7789473684210526,
+      "wilcoxon_stat": 806.0,
+      "wilcoxon_p": 4.46794812042457e-08,
+      "gap_ci95": [
+        0.13938510937083123,
+        0.25774171764089476
+      ],
+      "crossed": {
+        "n_boot": 1000,
+        "n_features_resampled": 89,
+        "point_local": 0.18723504267173816,
+        "point_global": -0.011454325642854238,
+        "local_ci95": [
+          0.00034522803365787016,
+          0.360449253010686
+        ],
+        "global_ci95": [
+          -0.4118583473380952,
+          0.40149265180974336
+        ],
+        "point_gap": 0.19868936831459233,
+        "ci95": [
+          -0.35646387146085634,
+          0.6730516691005464
+        ],
+        "p_two_sided": 0.492,
+        "se_crossed": 0.26417908269602913,
+        "se_examples_only": 0.028697460406124583,
+        "se_inflation": 9.205660673710636
+      }
+    }
+  },
+  "decomposition": {
+    "target": "block A importance gap (rho_local - rho_global)",
+    "frac_active": {
+      "label": "gap ~ frac_active",
+      "slope": 0.025706036926524633,
+      "intercept": 0.2984224376944362,
+      "r2": 0.0005802604582006695,
+      "p": 0.8119649098480639,
+      "n": 100
+    },
+    "n_active_raw": {
+      "label": "gap ~ n_active",
+      "slope": 0.0006573915115454576,
+      "intercept": 0.301466786046318,
+      "r2": 0.0003520285990547819,
+      "p": 0.8530081345976831,
+      "n": 100
+    },
+    "frac_active_ctrl_size": {
+      "labels": [
+        "frac_active",
+        "n_cands"
+      ],
+      "intercept": 0.3175395344422882,
+      "coefs": [
+        0.02799052215743656,
+        -0.0006822431622492998
+      ],
+      "r2": 0.0006127816463005198,
+      "n": 100
+    },
+    "mean_frac_active": 0.4984504709952429
+  },
+  "continuous_control": {
+    "description": "Partial Spearman of |attribution| vs |oriented delta|, controlling for |activation| \u2014 continuous alternative to the binary block [B].",
+    "mean_partial_rho_local": 0.03793945884053427,
+    "n_finite_local": 100,
+    "mean_partial_rho_global": -0.18921812132266586,
+    "n_finite_global": 100,
+    "paired": {
+      "n": 100,
+      "mean_local": 0.03793945884053427,
+      "mean_global": -0.18921812132266586,
+      "mean_gap": 0.22715758016320012,
+      "median_gap": 0.23021284455620084,
+      "frac_local_wins": 0.83,
+      "wilcoxon_stat": 378.0,
+      "wilcoxon_p": 1.558314759335337e-13,
+      "gap_ci95": [
+        0.18567709573148916,
+        0.26842934704830107
+      ]
+    }
+  },
+  "candidate_overlap": {
+    "n_examples": 100,
+    "n_distinct_features": 89,
+    "mean_candidates_per_example": 29.69,
+    "mean_pairwise_jaccard": 0.701028181774408
+  }
+}

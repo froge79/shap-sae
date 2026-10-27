@@ -1,0 +1,16 @@
+Linear (logistic) arm - faithfulness
+mode=steering  selection=top  k=20  seed=0  n_eval=1000  intervene_scope=all
+alpha: scaled alpha = +0.4936 x scale_i / 0.9110 (range +0.4096 .. +2.909)
+NOTE: selection='top' picks candidates by |SHAP|, which restricts SHAP's range on the scored set and biases its rho downward relative to the other three methods.
+NOTE: rho over n=20 features x 4 methods x 2 correlation types, no multiple-comparison control - p-values are descriptive.
+
+Importance faithfulness  (Spearman rho of |attribution| vs |delta|):
+  SHAP            rho=+0.496  p=0.0261
+  Probe weights   rho=-0.033  p=0.8899
+  IG              rho=+0.496  p=0.0261
+  GA              rho=+0.496  p=0.0261
+Directional faithfulness (Spearman rho of attribution vs delta; positive = faithful under mode=steering):
+  SHAP            rho=-0.083  p=0.7289
+  Probe weights   rho=+0.523  p=0.0179
+  IG              rho=-0.083  p=0.7289
+  GA              rho=-0.083  p=0.7289

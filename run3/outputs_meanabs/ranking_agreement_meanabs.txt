@@ -1,0 +1,15 @@
+Linear arm ranking agreement, |score|, n=615 non-zero-weight features; SHAP = mean |phi| (full train bg)
+  Probe vs SHAP: rho=0.388 p=1.44e-23
+  IG vs SHAP: rho=1.000 p=0
+  SHAP vs GA: rho=1.000 p=0
+  Probe vs IG: rho=0.388 p=1.44e-23
+  IG vs GA: rho=1.000 p=0
+  Probe vs GA: rho=0.388 p=1.44e-23
+
+MLP arm ranking agreement, |score|, n=114; SHAP = mean |phi| (full train bg)
+  Probe vs IG: rho=0.336 p=0.0002597
+  Probe vs GA: rho=0.314 p=0.0006774
+  Probe vs SHAP: rho=0.334 p=0.0002754
+  IG vs GA: rho=0.980 p=1.81e-80
+  IG vs SHAP: rho=0.995 p=6.953e-116
+  GA vs SHAP: rho=0.984 p=3.794e-86

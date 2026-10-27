@@ -1,0 +1,22 @@
+Importance rho (Spearman |score| vs |delta|), k=114; IG/GA aggregated as mean |.|
+arm, scope            method                   rho         p
+linear, all-token     SHAP mean|phi| (full)  +0.430 1.805e-06
+linear, all-token     IG mean|.| (bg100)    +0.437 1.184e-06
+linear, all-token     IG mean|.| (full)     +0.430 1.805e-06
+linear, all-token     GA mean|.| (bg100)    +0.437 1.184e-06
+linear, all-token     GA mean|.| (full)     +0.430 1.805e-06
+linear, last-token    SHAP mean|phi| (full)  +0.455 3.615e-07
+linear, last-token    IG mean|.| (bg100)    +0.461 2.497e-07
+linear, last-token    IG mean|.| (full)     +0.455 3.615e-07
+linear, last-token    GA mean|.| (bg100)    +0.461 2.497e-07
+linear, last-token    GA mean|.| (full)     +0.455 3.615e-07
+mlp, all-token        SHAP mean|phi| (full)  +0.476 8.472e-08
+mlp, all-token        IG mean|.| (bg100)    +0.488 3.632e-08
+mlp, all-token        IG mean|.| (full)     +0.483 5.148e-08
+mlp, all-token        GA mean|.| (bg100)    +0.509 7.227e-09
+mlp, all-token        GA mean|.| (full)     +0.500 1.476e-08
+mlp, last-token       SHAP mean|phi| (full)  +0.425 2.376e-06
+mlp, last-token       IG mean|.| (bg100)    +0.444 7.579e-07
+mlp, last-token       IG mean|.| (full)     +0.423 2.734e-06
+mlp, last-token       GA mean|.| (bg100)    +0.460 2.661e-07
+mlp, last-token       GA mean|.| (full)     +0.444 7.493e-07

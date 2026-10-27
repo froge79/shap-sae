@@ -1,0 +1,5 @@
+# step 5_gate  2026-10-25T10:24:06+00:00
+# SHAP_SAE_OUTPUTS=run3/outputs SHAP_SAE_CHECKPOINTS=run3/checkpoints
+# cmd: bash -c F=run3/outputs/8_rankings_recompute/correlation.txt; grep -E "^\s*(PASS|FAIL)" $F; grep -qE "^\s*PASS" $F && ! grep -qE "^\s*FAIL" $F && grep -q "IG vs SHAP: *ρ=1.000" $F && grep -q "IG vs GA: *ρ=1.000" $F && grep -q "SHAP vs GA: *ρ=1.000" $F
+  PASS - IG, GA and SHAP coincide analytically, as they must for a linear probe. The rank agreement below is an identity, not evidence.
+# exit=0  elapsed=0s  2026-10-25T10:24:06+00:00

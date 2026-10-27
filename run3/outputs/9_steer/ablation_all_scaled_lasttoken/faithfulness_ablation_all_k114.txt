@@ -1,0 +1,26 @@
+Linear (logistic) arm - faithfulness
+mode=ablation  selection=all  k=114  seed=0  n_eval=1000  intervene_scope=last
+alpha: n/a (ablation zeroes the feature)
+NOTE: intervene_scope='last' edits only the last real token, not every position - effect sizes are not comparable to the default 'all' scope runs.
+
+Importance faithfulness  (Spearman rho of |attribution| vs |delta|):
+  SHAP            rho=+0.326  p=0.0004
+  Probe weights   rho=+0.136  p=0.1500
+  IG              rho=+0.326  p=0.0004
+  GA              rho=+0.326  p=0.0004
+Directional faithfulness (Spearman rho of attribution vs -delta; positive = faithful under mode=ablation):
+  SHAP            rho=-0.123  p=0.1934
+  Probe weights   rho=+0.293  p=0.0016
+  IG              rho=-0.123  p=0.1934
+  GA              rho=-0.123  p=0.1934
+
+Benjamini-Hochberg FDR correction (family = 8 tests in this run, alpha=0.05):
+  SHAP:importance               p=0.0004  q=0.0011 *
+  SHAP:directional              p=0.1934  q=0.1934  
+  Probe weights:importance      p=0.1500  q=0.1934  
+  Probe weights:directional     p=0.0016  q=0.0031 *
+  IG:importance                 p=0.0004  q=0.0011 *
+  IG:directional                p=0.1934  q=0.1934  
+  GA:importance                 p=0.0004  q=0.0011 *
+  GA:directional                p=0.1934  q=0.1934  
+  4 of 8 survive FDR correction.

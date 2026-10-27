@@ -1,0 +1,30 @@
+[linear] 9_steer/steering_all_scaled: SHAP imp rho=+0.430 dir rho=-0.097
+[linear] 9_steer/steering_all_scaled_lasttoken: SHAP imp rho=+0.455 dir rho=-0.108
+[linear] 9_steer/steering_random_k20_scaled: SHAP imp rho=+0.636 dir rho=-0.077
+[linear] 9_steer/steering_random_k20_constant: SHAP imp rho=+0.290 dir rho=+0.072
+[linear] 9_steer/ablation_random_k20_scaled: SHAP imp rho=+0.535 dir rho=-0.427
+[linear] seed-sweep reuse check: max |rho - published| = 0.00e+00
+[linear] seed sweep SHAP imp: mean +0.355 sd 0.282 min -0.260 max +0.636 frac>0 0.90; pooled BH 0/80
+[mlp] 14_mlp_steer/steering_all_scaled: SHAP imp rho=+0.476 dir rho=-0.091
+[mlp] 14_mlp_steer/steering_all_scaled_lasttoken: SHAP imp rho=+0.425 dir rho=-0.105
+[mlp] 14_mlp_steer/steering_random_k20_scaled: SHAP imp rho=+0.747 dir rho=-0.147
+[mlp] 14_mlp_steer/steering_random_k20_constant: SHAP imp rho=+0.486 dir rho=-0.011
+[mlp] 14_mlp_steer/ablation_random_k20_scaled: SHAP imp rho=+0.525 dir rho=-0.408
+[mlp] seed-sweep reuse check: max |rho - published| = 0.00e+00
+[mlp] seed sweep SHAP imp: mean +0.383 sd 0.262 min -0.171 max +0.747 frac>0 0.90; pooled BH 3/70
+Linear arm ranking agreement, |score|, n=615 non-zero-weight features; SHAP = mean |phi| (full train bg)
+  Probe vs SHAP: rho=0.388 p=1.44e-23
+  IG vs SHAP: rho=0.809 p=1.277e-143
+  SHAP vs GA: rho=0.809 p=1.277e-143
+  Probe vs IG: rho=0.420 p=1.034e-27
+  IG vs GA: rho=1.000 p=0
+  Probe vs GA: rho=0.420 p=1.034e-27
+
+MLP arm ranking agreement, |score|, n=114; SHAP = mean |phi| (full train bg)
+  Probe vs IG: rho=0.287 p=0.001994
+  Probe vs GA: rho=0.242 p=0.009515
+  Probe vs SHAP: rho=0.334 p=0.0002754
+  IG vs GA: rho=0.862 p=7.231e-35
+  IG vs SHAP: rho=0.640 p=1.75e-14
+  GA vs SHAP: rho=0.522 p=2.593e-09
+

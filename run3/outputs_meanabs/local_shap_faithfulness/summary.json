@@ -1,0 +1,22 @@
+{
+  "target": "lm",
+  "global_phi_source": "run3/outputs_meanabs/12_mlp_shap",
+  "n_examples": 100,
+  "k_local": 20,
+  "k_global": 20,
+  "n_filtered": 114,
+  "seed": 42,
+  "mean_rho_local": 0.2733242599905058,
+  "mean_rho_global": -0.11461865651512408,
+  "std_rho_local": 0.17652033470396244,
+  "std_rho_global": 0.19530225980437588,
+  "frac_examples_local_gt_global": 0.97,
+  "mean_n_candidates": 26.7,
+  "mean_n_active_candidates": 13.97,
+  "active_mean_rho_local": 0.016581931319272835,
+  "active_mean_rho_global": 0.22945247419734294,
+  "active_std_rho_local": 0.2777211479835657,
+  "active_std_rho_global": 0.23803163797661642,
+  "active_frac_examples_local_gt_global": 0.23958333333333334,
+  "interpretation": "Local SHAP ranks per-example ablation effects better than global \u03a6 \u2192 averaging was likely a main error source."
+}

@@ -1,0 +1,56 @@
+# step 9  2026-10-25T10:24:32+00:00
+# SHAP_SAE_OUTPUTS=run3/outputs SHAP_SAE_CHECKPOINTS=run3/checkpoints
+# cmd: uv run python src/global_linear/9.5_tuning.py
+Candidate pool + α report → run3/outputs/9.5_tuning/  (readout=probe)
+Candidates (union top-20): 30
+Pilot features (top-|SHAP|): [30907, 19167, 25515]
+Activation scales:   0%|          | 0/114 [00:00<?, ?it/s]Activation scales:  71%|███████   | 81/114 [00:00<00:00, 807.88it/s]Activation scales: 100%|██████████| 114/114 [00:00<00:00, 978.29it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+Median positive-activation scale = 0.9871
+α grid (× (0.5, 1.0, 2.0, 4.0)) = [0.4936, 0.9871, 1.9743, 3.9485]
+Loading weights:   0%|          | 0/148 [00:00<?, ?it/s]Loading weights: 100%|██████████| 148/148 [00:00<00:00, 5079.35it/s]
+Loaded pretrained model gpt2 into HookedTransformer
+
+Activation-scale report (candidates):
+  n=30  median_scale=0.9871  mean_scale=1.5350  median_||W_dec||=0.9997
+  Top-5 by positive-activation mean:
+    feat 30907:  scale=5.3699  |Φ|=0.09873  ||W_dec||=1.0000
+    feat  6319:  scale=4.7057  |Φ|=0.04601  ||W_dec||=0.9994
+    feat 19167:  scale=4.5350  |Φ|=0.08621  ||W_dec||=0.9994
+    feat 16048:  scale=3.3672  |Φ|=0.05229  ||W_dec||=0.9996
+    feat 29964:  scale=2.0903  |Φ|=0.03039  ||W_dec||=0.9994
+
+For decoder-normalized steering, equivalent residual L2 nudge ≈ α × 0.9997
+Training residual probe at layer 11 → run3/checkpoints/residual_probe_layer_11.joblib
+Residuals L11:   0%|          | 0/210 [00:00<?, ?it/s]Residuals L11:   0%|          | 1/210 [00:00<01:24,  2.47it/s]Residuals L11:   1%|▏         | 3/210 [00:00<00:30,  6.69it/s]Residuals L11:   2%|▏         | 5/210 [00:00<00:20, 10.00it/s]Residuals L11:   4%|▍         | 8/210 [00:00<00:14, 13.75it/s]Residuals L11:   5%|▌         | 11/210 [00:00<00:12, 16.09it/s]Residuals L11:   7%|▋         | 14/210 [00:01<00:11, 17.62it/s]Residuals L11:   8%|▊         | 17/210 [00:01<00:10, 18.63it/s]Residuals L11:  10%|▉         | 20/210 [00:01<00:09, 19.32it/s]Residuals L11:  11%|█         | 23/210 [00:01<00:09, 19.79it/s]Residuals L11:  12%|█▏        | 26/210 [00:01<00:09, 20.11it/s]Residuals L11:  14%|█▍        | 29/210 [00:01<00:08, 20.33it/s]Residuals L11:  15%|█▌        | 32/210 [00:01<00:08, 20.48it/s]Residuals L11:  17%|█▋        | 35/210 [00:02<00:08, 20.59it/s]Residuals L11:  18%|█▊        | 38/210 [00:02<00:08, 20.67it/s]Residuals L11:  20%|█▉        | 41/210 [00:02<00:08, 20.72it/s]Residuals L11:  21%|██        | 44/210 [00:02<00:07, 20.76it/s]Residuals L11:  22%|██▏       | 47/210 [00:02<00:07, 20.79it/s]Residuals L11:  24%|██▍       | 50/210 [00:02<00:07, 20.80it/s]Residuals L11:  25%|██▌       | 53/210 [00:02<00:07, 20.82it/s]Residuals L11:  27%|██▋       | 56/210 [00:03<00:07, 20.83it/s]Residuals L11:  28%|██▊       | 59/210 [00:03<00:07, 20.84it/s]Residuals L11:  30%|██▉       | 62/210 [00:03<00:07, 20.84it/s]Residuals L11:  31%|███       | 65/210 [00:03<00:06, 20.85it/s]Residuals L11:  32%|███▏      | 68/210 [00:03<00:06, 20.85it/s]Residuals L11:  34%|███▍      | 71/210 [00:03<00:06, 20.85it/s]Residuals L11:  35%|███▌      | 74/210 [00:03<00:06, 20.85it/s]Residuals L11:  37%|███▋      | 77/210 [00:04<00:06, 20.85it/s]Residuals L11:  38%|███▊      | 80/210 [00:04<00:06, 20.86it/s]Residuals L11:  40%|███▉      | 83/210 [00:04<00:06, 20.85it/s]Residuals L11:  41%|████      | 86/210 [00:04<00:05, 20.85it/s]Residuals L11:  42%|████▏     | 89/210 [00:04<00:05, 20.85it/s]Residuals L11:  44%|████▍     | 92/210 [00:04<00:05, 20.86it/s]Residuals L11:  45%|████▌     | 95/210 [00:04<00:05, 20.86it/s]Residuals L11:  47%|████▋     | 98/210 [00:05<00:05, 20.86it/s]Residuals L11:  48%|████▊     | 101/210 [00:05<00:05, 20.86it/s]Residuals L11:  50%|████▉     | 104/210 [00:05<00:05, 20.86it/s]Residuals L11:  51%|█████     | 107/210 [00:05<00:04, 20.86it/s]Residuals L11:  52%|█████▏    | 110/210 [00:05<00:04, 20.86it/s]Residuals L11:  54%|█████▍    | 113/210 [00:05<00:04, 20.85it/s]Residuals L11:  55%|█████▌    | 116/210 [00:05<00:04, 20.86it/s]Residuals L11:  57%|█████▋    | 119/210 [00:06<00:04, 20.86it/s]Residuals L11:  58%|█████▊    | 122/210 [00:06<00:04, 20.83it/s]Residuals L11:  60%|█████▉    | 125/210 [00:06<00:04, 20.84it/s]Residuals L11:  61%|██████    | 128/210 [00:06<00:03, 20.85it/s]Residuals L11:  62%|██████▏   | 131/210 [00:06<00:03, 20.85it/s]Residuals L11:  64%|██████▍   | 134/210 [00:06<00:03, 20.85it/s]Residuals L11:  65%|██████▌   | 137/210 [00:06<00:03, 20.85it/s]Residuals L11:  67%|██████▋   | 140/210 [00:07<00:03, 20.85it/s]Residuals L11:  68%|██████▊   | 143/210 [00:07<00:03, 20.85it/s]Residuals L11:  70%|██████▉   | 146/210 [00:07<00:03, 20.86it/s]Residuals L11:  71%|███████   | 149/210 [00:07<00:02, 20.85it/s]Residuals L11:  72%|███████▏  | 152/210 [00:07<00:02, 20.86it/s]Residuals L11:  74%|███████▍  | 155/210 [00:07<00:02, 20.85it/s]Residuals L11:  75%|███████▌  | 158/210 [00:07<00:02, 20.85it/s]Residuals L11:  77%|███████▋  | 161/210 [00:08<00:02, 20.85it/s]Residuals L11:  78%|███████▊  | 164/210 [00:08<00:02, 20.86it/s]Residuals L11:  80%|███████▉  | 167/210 [00:08<00:02, 20.86it/s]Residuals L11:  81%|████████  | 170/210 [00:08<00:01, 20.86it/s]Residuals L11:  82%|████████▏ | 173/210 [00:08<00:01, 20.85it/s]Residuals L11:  84%|████████▍ | 176/210 [00:08<00:01, 20.85it/s]Residuals L11:  85%|████████▌ | 179/210 [00:08<00:01, 20.84it/s]Residuals L11:  87%|████████▋ | 182/210 [00:09<00:01, 20.84it/s]Residuals L11:  88%|████████▊ | 185/210 [00:09<00:01, 20.84it/s]Residuals L11:  90%|████████▉ | 188/210 [00:09<00:01, 20.84it/s]Residuals L11:  91%|█████████ | 191/210 [00:09<00:00, 20.84it/s]Residuals L11:  92%|█████████▏| 194/210 [00:09<00:00, 20.84it/s]Residuals L11:  94%|█████████▍| 197/210 [00:09<00:00, 20.83it/s]Residuals L11:  95%|█████████▌| 200/210 [00:09<00:00, 20.83it/s]Residuals L11:  97%|█████████▋| 203/210 [00:10<00:00, 20.83it/s]Residuals L11:  98%|█████████▊| 206/210 [00:10<00:00, 20.83it/s]Residuals L11: 100%|█████████▉| 209/210 [00:10<00:00, 20.83it/s]Residuals L11: 100%|██████████| 210/210 [00:10<00:00, 20.12it/s]
+
+Pilot subset: 200 train examples × 3 features
+Pilot baseline:   0%|          | 0/200 [00:00<?, ?it/s]Pilot baseline:   2%|▏         | 4/200 [00:00<00:05, 33.79it/s]Pilot baseline:   4%|▍         | 9/200 [00:00<00:04, 42.64it/s]Pilot baseline:   8%|▊         | 15/200 [00:00<00:04, 46.21it/s]Pilot baseline:  10%|█         | 21/200 [00:00<00:03, 47.86it/s]Pilot baseline:  13%|█▎        | 26/200 [00:00<00:03, 48.55it/s]Pilot baseline:  16%|█▌        | 32/200 [00:00<00:03, 49.10it/s]Pilot baseline:  18%|█▊        | 37/200 [00:00<00:03, 49.27it/s]Pilot baseline:  22%|██▏       | 43/200 [00:00<00:03, 49.58it/s]Pilot baseline:  24%|██▍       | 49/200 [00:01<00:03, 49.77it/s]Pilot baseline:  27%|██▋       | 54/200 [00:01<00:02, 49.69it/s]Pilot baseline:  30%|██▉       | 59/200 [00:01<00:02, 49.66it/s]Pilot baseline:  32%|███▏      | 64/200 [00:01<00:02, 49.59it/s]Pilot baseline:  34%|███▍      | 69/200 [00:01<00:02, 49.59it/s]Pilot baseline:  37%|███▋      | 74/200 [00:01<00:02, 49.59it/s]Pilot baseline:  40%|███▉      | 79/200 [00:01<00:02, 49.59it/s]Pilot baseline:  42%|████▏     | 84/200 [00:01<00:02, 49.58it/s]Pilot baseline:  44%|████▍     | 89/200 [00:01<00:02, 49.53it/s]Pilot baseline:  47%|████▋     | 94/200 [00:01<00:02, 49.54it/s]Pilot baseline:  50%|████▉     | 99/200 [00:02<00:02, 49.54it/s]Pilot baseline:  52%|█████▏    | 104/200 [00:02<00:01, 49.52it/s]Pilot baseline:  55%|█████▍    | 109/200 [00:02<00:01, 49.50it/s]Pilot baseline:  57%|█████▋    | 114/200 [00:02<00:01, 49.47it/s]Pilot baseline:  60%|█████▉    | 119/200 [00:02<00:01, 49.34it/s]Pilot baseline:  62%|██████▏   | 124/200 [00:02<00:01, 49.41it/s]Pilot baseline:  64%|██████▍   | 129/200 [00:02<00:01, 49.38it/s]Pilot baseline:  67%|██████▋   | 134/200 [00:02<00:01, 49.37it/s]Pilot baseline:  70%|██████▉   | 139/200 [00:02<00:01, 49.37it/s]Pilot baseline:  72%|███████▏  | 144/200 [00:02<00:01, 49.46it/s]Pilot baseline:  74%|███████▍  | 149/200 [00:03<00:01, 49.43it/s]Pilot baseline:  77%|███████▋  | 154/200 [00:03<00:00, 49.51it/s]Pilot baseline:  80%|███████▉  | 159/200 [00:03<00:00, 49.51it/s]Pilot baseline:  82%|████████▏ | 164/200 [00:03<00:00, 49.51it/s]Pilot baseline:  84%|████████▍ | 169/200 [00:03<00:00, 49.52it/s]Pilot baseline:  87%|████████▋ | 174/200 [00:03<00:00, 49.55it/s]Pilot baseline:  90%|████████▉ | 179/200 [00:03<00:00, 49.58it/s]Pilot baseline:  92%|█████████▏| 184/200 [00:03<00:00, 49.60it/s]Pilot baseline:  94%|█████████▍| 189/200 [00:03<00:00, 49.60it/s]Pilot baseline:  97%|█████████▋| 194/200 [00:03<00:00, 49.62it/s]Pilot baseline: 100%|█████████▉| 199/200 [00:04<00:00, 49.63it/s]Pilot baseline: 100%|██████████| 200/200 [00:04<00:00, 49.17it/s]
+
+=== pilot α = 0.4936 ===
+  mean|ΔP|=0.0490  meanΔP=-0.0301  sat=0.340
+
+=== pilot α = 0.9871 ===
+  mean|ΔP|=0.0961  meanΔP=-0.0571  sat=0.383
+
+=== pilot α = 1.9743 ===
+  mean|ΔP|=0.1791  meanΔP=-0.0981  sat=0.432
+
+=== pilot α = 3.9485 ===
+  mean|ΔP|=0.2969  meanΔP=-0.1422  sat=0.565
+
+Pilot sweep (pilot features × train subset):
+       α    mean|ΔP|      meanΔP  sat_frac   ok?
+------------------------------------------------
+  0.4936      0.0490     -0.0301     0.340    no
+  0.9871      0.0961     -0.0571     0.383    no
+  1.9743      0.1791     -0.0981     0.432    no
+  3.9485      0.2969     -0.1422     0.565    no
+
+Recommended STEERING_ALPHA = 3.9485  (mean|ΔP|=0.2969, sat=0.565)
+Pass this as --alpha to src/global_linear/9_steer.py (and the MLP / local steer scripts) and run the full steer once.
+CAVEAT: α is calibrated here against this residual probe's P(positive) at layer 11. The steer scripts read out a GPT-2 logit difference instead, so the mean|ΔP| ≥ 0.02 threshold does not transfer to that scale — treat α as a rough 'measurable but unsaturated' magnitude, not a tuned value.
+
+Wrote run3/outputs/9.5_tuning/alpha_calibration.txt
+# exit=0  elapsed=87s  2026-10-25T10:25:59+00:00

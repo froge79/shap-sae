@@ -1,0 +1,182 @@
+{
+  "n_features": 114,
+  "p_pos_eval": 0.515,
+  "closed_form_max_err": 1.8608460322644405e-07,
+  "score_vs_LM": {
+    "phi_bg100": {
+      "D(steer)": {
+        "directional": -0.09724792936554547,
+        "importance": 0.3769911504424779
+      }
+    },
+    "phi_bgfull": {
+      "D(steer)": {
+        "directional": -0.057742856564265616,
+        "importance": 0.3701464125878374
+      }
+    },
+    "phi_classmatched": {
+      "D(steer)": {
+        "directional": -0.05767805431238736,
+        "importance": 0.36988720358032445
+      }
+    },
+    "wx": {
+      "D(steer)": {
+        "directional": 0.40712419756586543,
+        "importance": 0.4380510722747616
+      }
+    },
+    "weight": {
+      "D(steer)": {
+        "directional": 0.3993803284664143,
+        "importance": 0.2888195864806302
+      }
+    },
+    "meanabs(imp only)": {
+      "D(steer)": {
+        "directional": NaN,
+        "importance": 0.42995079078998
+      }
+    }
+  },
+  "score_vs_probe": {
+    "phi_bg100": {
+      "P(steer)": {
+        "directional": -0.27661246228306435,
+        "importance": 0.7560600230858023
+      }
+    },
+    "phi_bgfull": {
+      "P(steer)": {
+        "directional": -0.3667199935197748,
+        "importance": 0.7809035863996275
+      }
+    },
+    "phi_classmatched": {
+      "P(steer)": {
+        "directional": -0.36778113039428123,
+        "importance": 0.7804094692290559
+      }
+    },
+    "wx": {
+      "P(steer)": {
+        "directional": 0.953309977521719,
+        "importance": 0.809700087078026
+      }
+    },
+    "weight": {
+      "P(steer)": {
+        "directional": 0.9873635608837408,
+        "importance": 0.9521354367064256
+      }
+    },
+    "meanabs(imp only)": {
+      "P(steer)": {
+        "directional": NaN,
+        "importance": 0.8889694416880987
+      }
+    }
+  },
+  "probe_vs_LM": {
+    "P vs D (signed)": {
+      "rho": 0.39325651566391934,
+      "ci95": [
+        0.19633882825742396,
+        0.5627749229787017
+      ]
+    },
+    "|P| vs mean|D|": {
+      "rho": 0.376877746501691,
+      "ci95": [
+        0.199430459058377,
+        0.5383294005713213
+      ]
+    },
+    "-A vs D (signed)": {
+      "rho": 0.40712419756586543,
+      "ci95": [
+        0.2102295602022,
+        0.5759849466894906
+      ]
+    }
+  },
+  "sign_agreement": {
+    "phi_bg100": {
+      "all": 0.4649122807017544,
+      "top20_abs": 0.25
+    },
+    "phi_bgfull": {
+      "all": 0.4298245614035088,
+      "top20_abs": 0.15
+    },
+    "phi_classmatched": {
+      "all": 0.4298245614035088,
+      "top20_abs": 0.15
+    },
+    "wx": {
+      "all": 1.0,
+      "top20_abs": 1.0
+    }
+  },
+  "bootstrap": {
+    "stratified": {
+      "sign_agree": [
+        0.4934561403508772,
+        0.3989035087719298,
+        0.5964912280701754
+      ],
+      "directional_rho_vs_D": [
+        -0.0277939612401531,
+        -0.2242897065673032,
+        0.1529007107997002
+      ]
+    },
+    "unstratified": {
+      "sign_agree": [
+        0.49563157894736837,
+        0.39473684210526316,
+        0.6052631578947368
+      ],
+      "directional_rho_vs_D": [
+        -0.02065890929709808,
+        -0.19927097466636967,
+        0.1821204511856787
+      ]
+    },
+    "n_boot": 500,
+    "n_bg": 100,
+    "n_pos_in_bg": 52
+  },
+  "ablation": {
+    "n": 114,
+    "A_vs_D": {
+      "directional": 0.34578076588161444,
+      "importance": 0.5829651080375043,
+      "ci95_directional": [
+        0.12715425929595606,
+        0.5478854106747202
+      ]
+    },
+    "phi_bg100": {
+      "directional": -0.13313217634312793,
+      "importance": 0.28553897247929366
+    },
+    "phi_bgfull": {
+      "directional": -0.1986553532735263,
+      "importance": 0.37950223770276015
+    },
+    "phi_classmatched": {
+      "directional": -0.1993033757923088,
+      "importance": 0.37834389745043645
+    },
+    "wx": {
+      "directional": 0.34578076588161444,
+      "importance": 0.5829651080375043
+    },
+    "weight": {
+      "directional": 0.31112776168971873,
+      "importance": 0.06537332172292988
+    }
+  }
+}
